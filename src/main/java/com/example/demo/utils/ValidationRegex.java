@@ -12,6 +12,16 @@ public class ValidationRegex {
         return matcher.find();
     }
 
-    // 날짜 형식, 전화 번호 형식 등 여러 Regex 인터넷에 검색하면 나옴.
+	// 휴대폰 번호 형식 체크
+	public static boolean isRegexPhoneNumber(String target) {
+		String regex = 	"^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$";
+		return target.matches(regex);
+	}
+
+	// 비밀번호 형식 체크
+	public static boolean isRegexPassword(String target) {
+		String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+		return target.matches(regex);
+	}
 }
 
