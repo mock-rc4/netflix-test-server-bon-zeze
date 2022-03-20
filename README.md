@@ -88,10 +88,17 @@
 </div>
 </details>
 
+### 본(Bon)
+
+
+ + EC2, RDS 서버 구축
+ + 서브 도메인(dev, prod) 적용
+ + prod 폴더에 스프링 템플릿 적용
+ + 서브도메인(dev, prod)에 각각 SSL 적용(By CertBot)
+
 
 # 2022.03.20 개발 일지
 
-### 본(Bon) 
-+ 서버 세팅
-   + EC2, RDS 서버 구축, SSL 적용, 서브도메인 적용 등
+### 본(Bon)
++ 계정(Account)서비스를 위한 골격 구현
 + 넷플릭스 계정 회원가입 API 구현
