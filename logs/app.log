@@ -11,3 +11,4 @@
 13:40:39.664 ERROR [File:AccountController.java] [Func:createAccount] [Line:65] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
 13:50:14.601 ERROR [File:AccountController.java] [Func:createAccount] [Line:65] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
 13:57:45.921 ERROR [File:AccountController.java] [Func:createAccount] [Line:65] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+15:14:41.998 ERROR [File:AccountController.java] [Func:createAccount] [Line:65] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException

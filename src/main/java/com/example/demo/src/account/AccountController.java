@@ -56,7 +56,8 @@ public class AccountController {
 			if (!isRegexPhoneNumber(requestDto.getPhoneNumber())) {
 				return new BaseResponse<>(POST_ACCOUNTS_INVALID_PHONE_NUMBER);
 			}
-			if (requestDto.getMembership() == null) {
+			String membership = requestDto.getMembership();
+			if (membership == null || membership.isEmpty()) {
 				return new BaseResponse<>(POST_ACCOUNTS_EMPTY_MEMBERSHIP);
 			}
 			Account.createResDto createResDto = accountService.createAccount(requestDto);
