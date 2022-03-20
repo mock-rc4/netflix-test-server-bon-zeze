@@ -126,8 +126,14 @@
 # 2022.03.20 개발 일지
 
 ## 본(Bon)
-+ 계정(Account)서비스를 위한 골격 구현
-+ 회원 가입 API 구현
-+ 회원 목록 조회 API 구현(전체 목록 조회, queryString으로 membership 조건 조회)
-+ 회원 조회 API 구현(accountIdx로 검색)
-+ 회원 탈퇴 API 구현
++ 계정(Account)
+  + API 서비스를 위한 코드 골격 구현
+  + 회원 가입 API 구현
+  + 회원 목록 조회 API 구현(전체 목록 조회, queryString으로 membership 조건 조회)
+  + 회원 조회 API 구현(accountIdx로 검색)
+  + 회원 탈퇴 API 구현
+  + 
+
++ SMS 문자 발송 서비스
+  + SMS 메시지 전송 API 구현
+  + SMS 인증번호 전송 API 구현 (6자리 난수 생성 후 client에게 전송, client는 response와 휴대폰번호로 발송된 번호가 일치하는지 대조)
