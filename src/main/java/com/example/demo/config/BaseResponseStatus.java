@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
+    INVALID_LOGOUT_JWT(false,2003,"로그인 되어있지 않은 유저의 접근입니다."),
 
 
     // [POST] /accounts
@@ -45,6 +46,7 @@ public enum BaseResponseStatus {
     // [POST] /accounts
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
+    FAILED_TO_LOGOUT(false,3014,"로그아웃을 실패하였습니다."),
 
 
 
