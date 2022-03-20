@@ -59,13 +59,20 @@ public enum BaseResponseStatus {
 
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
-    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
 
 
 
     // 5000 : 필요시 만들어서 쓰세요
     // 6000 : 필요시 만들어서 쓰세요
+
+	/**
+	 * 6500 : SMS 오류
+	 */
+	SMS_NO_ANY_CONTENT(false, 6500, "내용이 비었습니다."),
+	SMS_INVALID_PHONE_NUMBER(false, 6501, "휴대폰 번호는 '-' 없이 10자거나 11자여야 합니다. ex)01012345678 ");
+
 
 
     private final boolean isSuccess;
