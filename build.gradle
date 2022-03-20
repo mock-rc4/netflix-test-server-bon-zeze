@@ -58,7 +58,14 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
 
 
+    // http client
+    // implementation 'org.apache.httpcomponents:httpclient'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3-beta1'
 
+    /* JSONParser, JSONObject설정 */
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    // Json을 결과로 매핑하기 위한 의존성
+    implementation ('com.google.code.gson:gson')
 
 
 }

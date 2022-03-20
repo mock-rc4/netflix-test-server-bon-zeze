@@ -12,3 +12,13 @@ spring:
         username: master # 만약 따로 설정하지 않으셨다면 기본값은 admin 입니다
         password: Bon0206! # 비밀번호를 입력해주세요!
         driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+# 문자 서비스는 과금되므로 신중한 사용 부탁드립니다!
+url:
+    base: http://prod.bonster.xyz:9000
+
+ncp:
+    access_key: bz0iE75n00Gnhm47frJq
+    service_id: ncp:sms:kr:282129099849:rising_market
+    secret_key: SenOzPhEC0ZhSxxQkga1bnn9F3wTTgcznZXCgHOt
