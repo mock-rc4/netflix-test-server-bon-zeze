@@ -152,17 +152,68 @@
 ## 2022.03.20 개발 일지
 
 ### 본(Bon)
+
+#### API
+
 + 계정(Account)
   + API 서비스를 위한 코드 골격 구현
   + 회원 가입 API 구현
   + 회원 목록 조회 API 구현(전체 목록 조회, queryString으로 membership 조건 조회)
   + 회원 조회 API 구현(accountIdx로 검색)
   + 회원 탈퇴 API 구현
-  + 
+  
 
 + SMS 문자 발송 서비스
   + SMS 메시지 전송 API 구현
   + SMS 인증번호 전송 API 구현 (6자리 난수 생성 후 client에게 전송, client는 response와 휴대폰번호로 발송된 번호가 일치하는지 대조)
+
+#### What I did today
++ AWS 서버에 탄력적 IP를 사용하도록 변경
++ 서브 도메인(dev, prod) 외 별도의 대표 도메인(teamflix.shop) 을 서버에 적용 
++ 9000번 포트에서 작동중인 Spring boot 서버를 prod 도메인과 대표 도메인이 가리키도록 세팅
+#### ISSUE
++ **AWS 서버 내부 에러 발생**
+  
+  + 아래의 error log와 이미지 참조
+  
+  ```
+      -- Unit nginx.service has begun starting up.
+    Mar 20 08:46:49 ip-172-31-41-81 nginx[23645]: nginx: [emerg] open() "/etc/nginx/sites-enabled/dir" failed
+    Mar 20 08:46:49 ip-172-31-41-81 nginx[23645]: nginx: configuration file /etc/nginx/nginx.conf test failed
+    Mar 20 08:46:49 ip-172-31-41-81 systemd[1]: nginx.service: Control process exited, code=exited status=1
+    Mar 20 08:46:49 ip-172-31-41-81 sudo[23642]: pam_unix(sudo:session): session closed for user root
+    Mar 20 08:46:49 ip-172-31-41-81 systemd[1]: nginx.service: Failed with result 'exit-code'.
+    Mar 20 08:46:49 ip-172-31-41-81 systemd[1]: Failed to start A high performance web server and a reverse pr
+    -- Subject: Unit nginx.service has failed
+    -- Defined-By: systemd
+    -- Support: http://www.ubuntu.com/support
+    --
+    -- Unit nginx.service has failed.
+    --
+    -- The result is RESULT.
+  ```
+  
+  
+  
+  
+  ![ㅋㅍㅋㅍ](https://user-images.githubusercontent.com/34790699/159164528-8736ca08-8430-478a-a797-7da45acaa3ee.png)
+
+  + **발생 배경**
+    + dev, prod 이외 별도의 서버 대표 도메인 적용을 위해 server 블록을 만들어 nginx 세팅 도중 위와 같은 에러가 발생했다.
+    + 해결을 위해 시도해 본 방법은 다음과 같다.
+      
+      + certbot 인증 수단 전체 제거 
+      + certbot 삭제 후 재설치 & 재적용
+      + default 파일 삭제후 재구성
+      + 서브도메인(dev, prod)의 server 블록을 삭제
+      + Apache2의 실행 중단
+      + Apache2의 80번 포트 kill
+      + Apache2 완전히 삭제
+      + proxy pass에 영향이 있을 수 있는 파일을 탐색(nginx.conf 등)해 보았으나 특별한 이상을 발견하지 못했다.
+   + **해결한 방법**
+    1. nginx를 완전히 삭제하고 다시 설치했다.
+    2. 서브도메인 적용을 위해 서버 블록을 나누고 SSL 적용을 위한 certificaton 모듈을 실행& 적용하였다.
+    3. 완전한 삭제 후 재설치, 처음부터 모든 일련의 과정을 적용하고 나니 문제 없이 작동하는 것이 확인되었다.
 
 
 ### 제제(Zeze)
