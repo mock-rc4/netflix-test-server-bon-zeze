@@ -30,7 +30,7 @@ public enum BaseResponseStatus {
 	POST_ACCOUNTS_EMPTY_PASSWORD(false,2018,"비밀번호를 입력해주세요."),
 	POST_ACCOUNTS_INVALID_PASSWORD(false,2019,"비밀번호 형식을 확인해주세요."),
     POST_ACCOUNTS_INVALID_PHONE_NUMBER(false,2020,"휴대폰번호 형식을 확인해주세요."),
-    POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"회원탈퇴등의 이유로 비활성화된 유저입니다."),
+    POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"계정이 존재하지 않거나, 탈퇴된 유저입니다."),
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
 
 
@@ -55,10 +55,13 @@ public enum BaseResponseStatus {
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 
     //[PATCH] /accounts/{accountIdx}
-    MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
+    MODIFY_FAIL_DEACTIVATE_ACCOUNT(false,4014,"계정 비활성화 실패"),
+
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+
+
 
 
     // 5000 : 필요시 만들어서 쓰세요

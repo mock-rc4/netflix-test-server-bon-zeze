@@ -20,7 +20,7 @@ public class ValidationRegex {
 
 	// 비밀번호 형식 체크
 	public static boolean isRegexPassword(String target) {
-		String regex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+		String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
 		return target.matches(regex);
 	}
 }

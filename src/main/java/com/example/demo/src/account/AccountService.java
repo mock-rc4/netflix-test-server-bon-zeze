@@ -33,10 +33,6 @@ public class AccountService {
 		if (accountProvider.checkIsDuplicatedEmail(requestDto.getEmail()) == 1) {
 		    throw new BaseException(POST_ACCOUNTS_EXISTS_EMAIL);
 		}
-		// 비활성화된 계정인지 확인
-		if (accountProvider.checkIsDeactivatedAccount(requestDto.getEmail()) == 0) {
-			throw new BaseException(POST_ACCOUNTS_DEACTIVATED_ACCOUNT);
-		}
 
 		String pwd;
 		try {
@@ -54,7 +50,22 @@ public class AccountService {
 			return new Account.createResDto(accountIdx, jwt);
 
 		} catch (Exception exception) {
+			logger.error(exception.toString());
 			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+
+	// 회원탈퇴
+	public void deactivateAccount(Account.DeactivateReqDto deactivateReqDto) throws BaseException {
+		int result = 0;
+		try {
+			result = accountDao.deactivateAccount(deactivateReqDto); // 해당 과정이 무사히 수행되면 True(1), 그렇지 않으면 False(0)
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+		if (result == 0) {
+			throw new BaseException(MODIFY_FAIL_DEACTIVATE_ACCOUNT);
 		}
 	}
 }
