@@ -30,9 +30,38 @@ public class Account {
 	}
 
 	@Getter
+	@Setter
 	@AllArgsConstructor
 	public static class createResDto {
 		private int accountIdx;
 		private String jwt;
+	}
+
+	@Getter
+	@AllArgsConstructor
+	public static class DeactivateReqDto {
+		private int accountIdx;
+	}
+
+	@Getter
+	@AllArgsConstructor
+	public static class getResDto {
+		private int accountIdx;
+		private String password;
+		private String email;
+		private String phoneNumber;
+		private String membership;
+		private String socialLoginIdx;
+		private String socialLoginType;
+
+	}
+
+	@Getter
+	@AllArgsConstructor
+	public static class getAccountsDto {
+		private int accountIdx;
+		private String email;
+		private String phoneNumber;
+		private String membership;
 	}
 }
