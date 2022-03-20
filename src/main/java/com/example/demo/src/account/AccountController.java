@@ -6,6 +6,7 @@ import static com.example.demo.utils.ValidationRegex.*;
 import java.util.List;
 
 import com.example.demo.config.BaseResponseStatus;
+import com.example.demo.src.account.domain.PatchAccountReq;
 import com.example.demo.src.account.domain.PostAccountRes;
 import com.example.demo.src.account.domain.PostLoginReq;
 import org.slf4j.Logger;
@@ -145,5 +146,82 @@ public class AccountController {
             return new BaseResponse<>((exception.getStatus()));
         }
 
+    }
+
+    @ResponseBody
+    @PatchMapping("/update/password")
+    public BaseResponse<String> updatePassword(@RequestBody PatchAccountReq patchAccountReq) {
+        try {
+            if (!isRegexPassword(patchAccountReq.getUpdateParam())) {
+                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+            }
+
+            int accountIdxByJwt = jwtService.getUserIdx();
+            if (accountIdxByJwt != patchAccountReq.getAccountIdx()) {
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+
+            accountService.updatePassword(patchAccountReq);
+            return new BaseResponse<>("update password success");
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
+    @ResponseBody
+    @PatchMapping("/update/email")
+    public BaseResponse<String> updateEmail(@RequestBody PatchAccountReq patchAccountReq) {
+        try {
+            if (!isRegexEmail(patchAccountReq.getUpdateParam())) {
+                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+            }
+
+            int accountIdxByJwt = jwtService.getUserIdx();
+            if (accountIdxByJwt != patchAccountReq.getAccountIdx()) {
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+
+            accountService.updateEmail(patchAccountReq);
+            return new BaseResponse<>("update email success");
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("/update/phonenumber")
+    public BaseResponse<String> updatePhoneNumber(@RequestBody PatchAccountReq patchAccountReq) {
+        try {
+            if (!isRegexPhoneNumber(patchAccountReq.getUpdateParam())) {
+                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+            }
+
+            int accountIdxByJwt = jwtService.getUserIdx();
+            if (accountIdxByJwt != patchAccountReq.getAccountIdx()) {
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+
+            accountService.updatePhoneNumber(patchAccountReq);
+            return new BaseResponse<>("update phone success");
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @ResponseBody
+    @PatchMapping("/update/membership")
+    public BaseResponse<String> updateMemberShip(@RequestBody PatchAccountReq patchAccountReq) {
+        try {
+            int accountIdxByJwt = jwtService.getUserIdx();
+            if (accountIdxByJwt != patchAccountReq.getAccountIdx()) {
+                return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
+            }
+
+            accountService.updateMemberShip(patchAccountReq);
+            return new BaseResponse<>("update membership success");
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
     }
 }

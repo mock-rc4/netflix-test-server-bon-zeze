@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import com.example.demo.src.account.domain.PatchAccountReq;
 import com.example.demo.src.account.domain.PostLoginReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -117,5 +118,35 @@ public class AccountDao {
                 ),
                 getPasswordParams
         );
+    }
+
+    public int updateEmail(PatchAccountReq patchAccountReq) {
+        String updateQuery = "update Account set email = ? where accountIdx = ?";
+
+        return updateAccount(patchAccountReq, updateQuery);
+    }
+
+    public int updatePassword(PatchAccountReq patchAccountReq) {
+        String updateQuery = "update Account set password = ? where accountIdx = ?";
+
+        return updateAccount(patchAccountReq, updateQuery);
+    }
+
+    public int updatePhoneNumber(PatchAccountReq patchAccountReq) {
+        String updateQuery = "update Account set phoneNumber = ? where accountIdx = ?";
+
+        return updateAccount(patchAccountReq, updateQuery);
+    }
+
+    public int updateMemberShip(PatchAccountReq patchAccountReq) {
+        String updateQuery = "update Account set membership = ? where accountIdx = ?";
+
+        return updateAccount(patchAccountReq, updateQuery);
+    }
+
+    private int updateAccount(PatchAccountReq patchAccountReq, String updateQuery) {
+        Object[] updateParams = new Object[]{patchAccountReq.getUpdateParam(), patchAccountReq.getAccountIdx()};
+
+        return this.jdbcTemplate.update(updateQuery, updateParams);
     }
 }

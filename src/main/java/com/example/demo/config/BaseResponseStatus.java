@@ -34,6 +34,12 @@ public enum BaseResponseStatus {
     POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"계정이 존재하지 않거나, 탈퇴된 유저입니다."),
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
 
+    // [PATCH] /accounts
+    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+
 
 
 
