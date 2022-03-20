@@ -21,6 +21,7 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
+    INVALID_LOGOUT_JWT(false,2003,"로그인 되어있지 않은 유저의 접근입니다."),
 
 
     // [POST] /accounts
@@ -32,6 +33,12 @@ public enum BaseResponseStatus {
     POST_ACCOUNTS_INVALID_PHONE_NUMBER(false,2020,"휴대폰번호 형식을 확인해주세요."),
     POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"계정이 존재하지 않거나, 탈퇴된 유저입니다."),
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
+
+    // [PATCH] /accounts
+    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
 
 
 
@@ -45,6 +52,7 @@ public enum BaseResponseStatus {
     // [POST] /accounts
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
     FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
+    FAILED_TO_LOGOUT(false,3014,"로그아웃을 실패하였습니다."),
 
 
 
