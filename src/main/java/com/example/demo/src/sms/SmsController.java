@@ -39,7 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("/sms")
+@RequestMapping("/sms-services")
 public class SmsController {
 
 	@Value("${ncp.access_key}")
@@ -209,7 +209,7 @@ public class SmsController {
 	}
 
 	@ResponseBody
-	@PostMapping("/sendMessage")
+	@PostMapping("/send-message")
 	public BaseResponse<SendSmsResDto> smsService(@RequestBody MessagesReqDto messagesReqDto) throws
 		UnsupportedEncodingException,
 		NoSuchAlgorithmException,
@@ -224,7 +224,7 @@ public class SmsController {
 	}
 
 	@ResponseBody
-	@PostMapping("/sendVerificationNumber")
+	@PostMapping("/send-verification-number")
 	public BaseResponse<SendVerificationNumberResDto> smsVerificationNumberService(@RequestBody
 		VerificationReqDto verificationReqDto) throws UnsupportedEncodingException,
 		NoSuchAlgorithmException,
