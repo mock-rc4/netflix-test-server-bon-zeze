@@ -127,4 +127,7 @@
 
 ## 본(Bon)
 + 계정(Account)서비스를 위한 골격 구현
-+ 넷플릭스 계정 회원가입 API 구현
++ 회원 가입 API 구현
++ 회원 목록 조회 API 구현(전체 목록 조회, queryString으로 membership 조건 조회)
++ 회원 조회 API 구현(accountIdx로 검색)
++ 회원 탈퇴 API 구현
