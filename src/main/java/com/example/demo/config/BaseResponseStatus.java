@@ -35,10 +35,10 @@ public enum BaseResponseStatus {
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
 
     // [PATCH] /accounts
-    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2023, "이메일 변경에 실패하였습니다."),
     PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
-    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
-    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2023, "핸드폰 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "멤버쉽 변경에 실패하였습니다."),
 
 
 

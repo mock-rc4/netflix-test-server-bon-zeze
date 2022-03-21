@@ -121,25 +121,25 @@ public class AccountDao {
     }
 
     public int updateEmail(PatchAccountReq patchAccountReq) {
-        String updateQuery = "update Account set email = ? where accountIdx = ?";
+        String updateQuery = "update Account set updatedAt = now() , email = ? where accountIdx = ?";
 
         return updateAccount(patchAccountReq, updateQuery);
     }
 
     public int updatePassword(PatchAccountReq patchAccountReq) {
-        String updateQuery = "update Account set password = ? where accountIdx = ?";
+        String updateQuery = "update Account set updatedAt = now() , password = ? where accountIdx = ?";
 
         return updateAccount(patchAccountReq, updateQuery);
     }
 
     public int updatePhoneNumber(PatchAccountReq patchAccountReq) {
-        String updateQuery = "update Account set phoneNumber = ? where accountIdx = ?";
+        String updateQuery = "update Account set updatedAt = now() , phoneNumber = ? where accountIdx = ?";
 
         return updateAccount(patchAccountReq, updateQuery);
     }
 
     public int updateMemberShip(PatchAccountReq patchAccountReq) {
-        String updateQuery = "update Account set membership = ? where accountIdx = ?";
+        String updateQuery = "update Account set updatedAt = now() , membership = ? where accountIdx = ?";
 
         return updateAccount(patchAccountReq, updateQuery);
     }
