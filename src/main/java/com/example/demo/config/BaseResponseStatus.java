@@ -41,6 +41,9 @@ public enum BaseResponseStatus {
     PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "멤버쉽 변경에 실패하였습니다."),
 
 
+    // [POST] /profile
+    POST_PROFILE_CREATE_ERROR(false,2024,"프로필 생성을 실패했습니다."),
+
 
 
     /**
