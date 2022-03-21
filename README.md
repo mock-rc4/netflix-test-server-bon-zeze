@@ -308,14 +308,28 @@
 
 #### API 개발
 - 프로필
+  - 프로필 코드 골격 구현
   - 프로필 생성 API 구현
-  - 프로필 전체 변경 API 구현
-  - 프로필 사진 지정 API 구현
+  - ~프로필 전체 변경 API 구현~
+  - ~프로필 사진 지정 API 구현~
 - 리팩토링
-  - 회원 로그인 API Req 결과 리팩토링
+  - ~회원 로그인 API Req 결과 리팩토링~
   - 회원 변경 API 컬럼 리팩토링
-  - 회원 로그아웃 API JWT 전체 구현 리팩토링
+  - ~회원 로그아웃 API JWT 전체 구현 리팩토링~ → `진행중`
+
+#### ERD Update
+- Profile 테이블 변경
 
 #### 개발&협업 회고록
   - 프론트분들과 협업하면 Req, Res 값이 변경됨에 따라 API가 많이 차이 날 수 있음을 깨달았다.
-  - 
+  - 협업하다보니 git에 대한 혼동이 생겨서 계속해서 공부해야 할 것 같다.
+
+#### 개발 이슈
+  - <img width="822" alt="스크린샷 2022-03-21 오후 11 30 08" src="https://user-images.githubusercontent.com/65826145/159286510-df368951-0447-4294-b807-5fba50de0b3f.png">
+  - <img width="641" alt="스크린샷 2022-03-21 오후 11 50 22" src="https://user-images.githubusercontent.com/65826145/159287757-cf0d1d05-fab2-403b-b3ce-6e9bf6a6ac16.png">
+
+  	- `git pull origin main` 하는 도중에 충돌 발생
+  	- `git config pull.ff only` 설정이 되어있었고 -> 이건 fast-forward만 하겠다는 것으로 이 경우 merge가 불가능하다.
+  	- fast-forward only 옵션을 끄고, merge를 할 수 있는 `git config pull.rebase false`
+  	- 추가로, 현재 브랜치가 저렇게 되었을때 충돌이 발생한건지 현재 헷갈려서 충돌 부분에 관하여 다시 내일 확인해봐야 할 것 같다.
+  		- main에서 push 를 하였는데 pull이 안되길래 commit을 먼저 했더니 발생했던 것으로 기억..
