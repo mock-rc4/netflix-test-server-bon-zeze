@@ -5,43 +5,28 @@ com/example/demo/src/account/domain/Account.java
  com.example.demo.src.account.domain.Account$createResDto
  com.example.demo.src.account.domain.Account$getAccountsDto
  com.example.demo.src.account.domain.Account$getResDto
-com/example/demo/src/account/AccountService.java
- com.example.demo.src.account.AccountService
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
-com/example/demo/config/secret/Secret.java
- com.example.demo.config.secret.Secret
 com/example/demo/src/sms/SmsController.java
  com.example.demo.src.sms.SmsController
+com/example/demo/src/account/domain/PatchAccountReq.java
+ com.example.demo.src.account.domain.PatchAccountReq
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/sms/domain/MessagesReqDto.java
  com.example.demo.src.sms.domain.MessagesReqDto
-com/example/demo/config/BaseResponse.java
- com.example.demo.config.BaseResponse
 com/example/demo/src/account/AccountDao.java
  com.example.demo.src.account.AccountDao
-com/example/demo/src/account/AccountController.java
- com.example.demo.src.account.AccountController
 com/example/demo/src/sms/domain/SmsRequestDto.java
  com.example.demo.src.sms.domain.SmsRequestDto
 com/example/demo/utils/AES128.java
  com.example.demo.utils.AES128
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
-com/example/demo/src/sms/domain/SmsRequest.java
- com.example.demo.src.sms.domain.SmsRequest
- com.example.demo.src.sms.domain.SmsRequest$SmsMessageReqDto
 com/example/demo/src/sms/domain/SendSmsResDto.java
  com.example.demo.src.sms.domain.SendSmsResDto
-com/example/demo/config/BaseException.java
- com.example.demo.config.BaseException
-com/example/demo/DemoApplication.java
- com.example.demo.DemoApplication
 com/example/demo/src/WebSecurityConfig.java
  com.example.demo.src.WebSecurityConfig
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
 com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
 com/example/demo/src/sms/domain/VerificationReqDto.java
@@ -51,3 +36,24 @@ com/example/demo/src/account/AccountProvider.java
 com/example/demo/src/sms/domain/SendVerificationNumberResDto.java
  com.example.demo.src.sms.domain.SendVerificationNumberResDto
  com.example.demo.src.sms.domain.SendVerificationNumberResDto$SendVerificationNumberResDtoBuilder
+com/example/demo/src/account/domain/PostLoginReq.java
+ com.example.demo.src.account.domain.PostLoginReq
+com/example/demo/src/account/AccountService.java
+ com.example.demo.src.account.AccountService
+com/example/demo/config/secret/Secret.java
+ com.example.demo.config.secret.Secret
+com/example/demo/src/account/domain/PostAccountRes.java
+ com.example.demo.src.account.domain.PostAccountRes
+com/example/demo/config/BaseResponse.java
+ com.example.demo.config.BaseResponse
+com/example/demo/src/account/AccountController.java
+ com.example.demo.src.account.AccountController
+com/example/demo/src/sms/domain/SmsRequest.java
+ com.example.demo.src.sms.domain.SmsRequest
+ com.example.demo.src.sms.domain.SmsRequest$SmsMessageReqDto
+com/example/demo/config/BaseException.java
+ com.example.demo.config.BaseException
+com/example/demo/DemoApplication.java
+ com.example.demo.DemoApplication
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
