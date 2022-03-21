@@ -24,9 +24,8 @@ public class AccountDao {
 
     // 회원가입
     public int createAccount(Account.createReqDto requestDto) {
-        String query = "insert into Account (password, email, phoneNumber, membership) VALUES (?,?,?,?)";
-        Object[] params = new Object[]{requestDto.getPassword(), requestDto.getEmail(),
-                requestDto.getPhoneNumber(), requestDto.getMembership()};
+        String query = "insert into Account (password, email) VALUES (?,?)";
+        Object[] params = new Object[]{requestDto.getPassword(), requestDto.getEmail()};
         this.jdbcTemplate.update(query, params);
 
         String lastInsertedIdQuery = "select max(accountIdx) from Account";
@@ -42,7 +41,25 @@ public class AccountDao {
                 params);
     }
 
-    // 이메일 확인
+	// 이메일 확인
+	public String checkHasMembership(String email) {
+		String query = "select membership from Account where email = ?";
+		String params = email;
+		return this.jdbcTemplate.queryForObject(query,
+			String.class,
+			params);
+	}
+
+	// 유효한 계정 식별 ID(accountIdx)인지 확인
+	public int checkIsValidAccountIdx(int accountIdx) {
+		String query = "select exists(select accountIdx from Account where accountIdx = ?)";
+		int params = accountIdx;
+		return this.jdbcTemplate.queryForObject(query,
+			int.class,
+			params);
+	}
+
+    // 이메일로 탈퇴 회원인지 확인
     public int checkIsDeactivatedAccount(String email) {
         String query = "select exists(select status from Account where email = ?)";
         String params = email;

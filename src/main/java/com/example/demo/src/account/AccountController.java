@@ -1,9 +1,11 @@
 package com.example.demo.src.account;
 
 import static com.example.demo.config.BaseResponseStatus.*;
+import static com.example.demo.config.Constant.*;
 import static com.example.demo.utils.ValidationRegex.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.account.domain.PatchAccountReq;
@@ -47,29 +49,48 @@ public class AccountController {
         this.jwtService = jwtService;
     }
 
-    @PostMapping("/sign-up")
-    public BaseResponse<Account.createResDto> createAccount(@RequestBody Account.createReqDto requestDto) {
-        try {
-            String email = requestDto.getEmail();
-            if (!isRegexEmail(email)) {
-                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
-            }
-            if (!isRegexPassword(requestDto.getPassword())) {
-                return new BaseResponse<>(POST_ACCOUNTS_INVALID_PASSWORD);
-            }
-            if (!isRegexPhoneNumber(requestDto.getPhoneNumber())) {
-                return new BaseResponse<>(POST_ACCOUNTS_INVALID_PHONE_NUMBER);
-            }
-            if (requestDto.getMembership() == null) {
-                return new BaseResponse<>(POST_ACCOUNTS_EMPTY_MEMBERSHIP);
-            }
-            Account.createResDto createResDto = accountService.createAccount(requestDto);
-            return new BaseResponse<>(createResDto);
-        } catch (BaseException exception) {
-            logger.error(exception.toString());
-            return new BaseResponse<>(exception.getStatus());
-        }
-    }
+
+	@ResponseBody
+	@GetMapping("sign-in-level")
+	public BaseResponse<String> getAccountSignInStatusByEmail(@RequestParam String email) {
+		try {
+			if (email == null) {
+				return new BaseResponse<>(BaseResponseStatus.POST_ACCOUNTS_EMPTY_EMAIL);
+			}
+			if (!isRegexEmail(email)) {
+				return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+			}
+
+			if (accountProvider.checkIsDuplicatedEmail(email) == 0) {
+				return new BaseResponse<>("0");
+			} else if (accountProvider.checkHasMembership(email) == null) {
+				return new BaseResponse<>("1");
+			}
+			return new BaseResponse<>("2");
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+
+	@PostMapping("/sign-up")
+	public BaseResponse<Account.createResDto> createAccount(@RequestBody Account.createReqDto requestDto) {
+	    try {
+	        String email = requestDto.getEmail();
+	        if (!isRegexEmail(email)) {
+	            return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+	        }
+	        if (!isRegexPassword(requestDto.getPassword())) {
+	            return new BaseResponse<>(POST_ACCOUNTS_INVALID_PASSWORD);
+	        }
+	        Account.createResDto createResDto = accountService.createAccount(requestDto);
+	        return new BaseResponse<>(createResDto);
+	    } catch (BaseException exception) {
+	        logger.error(exception.toString());
+	        return new BaseResponse<>(exception.getStatus());
+	    }
+	}
+
 
     @ResponseBody
     @PostMapping("/login")
