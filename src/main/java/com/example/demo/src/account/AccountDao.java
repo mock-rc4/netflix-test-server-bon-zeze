@@ -50,6 +50,14 @@ public class AccountDao {
 			params);
 	}
 
+    // 핸드폰 확인
+    public int checkHasPhoneNumber(String phone) {
+        String query = "select exists(select phoneNumber from Account where phoneNumber = ?)";
+        return this.jdbcTemplate.queryForObject(query,
+                int.class,
+                phone);
+    }
+
 	// 유효한 계정 식별 ID(accountIdx)인지 확인
 	public int checkIsValidAccountIdx(int accountIdx) {
 		String query = "select exists(select accountIdx from Account where accountIdx = ?)";
@@ -118,23 +126,18 @@ public class AccountDao {
                 params);
     }
 
-    public Account getPassword(PostLoginReq postLoginReq) {
+    public Account getPasswordByEmail(PostLoginReq postLoginReq) {
         String getPasswordQuery = "select * from Account where email = ?";
-        String getPasswordParams = postLoginReq.getEmail();
+        String param = postLoginReq.getEmailOrPhone();
 
-        return this.jdbcTemplate.queryForObject(getPasswordQuery,
-                (rs, rowNum) -> new Account(
-                        rs.getInt("accountIdx"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("membership"),
-                        rs.getString("socialLoginIdx"),
-                        rs.getString("socialLoginType"),
-                        rs.getInt("status")
-                ),
-                getPasswordParams
-        );
+        return accountRowMapper(getPasswordQuery, param);
+    }
+
+    public Account getPasswordByPhone(PostLoginReq postLoginReq) {
+        String getPasswordQuery = "select * from Account where phoneNumber = ?";
+        String param = postLoginReq.getEmailOrPhone();
+
+        return accountRowMapper(getPasswordQuery, param);
     }
 
     public int updateEmail(PatchAccountReq patchAccountReq) {
@@ -165,5 +168,21 @@ public class AccountDao {
         Object[] updateParams = new Object[]{patchAccountReq.getUpdateParam(), patchAccountReq.getAccountIdx()};
 
         return this.jdbcTemplate.update(updateQuery, updateParams);
+    }
+
+    private Account accountRowMapper(String query, String param){
+        return this.jdbcTemplate.queryForObject(query,
+                (rs, rowNum) -> new Account(
+                        rs.getInt("accountIdx"),
+                        rs.getString("password"),
+                        rs.getString("email"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("membership"),
+                        rs.getString("socialLoginIdx"),
+                        rs.getString("socialLoginType"),
+                        rs.getInt("status")
+                ),
+                param
+        );
     }
 }

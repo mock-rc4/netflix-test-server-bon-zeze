@@ -9,6 +9,11 @@ import com.example.demo.config.BaseResponse;
 import com.example.demo.src.profile.domain.GetProfileReq;
 import com.example.demo.src.profile.domain.GetProfileRes;
 import com.example.demo.src.profile.domain.Profile;
+import com.example.demo.src.profile.domain.PatchProfileReq;
+import com.example.demo.src.profile.domain.PostProfileReq;
+import com.example.demo.src.profile.domain.PostProfileRes;
+import com.example.demo.src.profilePhoto.domain.PatchProfilePhotoReq;
+import com.example.demo.src.profilePhoto.domain.ProfilePhoto;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,12 +40,35 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/create")
-    public BaseResponse<GetProfileRes> createProfile(@RequestBody GetProfileReq getProfileReq) {
+    @PostMapping("/manage")
+    public BaseResponse<PostProfileRes> createProfile(@RequestBody PostProfileReq postProfileReq) {
         try {
-            GetProfileRes getProfileRes = profileService.create(getProfileReq);
-            return new BaseResponse<>(getProfileRes);
+            PostProfileRes postProfileRes = profileService.create(postProfileReq);
+            return new BaseResponse<>(postProfileRes);
         } catch (BaseException exception) {
+            logger.error(exception.toString());
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @PatchMapping("/manage")
+    public BaseResponse<String> manageProfile(@RequestBody PatchProfileReq patchProfileReq) {
+        try {
+            profileService.manage(patchProfileReq);
+            return new BaseResponse<>("success update profile");
+        } catch (BaseException exception) {
+            logger.error(exception.toString());
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @PatchMapping("/manage/photos")
+    public BaseResponse<ProfilePhoto> manageProfilePhotos(@RequestBody PatchProfilePhotoReq patchProfilePhotoReq) {
+        try {
+            ProfilePhoto profilePhoto = profileService.manageProfilePhoto(patchProfilePhotoReq);
+            return new BaseResponse<>(profilePhoto);
+        } catch (BaseException exception) {
+            logger.error(exception.toString());
             return new BaseResponse<>(exception.getStatus());
         }
     }
