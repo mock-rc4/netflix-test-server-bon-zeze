@@ -24,6 +24,9 @@ public class AccountProvider {
     private final AccountDao accountDao;
     private final JwtService jwtService;
 
+    private static final String EMAIL = "email";
+    private static final String PHONE = "phone";
+
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -41,18 +44,18 @@ public class AccountProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-	public String checkHasMembership(String email) throws BaseException {
-		try {
-			return accountDao.checkHasMembership(email);
-		} catch (Exception exception) {
-			logger.error(exception.toString());
-			throw new BaseException(DATABASE_ERROR);
-		}
-	}
+
+    public String checkHasMembership(String email) throws BaseException {
+        try {
+            return accountDao.checkHasMembership(email);
+        } catch (Exception exception) {
+            logger.error(exception.toString());
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 
 
-
-	public int checkIsDeactivatedAccount(String email) throws BaseException {
+    public int checkIsDeactivatedAccount(String email) throws BaseException {
         try {
             return accountDao.checkIsDeactivatedAccount(email);
         } catch (Exception exception) {
@@ -61,14 +64,14 @@ public class AccountProvider {
         }
     }
 
-	public int checkIsValidAccountIdx(int accountIdx) throws BaseException {
-		try {
-			return accountDao.checkIsValidAccountIdx(accountIdx);
-		} catch (Exception exception) {
-			logger.error(exception.toString());
-			throw new BaseException(DATABASE_ERROR);
-		}
-	}
+    public int checkIsValidAccountIdx(int accountIdx) throws BaseException {
+        try {
+            return accountDao.checkIsValidAccountIdx(accountIdx);
+        } catch (Exception exception) {
+            logger.error(exception.toString());
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 
     public List<Account.getAccountsDto> getAccounts() throws BaseException {
         try {
@@ -97,25 +100,82 @@ public class AccountProvider {
         }
     }
 
+    private String checkExistAccount(PostLoginReq postLoginReq) throws BaseException {
+        String emailOrPhone = postLoginReq.getEmailOrPhone();
+        String id = PHONE;
 
-    public PostAccountRes login(PostLoginReq postLoginReq) throws BaseException {
-        Account account = accountDao.getPassword(postLoginReq);
+        //넷플릭스 이메일 판정 - 영어가 한글자라도 있는가
+        for (int i = 0; i < emailOrPhone.length(); i++) {
+            if ('a' <= emailOrPhone.charAt(i) && emailOrPhone.charAt(i) <= 'z') {
+                id = EMAIL;
+                break;
+            }
+        }
+
+        if (id == EMAIL) {
+            if (accountDao.checkIsDuplicatedEmail(emailOrPhone) == 0) {
+                throw new BaseException(INVALID_USER_MAIL_LOGIN);
+            }
+            return EMAIL;
+        } else {
+            if (accountDao.checkHasPhoneNumber(emailOrPhone) == 0) {
+                throw new BaseException(INVALID_USER_PHONE_LOGIN);
+            }
+            return PHONE;
+        }
+    }
+
+
+    public PostAccountRes loginByEmail(PostLoginReq postLoginReq) throws BaseException {
+        Account account = accountDao.getPasswordByEmail(postLoginReq);
         String password;
-        //복호화
+
         try {
-            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword()); // 암호화
+            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_DECRYPTION_ERROR);
         }
 
         if (postLoginReq.getPassword().equals(password)) {
-            int memberIdx = accountDao.getPassword(postLoginReq).getAccountIdx();
+            int memberIdx = accountDao.getPasswordByEmail(postLoginReq).getAccountIdx();
 
             //jwt 발급(회원 일치)
             String jwt = jwtService.createJwt(memberIdx);
             return new PostAccountRes(memberIdx, jwt);
         } else {
             throw new BaseException(FAILED_TO_LOGIN);
+        }
+    }
+
+    public PostAccountRes loginByPhone(PostLoginReq postLoginReq) throws BaseException {
+        Account account = accountDao.getPasswordByPhone(postLoginReq);
+        String password;
+
+        try {
+            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
+        }
+
+        if (postLoginReq.getPassword().equals(password)) {
+            int memberIdx = accountDao.getPasswordByPhone(postLoginReq).getAccountIdx();
+
+            //jwt 발급(회원 일치)
+            String jwt = jwtService.createJwt(memberIdx);
+            return new PostAccountRes(memberIdx, jwt);
+        } else {
+            throw new BaseException(FAILED_TO_LOGIN);
+        }
+    }
+
+
+    public PostAccountRes login(PostLoginReq postLoginReq) throws BaseException {
+        String id = checkExistAccount(postLoginReq);
+
+        if (id.equals(EMAIL)) {
+            return loginByEmail(postLoginReq);
+        } else {
+            return loginByPhone(postLoginReq);
         }
     }
 

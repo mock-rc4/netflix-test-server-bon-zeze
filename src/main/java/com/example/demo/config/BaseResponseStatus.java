@@ -21,6 +21,8 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
+    INVALID_USER_MAIL_LOGIN(false,2003,"이 이메일 주소를 사용하는 계정을 찾을 수 없습니다."),
+    INVALID_USER_PHONE_LOGIN(false,2003,"이 전화번호를 사용하는 계정을 찾을 수 없습니다. "),
     INVALID_LOGOUT_JWT(false,2003,"로그인 되어있지 않은 유저의 접근입니다."),
 
 
@@ -43,8 +45,6 @@ public enum BaseResponseStatus {
 
     // [POST] /profile
     POST_PROFILE_CREATE_ERROR(false,2024,"프로필 생성을 실패했습니다."),
-	PATCH_ACCOUNTS_MEMBERSHIP_INVALID_ERROR(false, 2024, "유효하지 않은 멤버쉽 유형입니다."),
-	PATCH_ACCOUNTS_ACCOUNT_IDX_INVALID_ERROR(false, 2025, "유효하지 않은 계정 식별자(accountIdx) 입니다."),
 
 
 
