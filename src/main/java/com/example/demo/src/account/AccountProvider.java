@@ -41,8 +41,18 @@ public class AccountProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+	public String checkHasMembership(String email) throws BaseException {
+		try {
+			return accountDao.checkHasMembership(email);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
-    public int checkIsDeactivatedAccount(String email) throws BaseException {
+
+
+	public int checkIsDeactivatedAccount(String email) throws BaseException {
         try {
             return accountDao.checkIsDeactivatedAccount(email);
         } catch (Exception exception) {
@@ -50,6 +60,15 @@ public class AccountProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+	public int checkIsValidAccountIdx(int accountIdx) throws BaseException {
+		try {
+			return accountDao.checkIsValidAccountIdx(accountIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
     public List<Account.getAccountsDto> getAccounts() throws BaseException {
         try {

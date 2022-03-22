@@ -25,8 +25,6 @@ public class Account {
 	public static class createReqDto {
 		private String password;
 		private String email;
-		private String phoneNumber;
-		private String membership;
 	}
 
 	@Getter

@@ -43,6 +43,8 @@ public enum BaseResponseStatus {
 
     // [POST] /profile
     POST_PROFILE_CREATE_ERROR(false,2024,"프로필 생성을 실패했습니다."),
+	PATCH_ACCOUNTS_MEMBERSHIP_INVALID_ERROR(false, 2024, "유효하지 않은 멤버쉽 유형입니다."),
+	PATCH_ACCOUNTS_ACCOUNT_IDX_INVALID_ERROR(false, 2025, "유효하지 않은 계정 식별자(accountIdx) 입니다."),
 
 
 
@@ -66,25 +68,30 @@ public enum BaseResponseStatus {
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 
     //[PATCH] /accounts/{accountIdx}
-    MODIFY_FAIL_DEACTIVATE_ACCOUNT(false,4014,"계정 비활성화 실패"),
+    MODIFY_FAIL_DEACTIVATE_ACCOUNT(false,4014,"계정 비활성화에 실패하였습니다."),
 
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
+	// /** 이후 사용 예정입니다.
+	//  * 5000 : 외부 API 오류
+	//  */
+	// API_FAILED_REQUEST(false, 5000, "API 요청에 실패하였습니다."),
+	// API_INVALID_HOST(false, 5001, "잘못된 호스트에 대한 요청입니다."),
 
-
-
-    // 5000 : 필요시 만들어서 쓰세요
-    // 6000 : 필요시 만들어서 쓰세요
+	// /** 이후 사용 예정입니다.
+	//  * 6000 : 소셜 로그인 오류
+	//  */
+	// SOCIAL_CANNOT_FIND_ACCOUNT(false, 6001, "계정을 찾을 수 없습니다"),
+	// SOCIAL_MUST_AGREE_EMAIL(false, 6002, "이메일 정보 제공이 동의되어야 합니다."),
+	// SOCIAL_EXISTS_ACCOUNT(false, 6003, "이미 존재하는 계정입니다."),
 
 	/**
-	 * 6500 : SMS 오류
+	 * 7000 : SMS 오류
 	 */
-	SMS_NO_ANY_CONTENT(false, 6500, "내용이 비었습니다."),
-	SMS_INVALID_PHONE_NUMBER(false, 6501, "휴대폰 번호는 '-' 없이 10자거나 11자여야 합니다. ex)01012345678 ");
-
-
+	SMS_NO_ANY_CONTENT(false, 7000, "내용이 비었습니다."),
+	SMS_INVALID_PHONE_NUMBER(false, 7001, "휴대폰 번호는 '-' 없이 10자거나 11자여야 합니다. ex)01012345678 ");
 
     private final boolean isSuccess;
     private final int code;

@@ -49,13 +49,11 @@ public class AccountService {
 
             String jwt = jwtService.createJwt(accountIdx);
             return new Account.createResDto(accountIdx, jwt);
-
         } catch (Exception exception) {
             logger.error(exception.toString());
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
 
     // 회원탈퇴
     public void deactivateAccount(Account.DeactivateReqDto deactivateReqDto) throws BaseException {
