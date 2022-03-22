@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetProfileRes {
+public class PostProfileRes {
     private int profileIdx;
     private String jwt;
 }
