@@ -44,11 +44,14 @@ public enum BaseResponseStatus {
 
 
     // [POST] /profile
-    POST_PROFILE_CREATE_ERROR(false,2024,"프로필 생성을 실패했습니다."),
+    POST_PROFILE_CREATE_ERROR(false,2030,"프로필 생성을 실패했습니다."),
 
+
+    // [PATCH] /profile
+    PATCH_PROFILE_MANAGE_ERROR(false,2031,"프로필 변경을 실패했습니다."),
 
     // [GET] /profilePhoto
-    GET_PROFILE_PHOTO_ERROR(false,2024,"프로필 사진을 불러오는데 실패했습니다."),
+    GET_PROFILE_PHOTO_ERROR(false,2032,"프로필 사진을 불러오는데 실패했습니다."),
 
 
     /**

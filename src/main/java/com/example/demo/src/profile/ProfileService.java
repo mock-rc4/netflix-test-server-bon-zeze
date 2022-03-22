@@ -3,6 +3,8 @@ package com.example.demo.src.profile;
 import com.example.demo.config.BaseException;
 import com.example.demo.src.profile.domain.PostProfileReq;
 import com.example.demo.src.profile.domain.PostProfileRes;
+import com.example.demo.src.profilePhoto.domain.PatchProfilePhotoReq;
+import com.example.demo.src.profilePhoto.domain.ProfilePhoto;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,15 @@ public class ProfileService {
         } catch (Exception exception) {
             logger.error(exception.toString());
             throw new BaseException(POST_PROFILE_CREATE_ERROR);
+        }
+    }
+
+    public ProfilePhoto manageProfilePhoto(PatchProfilePhotoReq patchProfilePhotoReq) throws BaseException {
+        try {
+            ProfilePhoto profilePhoto = profileDao.updateProfilePhoto(patchProfilePhotoReq);
+            return profilePhoto;
+        } catch (Exception exception) {
+            throw new BaseException(PATCH_PROFILE_MANAGE_ERROR);
         }
     }
 }
