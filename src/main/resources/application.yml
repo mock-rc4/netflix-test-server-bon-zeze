@@ -27,7 +27,7 @@ social:
     naver:
         client-id: gMbJWRpKYUPAVDX9jWep
         client-secret: jJEoGPQ3H4
-        redirect: /app/accounts/naver/redirect
+        redirect: /naver-accounts/redirect
         authorization-grant-type: authorization_code
         scope: name, email, profile_image
         client-name: Naver
