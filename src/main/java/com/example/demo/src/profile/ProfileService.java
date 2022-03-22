@@ -1,6 +1,7 @@
 package com.example.demo.src.profile;
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.profile.domain.PatchProfileReq;
 import com.example.demo.src.profile.domain.PostProfileReq;
 import com.example.demo.src.profile.domain.PostProfileRes;
 import com.example.demo.src.profilePhoto.domain.PatchProfilePhotoReq;
@@ -44,6 +45,17 @@ public class ProfileService {
         try {
             ProfilePhoto profilePhoto = profileDao.updateProfilePhoto(patchProfilePhotoReq);
             return profilePhoto;
+        } catch (Exception exception) {
+            throw new BaseException(PATCH_PROFILE_MANAGE_ERROR);
+        }
+    }
+
+    public void manage(PatchProfileReq patchProfileReq) throws BaseException {
+        try {
+            int result = profileDao.updateProfile(patchProfileReq);
+            if (result == 0) {
+                throw new BaseException(PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR);
+            }
         } catch (Exception exception) {
             throw new BaseException(PATCH_PROFILE_MANAGE_ERROR);
         }

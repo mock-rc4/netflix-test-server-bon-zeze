@@ -1,5 +1,6 @@
 package com.example.demo.src.profile;
 
+import com.example.demo.src.profile.domain.PatchProfileReq;
 import com.example.demo.src.profile.domain.PostProfileReq;
 import com.example.demo.src.profilePhoto.ProfilePhotoDao;
 import com.example.demo.src.profilePhoto.domain.PatchProfilePhotoReq;
@@ -34,11 +35,24 @@ public class ProfileDao {
     }
 
     public ProfilePhoto updateProfilePhoto(PatchProfilePhotoReq patchProfilePhotoReq) {
-        String query = "update Profile set profilePhotoIdx = ? where profileIdx = ?";
+        String query = "update Profile set updatedAt = now(), profilePhotoIdx = ? where profileIdx = ?";
         int profileIdx = patchProfilePhotoReq.getProfileIdx();
         int profilePhotoIdx = patchProfilePhotoReq.getProfilePhotoIdx();
         this.jdbcTemplate.update(query, profilePhotoIdx, profileIdx);
 
         return profilePhotoDao.getProfilePhoto(profilePhotoIdx);
+    }
+
+    public int updateProfile(PatchProfileReq patchProfileReq) {
+        String query = "update Profile set updatedAt = now(), name = ?, language = ?, settingAutoNextPlay = ?, settingAutoPrePlay =?\n"
+                + "where  profileIdx = ?";
+        Object[] updateParam = new Object[]{
+                patchProfileReq.getName(),
+                patchProfileReq.getLanguage(),
+                patchProfileReq.getSettingAutoNextPlay(),
+                patchProfileReq.getSettingAutoPrePlay(),
+                patchProfileReq.getProfileIdx()
+        };
+        return this.jdbcTemplate.update(query, updateParam);
     }
 }

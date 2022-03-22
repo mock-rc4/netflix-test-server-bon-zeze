@@ -12,3 +12,4 @@
 >>>>>>> 23ee7cff640791ba83efc134fb76b55af32e430b
 20:45:40.605 ERROR [File:ProfilePhotoProvider.java] [Func:getProfilePhoto] [Line:35] [Message:org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0]- org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
 20:48:13.183 ERROR [File:ProfilePhotoProvider.java] [Func:getProfilePhoto] [Line:37] [Message:org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0]- org.springframework.dao.EmptyResultDataAccessException: Incorrect result size: expected 1, actual 0
+23:18:00.578 ERROR [File:ProfileController.java] [Func:manageProfile] [Line:53] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException

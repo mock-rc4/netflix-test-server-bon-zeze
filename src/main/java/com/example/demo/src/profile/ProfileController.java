@@ -2,6 +2,7 @@ package com.example.demo.src.profile;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.profile.domain.PatchProfileReq;
 import com.example.demo.src.profile.domain.PostProfileReq;
 import com.example.demo.src.profile.domain.PostProfileRes;
 import com.example.demo.src.profilePhoto.domain.PatchProfilePhotoReq;
@@ -37,6 +38,17 @@ public class ProfileController {
         try {
             PostProfileRes postProfileRes = profileService.create(postProfileReq);
             return new BaseResponse<>(postProfileRes);
+        } catch (BaseException exception) {
+            logger.error(exception.toString());
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @PatchMapping("/manage")
+    public BaseResponse<String> manageProfile(@RequestBody PatchProfileReq patchProfileReq) {
+        try {
+            profileService.manage(patchProfileReq);
+            return new BaseResponse<>("success update profile");
         } catch (BaseException exception) {
             logger.error(exception.toString());
             return new BaseResponse<>(exception.getStatus());
