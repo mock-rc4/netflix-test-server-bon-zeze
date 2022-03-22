@@ -7,6 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostLoginReq {
-    private String email;
+    private String emailOrPhone;
     private String password;
 }

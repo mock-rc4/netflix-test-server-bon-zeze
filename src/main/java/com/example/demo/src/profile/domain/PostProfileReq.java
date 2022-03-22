@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GetProfileReq {
+public class PostProfileReq {
     private String name;
     //기본 15세. res 요청 = 0~12 (12세 이하등급)
     private int ageGrade = 15;
