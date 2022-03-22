@@ -209,7 +209,7 @@ public class SmsController {
 	}
 
 	@ResponseBody
-	@PostMapping("/send-message")
+	@PostMapping("/message")
 	public BaseResponse<SendSmsResDto> smsService(@RequestBody MessagesReqDto messagesReqDto) throws
 		UnsupportedEncodingException,
 		NoSuchAlgorithmException,
@@ -224,7 +224,7 @@ public class SmsController {
 	}
 
 	@ResponseBody
-	@PostMapping("/send-verification-number")
+	@PostMapping("/verification-number")
 	public BaseResponse<SendVerificationNumberResDto> smsVerificationNumberService(@RequestBody
 		VerificationReqDto verificationReqDto) throws UnsupportedEncodingException,
 		NoSuchAlgorithmException,

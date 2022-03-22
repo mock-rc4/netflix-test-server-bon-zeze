@@ -73,18 +73,19 @@ public enum BaseResponseStatus {
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다."),
 
-	// /** 이후 사용 예정입니다.
-	//  * 5000 : 외부 API 오류
-	//  */
-	// API_FAILED_REQUEST(false, 5000, "API 요청에 실패하였습니다."),
-	// API_INVALID_HOST(false, 5001, "잘못된 호스트에 대한 요청입니다."),
+	/** 이후 사용 예정입니다.
+	 * 5000 : 외부 API 오류
+	 */
+	API_FAILED_REQUEST(false, 5000, "API 요청에 실패하였습니다."),
+	API_INVALID_HOST(false, 5001, "잘못된 외부 API HOST에 대한 요청입니다."),
+	API_IS_EXPIRED_NAVER_ACCESS_TOKEN(false, 5002, "NAVER-ACCESS-TOKEN이 유효하지 않거나 이미 만료되었습니다."),
 
-	// /** 이후 사용 예정입니다.
-	//  * 6000 : 소셜 로그인 오류
-	//  */
-	// SOCIAL_CANNOT_FIND_ACCOUNT(false, 6001, "계정을 찾을 수 없습니다"),
-	// SOCIAL_MUST_AGREE_EMAIL(false, 6002, "이메일 정보 제공이 동의되어야 합니다."),
-	// SOCIAL_EXISTS_ACCOUNT(false, 6003, "이미 존재하는 계정입니다."),
+	/** 이후 사용 예정입니다.
+	 * 6000 : 소셜 로그인 오류
+	 */
+	SOCIAL_CANNOT_FIND_ACCOUNT(false, 6001, "사용 중이신 네이버 계정이 시스템 기록에 있는 계정과 일치하지 않습니다. Teamflix 이메일과 비밀번호를 사용하여 로그인해 주세요."),
+	SOCIAL_MUST_AGREE_EMAIL(false, 6002, "이메일 정보 제공이 동의되어야 합니다."),
+	SOCIAL_EXISTS_ACCOUNT(false, 6003, "이미 존재하는 계정입니다."),
 
 	/**
 	 * 7000 : SMS 오류

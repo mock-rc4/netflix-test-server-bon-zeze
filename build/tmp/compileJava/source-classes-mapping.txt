@@ -7,8 +7,12 @@ com/example/demo/src/account/domain/Account.java
  com.example.demo.src.account.domain.Account$getResDto
 com/example/demo/config/Constant.java
  com.example.demo.config.Constant
+com/example/demo/src/naverAccount/NaverAccountService.java
+ com.example.demo.src.naverAccount.NaverAccountService
 com/example/demo/src/sms/SmsController.java
  com.example.demo.src.sms.SmsController
+com/example/demo/src/naverAccount/NaverAccountController.java
+ com.example.demo.src.naverAccount.NaverAccountController
 com/example/demo/src/account/domain/PatchAccountReq.java
  com.example.demo.src.account.domain.PatchAccountReq
 com/example/demo/utils/ValidationRegex.java
@@ -17,8 +21,22 @@ com/example/demo/src/sms/domain/MessagesReqDto.java
  com.example.demo.src.sms.domain.MessagesReqDto
 com/example/demo/src/account/AccountDao.java
  com.example.demo.src.account.AccountDao
+com/example/demo/src/naverAccount/domain/NaverAccount.java
+ com.example.demo.src.naverAccount.domain.NaverAccount
+ com.example.demo.src.naverAccount.domain.NaverAccount$GetNaverAccountResDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$GetNaverTokenResDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostNaverAccountReqDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostNaverLoginReqDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostNaverLoginResDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostNaverLogoutResDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostSignInNaverAccountReqDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostSignInNaverAccountReqDto$PostSignInNaverAccountReqDtoBuilder
+ com.example.demo.src.naverAccount.domain.NaverAccount$PostSignInNaverAccountResDto
+ com.example.demo.src.naverAccount.domain.NaverAccount$Response
 com/example/demo/src/sms/domain/SmsRequestDto.java
  com.example.demo.src.sms.domain.SmsRequestDto
+com/example/demo/src/naverAccount/NaverAccountDao.java
+ com.example.demo.src.naverAccount.NaverAccountDao
 com/example/demo/utils/AES128.java
  com.example.demo.utils.AES128
 com/example/demo/config/BaseResponseStatus.java
@@ -38,6 +56,8 @@ com/example/demo/src/sms/domain/SendVerificationNumberResDto.java
  com.example.demo.src.sms.domain.SendVerificationNumberResDto$SendVerificationNumberResDtoBuilder
 com/example/demo/src/account/domain/PostLoginReq.java
  com.example.demo.src.account.domain.PostLoginReq
+com/example/demo/src/naverAccount/NaverAccountProvider.java
+ com.example.demo.src.naverAccount.NaverAccountProvider
 com/example/demo/src/account/AccountService.java
  com.example.demo.src.account.AccountService
 com/example/demo/config/secret/Secret.java
