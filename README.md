@@ -295,7 +295,13 @@
          - request item : 토큰, 계정 식별자, 멤버쉽 유형
          - response item : 계정 식별자, 토큰
         ```
++ ERD 
+   + 회원가입시 email과 password만 있으면 회원 등록이 이루어지므로 나머지 컬럼을 필수 필드가 아닌 Nullable한 값으로 변경
+	+ -> id 비밀번호로 계정을 등록하고, 이외 정보의 입력 과정은 차후 회원가입 단계별 진행을 통해 별도로 처리되기 때문.
+	
+	![ㅜㅜㅜ](https://user-images.githubusercontent.com/34790699/159532524-32a5d955-d2f5-4540-bf00-75c06f01ca0d.png)
 
+	
 #### 회고
 
 + 처음으로 프론트엔드 팀원과 API 형태에 대해 소통해 보았다.
@@ -340,6 +346,81 @@
 
 ### 본(Bon)
 
+#### API 개발
+- 네이버 소셜 로그인 서비스 API
+- 파라메터를 조합하여 네이버 로그인 URL을 불러오는 API 구현
+- 네이버 로그인창에서 아이디와 비밀번호 입력시 네이버 엑세스 토큰 반환 API 구현
+- 네이버 계정에 대한 정보 조회 기능 API 구현
+- 네이버 계정으로 회원가입 기능 API 구현
+- 네이버 계정으로 로그인 기능 API 구현
+- 네이버 계정만으로 로그아웃(연결끊기) 기능 API 구현
+- 프로필 삭제 API 구현
+- 계정 식별자를 통해 프로필 목록을 조회하는 API 구현
+- 프로필을 조회하는 API 구현
+
+#### What I did today
+- nohup 명령어를 사용한 백그라운드 실행으로 Spring Boot Server를 정상적으로 운영할 수 없었던 이슈를 해결.
+	- 하단 ISSUE란 참조.
+- NETFLIX 사이트 실 서비스를 기반으로 API를 모델링 하기 위해 사이트 내부 기능 사용 시도 (소셜 로그인, 로그인 등)
+	![bxzvb](https://user-images.githubusercontent.com/34790699/159534184-18b26235-2e90-41b2-a6a3-e665c09de309.png)
+	+ 페이스북 계정 정보로 Netflix의 계정을 찾을 수 없는 경우 다음과 같은 문구를 반환
+		```
+		사용 중이신 페이스북 계정이 시스템 기록에 있는 계정과 일치하지 않습니다.
+		Netflix 이메일과 비밀번호를 사용하여 로그인해 주세요.
+		```
+		-> **참고하여 네이버 소셜 로그인 서비스도 같은 Workflow를 따르도록 설계했다.**
+		
+
+
+- 네이버 소셜 로그인에 대한 workflow를 완전히 이해하고 습득하여 추후 팀원들에게 전달할 내용을 정리
+	+ 자세한 건 https://developers.naver.com/docs/login/api/api.md 네이버 REST 로그인 API 명세를 참고하여 구현했다.
+	+ 이전에 구현해본 카카오 REST API 로그인과 마찬가지로 Documents를 참고해 구현해 볼 수 있었으며,
+	+ 단지 금번 진행하는 팀프로젝트를 위한 최적의 로직 설계에 대해 고민하는 시간을 가졌다. -> 어떻게 하면 가장 컴팩트하고 심플하게 필요한 값을 전달 할 수 있는가?
+		
+	+ 네이버 소셜로그인을 모든 네이버 계정에게 허용하려면 애플리케이션 **검수 심사**를 받아야 한다.
+		+ naver developers 네이버 로그인 사전 검수 가이드 문서 (https://developers.naver.com/docs/login/verify/verify.md)
+		+ 아래의 조항을 보자.
+		![image](https://user-images.githubusercontent.com/34790699/159537562-4b06833d-ce93-4627-b13c-94f7bc284ac0.png)
+		+ 우리 팀은 넷플릭스와 동일한 흐름의 서비스 개발을 지향하고 있다.
+		+ 넷플릭스 회원등록은 이메일과 비밀번호 설정을 통해 이루어진다.
+		+ 따라서 네이버 애플리케이션 사전 검수시 준수사항, 위 조항에 위배된다.
+		
+		+ 검수 심사를 받지 않은 경우, 검수 요건에 부합되지 않는 경우
+		+ 네이버 로그인 API는 회원가입 및 로그인의 모든 서비스를 허용된 네이버 ID에게만 가능하게 한다.
+		+ 달리 말하면 Application 등록자가 허용할 대상으로 처리한 네이버 계정만이 해당 기능을 이용할 수 있다.
+		+ 팀원들의 네이버 계정 ID를 요청해서, 네이버 소셜 로그인 서비스를 이용해 볼 수 있도록 설계한다.
+	
+	
++ ERD
+	+ 소셜 로그인 idx를 너무 작은 용량으로 세팅해놔서 VARCHAR(30)- > VARCHAR(50)으로 변경
+		![image](https://user-images.githubusercontent.com/34790699/159535326-894448e2-858e-401f-9ccf-0dfc690a03be.png)
+
+	+ Current Status on 2022.03.23
+	
+	
+		![ㅁㅁㅁ](https://user-images.githubusercontent.com/34790699/159532725-0053e5dc-840f-47f6-ac54-bf2b569faec6.png)
+	
+#### ISSUES
+
+1. AWS 서버내 nohub 명령으로 백그라운드 동작시 최신 빌드가 반영 되지 않음
+	+ 해결 방법
+		1. aws 인스턴스를 중지후 시작 -> 정상적으로 반영됨
+		2. PID KILL으로 해결
+	- 실행을 하고나면, 명령어를 실행한 경로에 nohup.out이라는 파일이 생기며, program 이라는 프로세스가 뿜어내는 로그들을 찍게 되는데, 이후에 해당 프로세스를 kill하거나 재실행 하기 위해서는, 프로세스를 일일히 pid를 알아내서 kill 필요
+
+
+2. 프론트 & 백 간에 CORS(Cross Origin Resource Sharing) 에러 발생
+3. Pull Request의 Complex Conflicts
+	![image](https://user-images.githubusercontent.com/34790699/159536691-1337819b-a58b-44f8-8cb1-c3a0922691d9.png)
+			
+			
+	+ 무거운 SPring Boot의 빌드시 나타나는 과부하 이슈때문에 로컬 빌드파일을 올린 것이 문제의 원인.
+	+ 레포지토리에 Build를 올렸을 때, build 폴더와 .build 폴더 내부의 바이너리 파일 등이 origin/dev -> origin/main으로 merge 시도시 complexive conflicts일으킴
+	+ 깃헙의 Pull Request에서 complexive conflicts라서 자동 머징이 안되고, 바이너리 파일들, 로그 파일들이 `====>> HEAD` 와같은 형태로 마킹됨
+	+ `.gitignore` 안에다가 gradle 관련 것들을 추가 후, 성공적으로 병합 처리를 마무리
+
+
+	
 ### 제제(Zeze)
 
 #### API 개발
