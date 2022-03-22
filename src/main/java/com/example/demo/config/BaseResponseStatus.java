@@ -47,6 +47,9 @@ public enum BaseResponseStatus {
     POST_PROFILE_CREATE_ERROR(false,2024,"프로필 생성을 실패했습니다."),
 
 
+    // [GET] /profilePhoto
+    GET_PROFILE_PHOTO_ERROR(false,2024,"프로필 사진을 불러오는데 실패했습니다."),
+
 
     /**
      * 3000 : Response 오류

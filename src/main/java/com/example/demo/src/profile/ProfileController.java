@@ -2,8 +2,9 @@ package com.example.demo.src.profile;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.profile.domain.GetProfileReq;
-import com.example.demo.src.profile.domain.GetProfileRes;
+import com.example.demo.src.profilePhoto.domain.GetProfilePhotoRes;
+import com.example.demo.src.profile.domain.PostProfileReq;
+import com.example.demo.src.profile.domain.PostProfileRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/profiles")
 public class ProfileController {
 
     @Autowired
@@ -30,15 +31,17 @@ public class ProfileController {
     }
 
 
-    @GetMapping("/create")
-    public BaseResponse<GetProfileRes> createProfile(@RequestBody GetProfileReq getProfileReq) {
+    @PostMapping("/manage")
+    public BaseResponse<PostProfileRes> createProfile(@RequestBody PostProfileReq postProfileReq) {
         try {
-            GetProfileRes getProfileRes = profileService.create(getProfileReq);
-            return new BaseResponse<>(getProfileRes);
+            PostProfileRes postProfileRes = profileService.create(postProfileReq);
+            return new BaseResponse<>(postProfileRes);
         } catch (BaseException exception) {
             return new BaseResponse<>(exception.getStatus());
         }
     }
+
+
 
 
 }

@@ -1,6 +1,6 @@
 package com.example.demo.src.profile;
 
-import com.example.demo.src.profile.domain.GetProfileReq;
+import com.example.demo.src.profile.domain.PostProfileReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,12 +15,12 @@ public class ProfileDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int create(GetProfileReq getProfileReq) {
+    public int create(PostProfileReq postProfileReq) {
         String query = "insert into Profile (name, ageGrade, accountIdx, profilePhotoIdx) VALUES (?,?,?,?)";
-        Object[] createParams = new Object[]{getProfileReq.getName(),
-                getProfileReq.getAgeGrade(),
-                getProfileReq.getAccountIdx(),
-                getProfileReq.getProfilePhotoIdx()
+        Object[] createParams = new Object[]{postProfileReq.getName(),
+                postProfileReq.getAgeGrade(),
+                postProfileReq.getAccountIdx(),
+                postProfileReq.getProfilePhotoIdx()
         };
         this.jdbcTemplate.update(query, createParams);
 
