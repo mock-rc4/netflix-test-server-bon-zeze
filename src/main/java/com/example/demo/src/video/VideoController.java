@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.src.profile.domain.Profile;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,5 +31,4 @@ public class VideoController {
 		this.VideoProvider = VideoProvider;
 		this.jwtService = jwtService;
 	}
-
 }

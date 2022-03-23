@@ -53,7 +53,8 @@ public enum BaseResponseStatus {
     // [GET] /profilePhoto
     GET_PROFILE_PHOTO_ERROR(false,2032,"프로필 사진을 불러오는데 실패했습니다."),
 
-
+	// [POST] /assessment
+	POST_ASSESSMENTS_ALREADY_EXISTS(false,2017,"평가 레코드가 이미 존재합니다."),
     /**
      * 3000 : Response 오류
      */
