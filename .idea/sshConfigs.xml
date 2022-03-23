@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig host="3.39.54.55" id="2565a83a-7a72-4514-acdf-29bd5376124a" keyPath="C:\Users\rad87\Documents\programming\rising_week2\risingbon_server_key1.ppk" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
+    </configs>
+  </component>
+</project>
