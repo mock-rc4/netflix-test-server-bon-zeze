@@ -56,6 +56,11 @@ public enum BaseResponseStatus {
 	// [POST] /assessment
 	POST_ASSESSMENTS_ALREADY_EXISTS(false,2017,"평가 레코드가 이미 존재합니다."),
 	POST_ASSESSMENTS_DOES_NOT_EXISTS(false,2018,"평가 레코드가 존재하지 않습니다."),
+
+	// [POST} /play
+	POST_VIDEO_PLAY_ALREADY_EXISTS(false,2100,"재생 기록이 이미 존재합니다."),
+	POST_VIDEO_PLAY_DOES_NOT_EXISTS(false,2101,"재생 기록이 존재하지 않습니다."),
+	POST_VIDEO_PLAY_INVALID_CURRENT_PLAY_TIME(false,2102,"유효하지 않은 재생 시간입니다."),
     /**
      * 3000 : Response 오류
      */
