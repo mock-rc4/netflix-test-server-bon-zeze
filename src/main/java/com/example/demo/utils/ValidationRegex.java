@@ -23,5 +23,11 @@ public class ValidationRegex {
 		String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
 		return target.matches(regex);
 	}
+
+	// 재생 기록 형식 체크
+	public static boolean isRegexVideoPlayTime(float target) {
+		String regex = "^([0-9]{2,3})(\\.[0-9]{1,2})?$";
+		return Float.toString(target).matches(regex);
+	}
 }
 

@@ -54,8 +54,8 @@ public enum BaseResponseStatus {
     GET_PROFILE_PHOTO_ERROR(false,2032,"프로필 사진을 불러오는데 실패했습니다."),
 
 	// [POST] /assessment
-	POST_ASSESSMENTS_ALREADY_EXISTS(false,2017,"평가 레코드가 이미 존재합니다."),
-	POST_ASSESSMENTS_DOES_NOT_EXISTS(false,2018,"평가 레코드가 존재하지 않습니다."),
+	POST_ASSESSMENTS_ALREADY_EXISTS(false,2098,"평가 레코드가 이미 존재합니다."),
+	POST_ASSESSMENTS_DOES_NOT_EXISTS(false,2099,"평가 레코드가 존재하지 않습니다."),
 
 	// [POST} /play
 	POST_VIDEO_PLAY_ALREADY_EXISTS(false,2100,"재생 기록이 이미 존재합니다."),

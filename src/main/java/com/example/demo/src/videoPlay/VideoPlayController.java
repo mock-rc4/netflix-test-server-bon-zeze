@@ -1,5 +1,7 @@
 package com.example.demo.src.videoPlay;
 
+import static com.example.demo.utils.ValidationRegex.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,7 @@ public class VideoPlayController {
 		@RequestBody VideoPlay.modifyReqDto requestDto) {
 		try {
 			float currentPlayTime = requestDto.getCurrentPlayTime();
-			if (currentPlayTime < 0) {
+			if (!isRegexVideoPlayTime(currentPlayTime)) {
 				return new BaseResponse<>(BaseResponseStatus.POST_VIDEO_PLAY_INVALID_CURRENT_PLAY_TIME);
 			}
 			videoPlayService.modifyVideoPlay(
