@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.video.domain.Video;
+import com.example.demo.src.video.domain.VideoContent;
 import com.example.demo.utils.JwtService;
 
 @RestController
@@ -41,6 +43,17 @@ public class VideoController {
 		@RequestParam String genre) {
 		try {
 			List<Video.getVideoResDto> resDto = videoProvider.getVideosByGenre(videoType, genre);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/{videoIdx}/contents")
+	public BaseResponse<List<VideoContent.resDto>> getByGenre(@PathVariable int videoIdx) {
+		try {
+			List<VideoContent.resDto> resDto = videoProvider.getVideoContentsByVideoIdx(videoIdx);
 			return new BaseResponse<>(resDto);
 		} catch (BaseException exception) {
 			return new BaseResponse<>((exception.getStatus()));

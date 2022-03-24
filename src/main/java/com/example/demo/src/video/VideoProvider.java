@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.video.domain.Video;
+import com.example.demo.src.video.domain.VideoContent;
 import com.example.demo.utils.JwtService;
 
 @Service
@@ -35,4 +36,14 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+	public List<VideoContent.resDto> getVideoContentsByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getVideoContentsByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
 }

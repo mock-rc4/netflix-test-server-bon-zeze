@@ -32,4 +32,5 @@ public class Video {
 		private String summary;
 		private String director;
 	}
+
 }

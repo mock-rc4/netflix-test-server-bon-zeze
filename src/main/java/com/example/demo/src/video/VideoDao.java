@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.src.video.domain.Video;
+import com.example.demo.src.video.domain.VideoContent;
 
 @Repository
 public class VideoDao {
@@ -38,4 +39,18 @@ public class VideoDao {
 			),
 			genre);
 	}
+
+	public List<VideoContent.resDto> getVideoContentsByVideoIdx(int videoIdx) {
+		String query = "select * from Videos where videoIdx = ?";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoContent.resDto(
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("summary"),
+				rs.getInt("season")
+			),
+			videoIdx);
+	}
+
+
 }
