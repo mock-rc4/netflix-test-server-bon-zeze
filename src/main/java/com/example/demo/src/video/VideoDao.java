@@ -47,10 +47,22 @@ public class VideoDao {
 				rs.getString("title"),
 				rs.getString("runningTime"),
 				rs.getString("summary"),
-				rs.getInt("season")
+				rs.getInt("season"),
+				rs.getInt("episode")
 			),
 			videoIdx);
 	}
 
-
+	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) {
+		String query = "select * from Videos where videoIdx = ? and season = ?";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoContent.resDto(
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("summary"),
+				rs.getInt("season"),
+				rs.getInt("episode")
+			),
+			videoIdx, seasonNumber);
+	}
 }

@@ -45,5 +45,12 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
-
+	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) throws BaseException {
+		try {
+			return videoDao.getVideoContentsByVideoIdxAndSeasonNumber(videoIdx, seasonNumber);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }

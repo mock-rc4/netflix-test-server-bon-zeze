@@ -51,9 +51,22 @@ public class VideoController {
 
 	@ResponseBody
 	@GetMapping("/{videoIdx}/contents")
-	public BaseResponse<List<VideoContent.resDto>> getByGenre(@PathVariable int videoIdx) {
+	public BaseResponse<List<VideoContent.resDto>> getVideoContentsByVideoIdx(@PathVariable int videoIdx) {
 		try {
 			List<VideoContent.resDto> resDto = videoProvider.getVideoContentsByVideoIdx(videoIdx);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/{videoIdx}/{seasonNumber}/contents")
+	public BaseResponse<List<VideoContent.resDto>> getVideoContentsByVideoIdxAndSeasonNumber(@PathVariable int videoIdx,
+		@PathVariable int seasonNumber) {
+		try {
+			List<VideoContent.resDto> resDto = videoProvider.getVideoContentsByVideoIdxAndSeasonNumber(videoIdx,
+				seasonNumber);
 			return new BaseResponse<>(resDto);
 		} catch (BaseException exception) {
 			return new BaseResponse<>((exception.getStatus()));

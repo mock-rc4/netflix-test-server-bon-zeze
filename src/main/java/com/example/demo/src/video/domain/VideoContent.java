@@ -16,5 +16,6 @@ public class VideoContent {
 		private String runningTime;
 		private String summary;
 		private int season;
+		private int episode;
 	}
 }

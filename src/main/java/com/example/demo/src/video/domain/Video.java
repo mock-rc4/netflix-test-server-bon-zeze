@@ -33,4 +33,19 @@ public class Video {
 		private String director;
 	}
 
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class getVideoInfoPreviewResDto {
+		private int videoIdx;
+		private int year;
+		private int season;
+		private int ageGrade;
+		private String title;
+		private String runningTime;
+		private String photoUrl;
+		private String summary;
+		private String director;
+	}
+
 }
