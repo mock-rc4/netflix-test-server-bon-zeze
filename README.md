@@ -482,7 +482,7 @@
   1. IntelliJ remote development 연동은 build를 하는 기능이 없음
   2. SSL을 사용한 Jetbrain Gateway 연결을 시도했으나 timeout expired 와 함께 접속이 실패
   3. 똑같은 시도를 여러번 해봤지만 접속 실패 후 AWS 서버가 다운되는 현상이 계속해서 발생, AWS 인스턴스 중지후 시작으로 복구
-
+- **WinSCP를 통해 로컬 빌드 demo-0.0.1-SNAPSHOT.jar 파일을 AWS 서버에 전송후 구동하여 문제를 해결!!**
 
 ### 제제(Zeze)
 - 찜하기 추가 API 구현
