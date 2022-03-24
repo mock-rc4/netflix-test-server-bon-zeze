@@ -17,7 +17,7 @@ public class AssessmentDao {
 	}
 
 
-	public int checkIsDuplicatedAssessment(Assessment.createDto requestDto) {
+	public int checkHasAssessment(Assessment.createOrModifyDto requestDto) {
 		int profileIdx = requestDto.getProfileIdx();
 		int videoIdx = requestDto.getVideoIdx();
 		int status = requestDto.getStatus();
@@ -25,13 +25,20 @@ public class AssessmentDao {
 		return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx, status);
 	}
 
-	public int createAssessment(Assessment.createDto requestDto) {
+
+	public int createAssessment(Assessment.createOrModifyDto requestDto) {
 		String query = "insert into Assessment (profileIdx, videoIdx, status) VALUES (?,?, ?)";
 		Object[] params = new Object[] {requestDto.getProfileIdx(), requestDto.getVideoIdx(), requestDto.getStatus()};
 		this.jdbcTemplate.update(query, params);
 
 		String lastInsertedIdQuery = "select max(assessmentIdx) from Assessment";
 		return this.jdbcTemplate.queryForObject(lastInsertedIdQuery, int.class);
+	}
+
+	public void modifyAssessment(Assessment.createOrModifyDto requestDto) {
+		String query = "update Assessment set profileIdx = ?, videoIdx = ?, status = ?, updatedAt = NOW()";
+		Object[] params = new Object[]{requestDto.getProfileIdx(), requestDto.getVideoIdx(), requestDto.getStatus()};
+		this.jdbcTemplate.update(query, params);
 	}
 
 	public int getAssessmentStatus(int profileIdx, int videoIdx) {

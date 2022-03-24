@@ -22,9 +22,9 @@ public class AssessmentProvider {
 		this.assessmentDao = assessmentDao;
 	}
 
-	public int checkIsDuplicatedAssessment(Assessment.createDto requestDto) throws BaseException {
+	public int checkHasAssessment(Assessment.createOrModifyDto requestDto) throws BaseException {
 		try {
-			return assessmentDao.checkIsDuplicatedAssessment(requestDto);
+			return assessmentDao.checkHasAssessment(requestDto);
 		} catch (Exception exception) {
 			logger.error(exception.toString());
 			throw new BaseException(DATABASE_ERROR);
