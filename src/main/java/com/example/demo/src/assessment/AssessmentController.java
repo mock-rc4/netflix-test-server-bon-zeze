@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class AssessmentController {
 		@RequestBody Assessment.createReqDto requestDto) {
 		try {
 			Assessment.createResDto postLogoutRes = assessmentService.createAssessment(
-				new Assessment.createDto(profileIdx, videoIdx, requestDto.getStatus()));
+				new Assessment.createOrModifyDto(profileIdx, videoIdx, requestDto.getStatus()));
 			return new BaseResponse<>(postLogoutRes);
 		} catch (BaseException exception) {
 			return new BaseResponse<>(exception.getStatus());
@@ -54,6 +55,20 @@ public class AssessmentController {
 			return new BaseResponse<>(resDto);
 		} catch (BaseException exception) {
 			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+	@ResponseBody
+	@PatchMapping("/{profileIdx}/{videoIdx}")
+	public BaseResponse<String> createAssessment(@PathVariable("profileIdx") int profileIdx,
+		@PathVariable("videoIdx") int videoIdx,
+		@RequestBody Assessment.modifyReqDto requestDto) {
+		try {
+			assessmentService.modifyAssessment(
+				new Assessment.createOrModifyDto(profileIdx, videoIdx, requestDto.getStatus()));
+			return new BaseResponse<>("평가가 변경되었습니다.");
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
 		}
 	}
 

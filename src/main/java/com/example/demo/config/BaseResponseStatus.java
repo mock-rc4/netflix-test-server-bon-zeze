@@ -55,6 +55,7 @@ public enum BaseResponseStatus {
 
 	// [POST] /assessment
 	POST_ASSESSMENTS_ALREADY_EXISTS(false,2017,"평가 레코드가 이미 존재합니다."),
+	POST_ASSESSMENTS_DOES_NOT_EXISTS(false,2018,"평가 레코드가 존재하지 않습니다."),
     /**
      * 3000 : Response 오류
      */
