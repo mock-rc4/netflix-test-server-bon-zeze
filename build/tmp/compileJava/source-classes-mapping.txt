@@ -105,6 +105,9 @@ com/example/demo/src/WebSecurityConfig.java
  com.example.demo.src.WebSecurityConfig
 com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
+com/example/demo/src/video/domain/Video.java
+ com.example.demo.src.video.domain.Video
+ com.example.demo.src.video.domain.Video$getVideoResDto
 com/example/demo/src/account/AccountProvider.java
  com.example.demo.src.account.AccountProvider
 com/example/demo/src/account/domain/PostLoginReq.java
@@ -113,9 +116,10 @@ com/example/demo/src/profile/ProfileProvider.java
  com.example.demo.src.profile.ProfileProvider
 com/example/demo/src/assessment/domain/Assessment.java
  com.example.demo.src.assessment.domain.Assessment
- com.example.demo.src.assessment.domain.Assessment$createDto
+ com.example.demo.src.assessment.domain.Assessment$createOrModifyDto
  com.example.demo.src.assessment.domain.Assessment$createReqDto
  com.example.demo.src.assessment.domain.Assessment$createResDto
+ com.example.demo.src.assessment.domain.Assessment$modifyReqDto
 com/example/demo/src/account/AccountService.java
  com.example.demo.src.account.AccountService
 com/example/demo/src/assessment/AssessmentService.java

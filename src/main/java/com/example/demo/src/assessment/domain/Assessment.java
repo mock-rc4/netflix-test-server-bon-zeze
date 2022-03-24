@@ -18,7 +18,7 @@ public class Assessment {
 	@Getter
 	@Setter
 	@AllArgsConstructor
-	public static class createDto {
+	public static class createOrModifyDto {
 		private int profileIdx;
 		private int videoIdx;
 		private int status;
@@ -37,5 +37,12 @@ public class Assessment {
 	@AllArgsConstructor
 	public static class createResDto {
 		private int assessmentIdx;
+	}
+
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class modifyReqDto {
+		private int status;
 	}
 }
