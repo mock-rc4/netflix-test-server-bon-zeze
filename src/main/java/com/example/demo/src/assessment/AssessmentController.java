@@ -38,9 +38,9 @@ public class AssessmentController {
 		@PathVariable("videoIdx") int videoIdx,
 		@RequestBody Assessment.createReqDto requestDto) {
 		try {
-			Assessment.createResDto postLogoutRes = assessmentService.createAssessment(
+			Assessment.createResDto resDto = assessmentService.createAssessment(
 				new Assessment.createOrModifyDto(profileIdx, videoIdx, requestDto.getStatus()));
-			return new BaseResponse<>(postLogoutRes);
+			return new BaseResponse<>(resDto);
 		} catch (BaseException exception) {
 			return new BaseResponse<>(exception.getStatus());
 		}
@@ -60,7 +60,7 @@ public class AssessmentController {
 
 	@ResponseBody
 	@PatchMapping("/{profileIdx}/{videoIdx}")
-	public BaseResponse<String> createAssessment(@PathVariable("profileIdx") int profileIdx,
+	public BaseResponse<String> modifyAssessment(@PathVariable("profileIdx") int profileIdx,
 		@PathVariable("videoIdx") int videoIdx,
 		@RequestBody Assessment.modifyReqDto requestDto) {
 		try {

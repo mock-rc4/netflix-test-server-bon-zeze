@@ -42,6 +42,7 @@ public class Assessment {
 	@Getter
 	@Setter
 	@AllArgsConstructor
+	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class modifyReqDto {
 		private int status;
 	}
