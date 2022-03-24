@@ -479,9 +479,9 @@
 
 #### ISSUES
 - Spring Boot BUild Issue - aws 서버상에서 build가 불가능한 문제 해결을 위한 시도
-  0. IntelliJ remote development 연동은 build를 하는 기능이 없음
-  1. SSL을 사용한 Jetbrain Gateway 연결을 시도했으나 timeout expired 와 함께 접속이 실패
-  2. 똑같은 시도를 여러번 해봤지만 접속 실패 후 AWS 서버가 다운되는 현상이 계속해서 발생, AWS 인스턴스 중지후 시작으로 복구
+  1. IntelliJ remote development 연동은 build를 하는 기능이 없음
+  2. SSL을 사용한 Jetbrain Gateway 연결을 시도했으나 timeout expired 와 함께 접속이 실패
+  3. 똑같은 시도를 여러번 해봤지만 접속 실패 후 AWS 서버가 다운되는 현상이 계속해서 발생, AWS 인스턴스 중지후 시작으로 복구
 
 
 ### 제제(Zeze)
