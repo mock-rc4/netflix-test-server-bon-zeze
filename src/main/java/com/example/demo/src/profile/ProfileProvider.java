@@ -54,4 +54,12 @@ public class ProfileProvider {
 		}
 	}
 
+	public String getProfileName(int profileIdx)  throws BaseException {
+		try {
+			return profileDao.getProfileName(profileIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }
