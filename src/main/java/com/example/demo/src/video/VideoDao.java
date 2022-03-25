@@ -91,6 +91,19 @@ public class VideoDao {
     }
 
 
+    public List<GetVideoRes> getGenreVideos(int genreIdx) {
+        String query = "select Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+                "from Video\n" +
+                "join GenreContact GC on Video.videoIdx = GC.videoIdx\n" +
+                "join Genre G on G.genreIdx = GC.genreIdx\n" +
+                "where G.genreIdx = ?";
+
+        List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper(), genreIdx);
+        setVideoCharacters(videos);
+        return videos;
+    }
+
+
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
             int videoIdx = video.getVideoIdx();

@@ -2,7 +2,6 @@ package com.example.demo.src.video;
 
 import java.util.List;
 
-import com.example.demo.src.bookmark.domain.GetBookmarkRes;
 import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +85,12 @@ public class VideoController {
     }
 
     @GetMapping("/genre/{genreIdx}")
-    public void getGenreVideos() {
-
+    public BaseResponse<List<GetVideoRes>> getGenreVideos(@PathVariable("genreIdx") int genreIdx) {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getGenreVideos(genreIdx);
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
     }
 }

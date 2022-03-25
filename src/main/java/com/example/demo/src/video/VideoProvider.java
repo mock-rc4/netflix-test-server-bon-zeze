@@ -68,4 +68,12 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetVideoRes> getGenreVideos(int genreIdx) throws BaseException {
+        try {
+            return videoDao.getGenreVideos(genreIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
