@@ -23,7 +23,7 @@ public class VideoDao {
         this.jdbcTemplate = jdbcTemplate;
         this.characterDao = characterDao;
     }
-  
+
 	public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) {
 		String isMovieOrSeries = videoType == 0 ? "=" : "<";
 		String query = "select V.* from GenreContact as GC "
@@ -81,7 +81,7 @@ public class VideoDao {
 			videoIdx);
 	}
 
-	// 이메일 확인
+
 	public int checkHasVideoIdx(int videoIdx) {
 		String query = "select exists(select videoIdx from Video where videoIdx = ?)";
 		int params = videoIdx;
@@ -89,27 +89,6 @@ public class VideoDao {
 			int.class,
 			params);
 	}
-
-    public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) {
-        String isMovieOrSeries = videoType == 0 ? "=" : "<";
-        String query = "select V.* from GenreContact as GC "
-                + "left join Video as V on GC.videoIdx = V.videoIdx "
-                + "left join Genre as G on G.genreIdx = GC.genreIdx where G.name = ? and 0 " + isMovieOrSeries
-                + "V.season;";
-        return this.jdbcTemplate.query(query,
-                (rs, rowNum) -> new Video.getVideoResDto(
-                        rs.getInt("videoIdx"),
-                        rs.getInt("year"),
-                        rs.getInt("season"),
-                        rs.getInt("ageGrade"),
-                        rs.getString("title"),
-                        rs.getString("runningTime"),
-                        rs.getString("photoUrl"),
-                        rs.getString("summary"),
-                        rs.getString("director")
-                ),
-                genre);
-    }
 
     public List<GetVideoRes> getNewVideos() {
         String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n"

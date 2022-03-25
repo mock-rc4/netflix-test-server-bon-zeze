@@ -75,15 +75,6 @@ public class VideoProvider {
 		}
 	}
 
-    public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) throws BaseException {
-        try {
-            return videoDao.getVideosByGenre(videoType, genre);
-        } catch (Exception exception) {
-            logger.error(exception.toString());
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
     public List<GetVideoRes> getNewVideos() throws BaseException {
         try {
             return videoDao.getNewVideos();

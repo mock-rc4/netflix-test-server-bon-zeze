@@ -16,7 +16,7 @@ spring:
 
 # 문자 서비스는 과금되므로 신중한 사용 부탁드립니다!
 url:
-    base: http://127.0.0.1:9000
+    base: https://127.0.0.1:9000
 
 ncp:
     access_key: bz0iE75n00Gnhm47frJq
@@ -35,3 +35,10 @@ social:
             login: https://nid.naver.com/oauth2.0/authorize
             token: https://nid.naver.com/oauth2.0/token
             profile: https://openapi.naver.com/v1/nid/me
+    facebook:
+        client-id: 1149288349222767
+        client-secret: 9a062e7d9ebe605bebb88e2381014530
+        redirect: /facebook-accounts/redirect
+        url:
+            login: https://www.facebook.com/v13.0/dialog/oauth
+            token: https://graph.facebook.com/v13.0/oauth/access_token
