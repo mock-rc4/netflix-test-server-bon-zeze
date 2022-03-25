@@ -65,4 +65,23 @@ public class VideoDao {
 			),
 			videoIdx, seasonNumber);
 	}
+
+	public List<Video.getEachSeasonEpisodeCountsResDto> getEachSeasonEpisodeCounts(int videoIdx) {
+		String query = "select season, count(episode) as episodeCount from Videos where videoIdx = ? group by season";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getEachSeasonEpisodeCountsResDto(
+				rs.getInt("season"),
+				rs.getInt("episodeCount")
+			),
+			videoIdx);
+	}
+
+	// 이메일 확인
+	public int checkHasVideoIdx(int videoIdx) {
+		String query = "select exists(select videoIdx from Video where videoIdx = ?)";
+		int params = videoIdx;
+		return this.jdbcTemplate.queryForObject(query,
+			int.class,
+			params);
+	}
 }

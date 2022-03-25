@@ -48,4 +48,10 @@ public class Video {
 		private String director;
 	}
 
+	@Getter
+	@AllArgsConstructor
+	public static class getEachSeasonEpisodeCountsResDto {
+		private int season;
+		private int episodeCount;
+	}
 }

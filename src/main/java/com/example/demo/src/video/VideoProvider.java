@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
+import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
 import com.example.demo.utils.JwtService;
@@ -48,6 +50,24 @@ public class VideoProvider {
 	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) throws BaseException {
 		try {
 			return videoDao.getVideoContentsByVideoIdxAndSeasonNumber(videoIdx, seasonNumber);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<Video.getEachSeasonEpisodeCountsResDto> getEachSeasonEpisodeCounts(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getEachSeasonEpisodeCounts(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public int checkHasVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.checkHasVideoIdx(videoIdx);
 		} catch (Exception exception) {
 			logger.error(exception.toString());
 			throw new BaseException(DATABASE_ERROR);
