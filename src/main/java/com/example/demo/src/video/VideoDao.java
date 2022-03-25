@@ -78,6 +78,19 @@ public class VideoDao {
     }
 
 
+    public List<GetVideoRes> getWatchingVideos(int profileIdx) {
+        String query = "select Video.videoIdx, Video.photoUrl, Video.ageGrade, Video.season, Video.runningTime, Video.resolution\n" +
+                "from Video\n" +
+                "join Videos on Video.videoIdx = Videos.videoIdx\n" +
+                "join Play on Play.videosIdx = Videos.videosIdx\n" +
+                "where Play.profileIdx = ?";
+
+        List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper(), profileIdx);
+        setVideoCharacters(videos);
+        return videos;
+    }
+
+
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
             int videoIdx = video.getVideoIdx();

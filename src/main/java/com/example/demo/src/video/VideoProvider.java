@@ -60,4 +60,12 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetVideoRes> getWatchingVideos(int profileIdx) throws BaseException {
+        try {
+            return videoDao.getWatchingVideos(profileIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
