@@ -8,9 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.video.domain.Video;
+import com.example.demo.src.video.domain.VideoContent;
 import com.example.demo.utils.JwtService;
 
 @RestController
@@ -32,6 +35,45 @@ public class VideoController {
         this.jwtService = jwtService;
     }
 
+  	@ResponseBody
+	@GetMapping("/{videoIdx}/contents")
+	public BaseResponse<List<VideoContent.resDto>> getVideoContentsByVideoIdx(@PathVariable int videoIdx) {
+		try {
+			List<VideoContent.resDto> resDto = videoProvider.getVideoContentsByVideoIdx(videoIdx);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/{videoIdx}/{seasonNumber}/contents")
+	public BaseResponse<List<VideoContent.resDto>> getVideoContentsByVideoIdxAndSeasonNumber(@PathVariable int videoIdx,
+		@PathVariable int seasonNumber) {
+		try {
+			List<VideoContent.resDto> resDto = videoProvider.getVideoContentsByVideoIdxAndSeasonNumber(videoIdx,
+				seasonNumber);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
+	@ResponseBody
+	@GetMapping("/{videoIdx}/season-episode-counts")
+	public BaseResponse<List<Video.getEachSeasonEpisodeCountsResDto>> getEachSeasonEpisodeCounts(@PathVariable int videoIdx) {
+		try {
+			if (videoProvider.checkHasVideoIdx(videoIdx) == 0) {
+				return new BaseResponse<>(BaseResponseStatus.GET_VIDEO_INVALID_VIDEO_IDX);
+			}
+			List<Video.getEachSeasonEpisodeCountsResDto> resDto = videoProvider.getEachSeasonEpisodeCounts(videoIdx);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+  
+  
     @ResponseBody
     @GetMapping("/genre")
     public BaseResponse<List<Video.getVideoResDto>> getByGenre(@RequestParam int videoType,

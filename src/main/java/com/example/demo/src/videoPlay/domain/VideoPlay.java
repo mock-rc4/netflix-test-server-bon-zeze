@@ -1,4 +1,4 @@
-package com.example.demo.src.assessment.domain;
+package com.example.demo.src.videoPlay.domain;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,19 +9,26 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Assessment {
-	private int assessmentIdx;
-	private int status;
+public class VideoPlay {
+	private int playIdx;
 	private int profileIdx;
-	private int videoIdx;
+	private int videosIdx;
+	private float currentPlayTime;
 
 	@Getter
 	@Setter
 	@AllArgsConstructor
-	public static class createOrModifyDto {
+	public static class createDto {
 		private int profileIdx;
-		private int videoIdx;
-		private int status;
+		private int videosIdx;
+	}
+
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class checkHasDuplicatedVideoPlayReqDto {
+		private int profileIdx;
+		private int videosIdx;
 	}
 
 	@Getter
@@ -29,14 +36,14 @@ public class Assessment {
 	@AllArgsConstructor
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class createReqDto {
-		private int status;
+		private float currentPlayTime;
 	}
 
 	@Getter
 	@Setter
 	@AllArgsConstructor
 	public static class createResDto {
-		private int assessmentIdx;
+		private int playIdx;
 	}
 
 	@Getter
@@ -44,6 +51,16 @@ public class Assessment {
 	@AllArgsConstructor
 	@NoArgsConstructor(access = AccessLevel.PROTECTED)
 	public static class modifyReqDto {
-		private int status;
+		private float currentPlayTime;
 	}
+
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class modifyDto {
+		private int profileIdx;
+		private int videosIdx;
+		private float currentPlayTime;
+	}
+
 }
