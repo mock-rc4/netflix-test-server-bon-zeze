@@ -1,14 +1,14 @@
-package com.example.demo.src.bookmark.domain;
+package com.example.demo.src.video.domain;
 
 import lombok.*;
+
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GetBookmarkRes {
-    private int bookmarkIdx;
+public class GetVideoRes {
     private int videoIdx;
     private String photoUrl;
     private int ageGrade;
@@ -19,8 +19,7 @@ public class GetBookmarkRes {
     private String resolution;
     private List<String> character;
 
-    public GetBookmarkRes(int bookmarkIdx, int videoIdx, String photoUrl, int ageGrade, int season, int runningTime, String resolution) {
-        this.bookmarkIdx = bookmarkIdx;
+    public GetVideoRes(int videoIdx, String photoUrl, int ageGrade, int season, int runningTime, String resolution) {
         this.videoIdx = videoIdx;
         this.photoUrl = photoUrl;
         this.ageGrade = ageGrade;

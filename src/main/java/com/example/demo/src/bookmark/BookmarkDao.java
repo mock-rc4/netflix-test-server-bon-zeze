@@ -3,7 +3,8 @@ package com.example.demo.src.bookmark;
 import com.example.demo.src.bookmark.domain.GetBookmarkRes;
 import com.example.demo.src.bookmark.domain.PatchBookmarkReq;
 import com.example.demo.src.bookmark.domain.PostBookmarkReq;
-import lombok.AllArgsConstructor;
+import com.example.demo.src.character.CharacterDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -11,10 +12,16 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@AllArgsConstructor
 public class BookmarkDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final CharacterDao characterDao;
+
+    @Autowired
+    public BookmarkDao(JdbcTemplate jdbcTemplate, CharacterDao characterDao) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.characterDao = characterDao;
+    }
 
     public int create(PostBookmarkReq postBookmarkReq) {
         String query = "insert into Bookmark (videoIdx, profileIdx) values (?,?)";
@@ -33,23 +40,36 @@ public class BookmarkDao {
         return this.jdbcTemplate.update(query, params);
     }
 
-    // 미완성  - JOIN~~~~
     public List<GetBookmarkRes> getBookmarks(int profileIdx) {
         //String sql = "select * from bookmark where profileIdx = ?";
-        String query = "select"
-                + "join" +
-                "where Bookmark.profileIdx = ? and Bookmark.status = '1'";
-        return this.jdbcTemplate.query(query, bookmarkRowMapper(), profileIdx);
+        String query = "select Bookmark.bookmarkIdx, Video.videoIdx, Video.photoUrl, Video.ageGrade, Video.season, Video.runningTime, Video.resolution\n" +
+                "from Video\n" +
+                "join Bookmark on Bookmark.videoIdx = Video.videoIdx\n" +
+                "where Bookmark.profileIdx = ?";
+        List<GetBookmarkRes> bookmarks = this.jdbcTemplate.query(query, bookmarkRowMapper(), profileIdx);
+        setVideoCharacters(bookmarks);
+        return bookmarks;
     }
 
-    private RowMapper<GetBookmarkRes> bookmarkRowMapper(){
+    private RowMapper<GetBookmarkRes> bookmarkRowMapper() {
         return (rs, rowNum) -> new GetBookmarkRes(
+                rs.getInt("bookmarkIdx"),
                 rs.getInt("videoIdx"),
                 rs.getString("photoUrl"),
                 rs.getInt("ageGrade"),
                 rs.getInt("season"),
                 rs.getInt("runningTime"),
-                rs.getString("character")
+                rs.getString("resolution")
         );
+    }
+
+    private void setVideoCharacters(List<GetBookmarkRes> bookmarks) {
+        for (GetBookmarkRes bookmark : bookmarks) {
+            int videoIdx = bookmark.getVideoIdx();
+            //해당 비디오에 해당하는 캐릭터들만 가져오기
+            List<String> characters = characterDao.getVideoCharacters(videoIdx);
+            bookmark.setCharacter(characters);
+        }
+
     }
 }
