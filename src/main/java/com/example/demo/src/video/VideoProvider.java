@@ -4,6 +4,7 @@ import static com.example.demo.config.BaseResponseStatus.*;
 
 import java.util.List;
 
+import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,4 +74,53 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+    public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) throws BaseException {
+        try {
+            return videoDao.getVideosByGenre(videoType, genre);
+        } catch (Exception exception) {
+            logger.error(exception.toString());
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetVideoRes> getNewVideos() throws BaseException {
+        try {
+            return videoDao.getNewVideos();
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetVideoRes> getTopTenVideos() throws BaseException {
+        try {
+            return videoDao.getTopTenVideos();
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetVideoRes> getPopularVideos() throws BaseException {
+        try {
+            return videoDao.getPopularVideos();
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetVideoRes> getWatchingVideos(int profileIdx) throws BaseException {
+        try {
+            return videoDao.getWatchingVideos(profileIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetVideoRes> getGenreVideos(int genreIdx) throws BaseException {
+        try {
+            return videoDao.getGenreVideos(genreIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
