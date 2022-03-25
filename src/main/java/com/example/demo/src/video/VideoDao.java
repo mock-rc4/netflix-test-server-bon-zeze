@@ -54,6 +54,19 @@ public class VideoDao {
         return videos;
     }
 
+
+    //현재 10개까지 값이 안불러와지는 것은 좋아요에 대한 데이터가 부족해서. (데이터 추가 필요)
+    public List<GetVideoRes> getTopTenVideos() {
+        String query = "select Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+                "from (select videoIdx, count(*) as likeCount from Assessment group by videoIdx order by likeCount desc limit 10) as Popular\n" +
+                "join Video on Video.videoIdx = Popular.videoIdx";
+
+        List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper());
+        setVideoCharacters(videos);
+        return videos;
+    }
+
+
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
             int videoIdx = video.getVideoIdx();

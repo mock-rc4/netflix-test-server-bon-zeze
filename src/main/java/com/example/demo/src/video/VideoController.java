@@ -50,8 +50,13 @@ public class VideoController {
     }
 
     @GetMapping("/top")
-    public void getTopTenVideos() {
-
+    public BaseResponse<List<GetVideoRes>> getTopTenVideos() {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getTopTenVideos();
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
     }
 
     @GetMapping("/watching")
