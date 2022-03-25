@@ -75,8 +75,13 @@ public class VideoController {
     }
 
     @GetMapping("/popular")
-    public void getPopularVideos() {
-
+    public BaseResponse<List<GetVideoRes>> getPopularVideos() {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getPopularVideos();
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
     }
 
     @GetMapping("/genre/{genreIdx}")

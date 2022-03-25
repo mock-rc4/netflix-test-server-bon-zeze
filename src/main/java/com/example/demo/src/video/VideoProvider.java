@@ -52,4 +52,12 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public List<GetVideoRes> getPopularVideos() throws BaseException {
+        try {
+            return videoDao.getPopularVideos();
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

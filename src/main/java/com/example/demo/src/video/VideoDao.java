@@ -66,6 +66,17 @@ public class VideoDao {
         return videos;
     }
 
+    //Top10과 차이를 위해 찜하기 개수가 많은 것으로 반환
+    public List<GetVideoRes> getPopularVideos() {
+        String query = "select totalScore, Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+                "from (select videoIdx, status, count(status) as totalScore from Bookmark group by videoIdx having status = 1 order by totalScore desc limit 20) as Popular\n" +
+                "join Video on Video.videoIdx = Popular.videoIdx";
+
+        List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper());
+        setVideoCharacters(videos);
+        return videos;
+    }
+
 
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
