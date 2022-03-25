@@ -1,4 +1,4 @@
-package com.example.demo.src.facebookAccount;
+package com.example.demo.src.GoogleAccount;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -25,54 +25,56 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.facebookAccount.domain.FacebookAccount;
+import com.example.demo.src.googleAccount.domain.GoogleAccount;
+import com.example.demo.src.googleAccount.GoogleAccountProvider;
+import com.example.demo.src.googleAccount.GoogleAccountService;
 import com.example.demo.utils.JwtService;
 import com.google.gson.Gson;
 
 @RestController
-@RequestMapping("/facebook-accounts")
-public class FacebookAccountController {
+@RequestMapping("/Google-accounts")
+public class GoogleAccountController {
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private final FacebookAccountService facebookAccountService;
+	private final GoogleAccountService googleAccountService;
 	@Autowired
 	private final JwtService jwtService;
 
 	@Autowired
-	private final FacebookAccountProvider facebookAccountProvider;
+	private final GoogleAccountProvider googleAccountProvider;
 
 	@Value("${url.base}")
 	private String baseUrl;
 
-	@Value("${social.facebook.client-id}")
-	private String facebookClientId;
+	@Value("${social.Google.client-id}")
+	private String GoogleClientId;
 
-	@Value("${social.facebook.client-secret}")
-	private String facebookClientSecret;
+	@Value("${social.Google.client-secret}")
+	private String GoogleClientSecret;
 
-	@Value("${social.facebook.redirect}")
-	private String facebookRedirectUri;
+	@Value("${social.Google.redirect}")
+	private String GoogleRedirectUri;
 
 	private final Environment env;
 
-	public FacebookAccountController(FacebookAccountService facebookAccountService, JwtService jwtService,
-		FacebookAccountProvider facebookAccountProvider, Environment env) {
-		this.facebookAccountService = facebookAccountService;
+	public GoogleAccountController(GoogleAccountService googleAccountService, JwtService jwtService,
+		GoogleAccountProvider googleAccountProvider, Environment env) {
+		this.googleAccountService = googleAccountService;
 		this.jwtService = jwtService;
-		this.facebookAccountProvider = facebookAccountProvider;
+		this.googleAccountProvider = googleAccountProvider;
 		this.env = env;
 	}
 
 	// 네이버 로그인창 URL 을 가져오는 API
 	@RequestMapping(value = "auth-url")
 	public @ResponseBody
-	BaseResponse<String> getFacebookAuthUrl() throws Exception {
-		String reqUrl = env.getProperty("social.facebook.url.login")
+	BaseResponse<String> getGoogleAuthUrl() throws Exception {
+		String reqUrl = env.getProperty("social.Google.url.login")
 			+ "?response_type=code"
-			+ "&client_id=" + facebookClientId
+			+ "&client_id=" + GoogleClientId
 			+ "&redirect_uri="
-			+ "localhost:9000" + facebookRedirectUri
+			+ "localhost:9000" + GoogleRedirectUri
 			+ "&state=" + makeRandomNumber(); // 난수 생성
 		return new BaseResponse<>(reqUrl);
 	}
@@ -83,19 +85,20 @@ public class FacebookAccountController {
 		return String.format("%06d", number);
 	}
 
-	public FacebookAccount.GetFacebookTokenResDto getFacebookTokenInfo(String code) throws BaseException {
+	public GoogleAccount.GetGoogleTokenResDto getGoogleTokenInfo(String code) throws BaseException {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 		RestTemplate restTemplate = new RestTemplate();
 		//
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-		params.add("client_id", facebookClientId);
-		params.add("client_secret", facebookClientSecret);
+		params.add("client_id", GoogleClientId);
+		params.add("redirect_uri", "https://localhost:9000/Google-accounts/redirect/");
+		params.add("client_secret", GoogleClientSecret);
 		params.add("code", code);
-		params.add("redirect_uri", "auth-url");
 
-		String requestUri = env.getProperty("social.facebook.url.token");
+
+		String requestUri = env.getProperty("social.Google.url.token");
 		try {
 			if (requestUri == null) {
 				throw new BaseException(API_INVALID_HOST);
@@ -105,7 +108,7 @@ public class FacebookAccountController {
 
 			Gson gson = new Gson();
 			if (response.getStatusCode() == HttpStatus.OK) {
-				return gson.fromJson(response.getBody(), FacebookAccount.GetFacebookTokenResDto.class);
+				return gson.fromJson(response.getBody(), GoogleAccount.GetGoogleTokenResDto.class);
 			}
 		} catch (BaseException exception) {
 			logger.error(exception.toString());
@@ -115,13 +118,14 @@ public class FacebookAccountController {
 
 	}
 
-	// facebookAccount에 접근 가능한 facebook Access Token을 반환
+	// GoogleAccount에 접근 가능한 Google Access Token을 반환
 	@ResponseBody
 	@GetMapping("/redirect")
-	public BaseResponse<String> redirectFacebook(@RequestParam() String code) throws BaseException {
+	public BaseResponse<String>
+	redirectGoogle(@RequestParam() String code) throws BaseException {
 
-		return new BaseResponse<>(code);
-		// FacebookAccount.GetFacebookTokenResDto getFacebookTokenResDto = getFacebookTokenInfo(code);
-		// return new BaseResponse<>(getFacebookTokenResDto.getAccess_token());
+		GoogleAccount.GetGoogleTokenResDto getGoogleTokenResDto = getGoogleTokenInfo(code);
+		return new BaseResponse<>(getGoogleTokenResDto.getAccess_token());
 	}
+
 }

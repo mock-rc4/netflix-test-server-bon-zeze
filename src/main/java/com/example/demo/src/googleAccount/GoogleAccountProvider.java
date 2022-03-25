@@ -1,4 +1,4 @@
-package com.example.demo.src.facebookAccount;
+package com.example.demo.src.googleAccount;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import com.example.demo.utils.JwtService;
 
 @Service
-public class FacebookAccountProvider {
+public class GoogleAccountProvider {
 
 	private final JwtService jwtService;
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private final FacebookAccountDao facebookAccountDao;
+	private final GoogleAccountDao googleAccountDao;
 
 	@Autowired
-	public FacebookAccountProvider(FacebookAccountDao facebookAccountDao, JwtService jwtService) {
-		this.facebookAccountDao = facebookAccountDao;
+	public GoogleAccountProvider(GoogleAccountDao googleAccountDao, JwtService jwtService) {
+		this.googleAccountDao = googleAccountDao;
 		this.jwtService = jwtService;
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.demo.src.facebookAccount.domain;
+package com.example.demo.src.googleAccount.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-public class FacebookAccount {
+public class GoogleAccount {
 
 	private com.example.demo.src.naverAccount.domain.NaverAccount.Response response;
 
@@ -20,7 +20,7 @@ public class FacebookAccount {
 	@Getter
 	@Setter
 	@AllArgsConstructor
-	public static class GetFacebookTokenResDto {
+	public static class GetGoogleTokenResDto {
 		private String access_token;
 		private String token_type;
 		private Integer expires_in;

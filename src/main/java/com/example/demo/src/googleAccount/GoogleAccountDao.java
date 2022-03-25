@@ -1,4 +1,4 @@
-package com.example.demo.src.facebookAccount;
+package com.example.demo.src.googleAccount;
 
 import javax.sql.DataSource;
 
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class FacebookAccountDao {
+public class GoogleAccountDao {
 
 	private JdbcTemplate jdbcTemplate;
 
