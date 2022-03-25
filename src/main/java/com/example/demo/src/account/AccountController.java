@@ -170,7 +170,7 @@ public class AccountController {
     }
 
     @ResponseBody
-    @PatchMapping("/update/password")
+    @PatchMapping("/password")
     public BaseResponse<String> updatePassword(@RequestBody PatchAccountReq patchAccountReq) {
         try {
             if (!isRegexPassword(patchAccountReq.getUpdateParam())) {
@@ -191,7 +191,7 @@ public class AccountController {
 
 
     @ResponseBody
-    @PatchMapping("/update/email")
+    @PatchMapping("/email")
     public BaseResponse<String> updateEmail(@RequestBody PatchAccountReq patchAccountReq) {
         try {
             if (!isRegexEmail(patchAccountReq.getUpdateParam())) {
@@ -211,7 +211,7 @@ public class AccountController {
     }
 
     @ResponseBody
-    @PatchMapping("/update/phonenumber")
+    @PatchMapping("/phonenumber")
     public BaseResponse<String> updatePhoneNumber(@RequestBody PatchAccountReq patchAccountReq) {
         try {
             if (!isRegexPhoneNumber(patchAccountReq.getUpdateParam())) {

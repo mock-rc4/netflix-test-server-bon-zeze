@@ -122,4 +122,13 @@ public class ProfileController {
 		}
 	}
 
+	@GetMapping("/name/{profileIdx}")
+	public BaseResponse<String> getProfileName(@PathVariable("profileIdx") int profileIdx) {
+		try {
+			String name = profileProvider.getProfileName(profileIdx);
+			return new BaseResponse<>(name);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
 }

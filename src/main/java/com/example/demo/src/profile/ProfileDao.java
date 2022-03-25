@@ -77,6 +77,13 @@ public class ProfileDao {
 			params);
 	}
 
+	// profile 이름 조회
+	public String getProfileName(int profileIdx){
+		String query = "select name from Profile where profileIdx = ?";
+		int param = profileIdx;
+		return this.jdbcTemplate.queryForObject(query, String.class, param);
+	}
+
 	public List<Profile.getProfileInfoResDto> getProfiles(int accountIdx) {
 		String query = "select * from Profile where accountIdx =?";
 		int params = accountIdx;
