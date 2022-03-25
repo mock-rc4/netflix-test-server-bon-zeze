@@ -81,7 +81,7 @@ public class VideoDao {
 			videoIdx);
 	}
 
-	// 이메일 확인
+
 	public int checkHasVideoIdx(int videoIdx) {
 		String query = "select exists(select videoIdx from Video where videoIdx = ?)";
 		int params = videoIdx;
