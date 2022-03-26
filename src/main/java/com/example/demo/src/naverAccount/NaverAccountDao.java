@@ -10,7 +10,7 @@ import com.example.demo.src.naverAccount.domain.NaverAccount;
 
 @Repository
 public class NaverAccountDao {
-
+	private static final String NAVER = "Naver";
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
@@ -20,34 +20,33 @@ public class NaverAccountDao {
 
 	// 이메일 확인
 	public int checkNaverAccountByEmail(String email) {
-		String checkEmailQuery = "select exists(select email from Account where email = ?)";
+		String checkEmailQuery = "select exists(select email from Account where email = ? and socialLoginType = ?)";
 		String checkEmailParams = email;
 		return this.jdbcTemplate.queryForObject(checkEmailQuery,
 			int.class,
-			checkEmailParams);
+			email, NAVER);
 	}
 
 	public NaverAccount.GetNaverAccountResDto getNaverAccountById(String id) {
-		String query = "select accountIdx, email from Account where socialLoginIdx = ?";
-		String params = id;
+		String query = "select accountIdx, email from Account where socialLoginIdx = ? and socialLoginType = ?";
+
 		return this.jdbcTemplate.queryForObject(query,
 			(rs, rowNum) -> new NaverAccount.GetNaverAccountResDto(
 				rs.getInt("accountIdx"),
 				rs.getString("email")
-			), // RowMapper(위의 링크 참조): 원하는 결과값 형태로 받기
-			params
-		); // 한 개의 회원정보를 얻기 위한 jdbcTemplate 함수(Query, 객체 매핑 정보, Params)의 결과 반환
+			),
+			id, NAVER
+		);
 	}
 
 	public int createNaverAccount(NaverAccount.PostSignInNaverAccountReqDto requestDto) {
 		String query = "insert into Account (email, password, socialLoginIdx, socialLoginType) VALUES (?,?,?,?)"; // 실행될 동적 쿼리문
 		Object[] params = new Object[] {requestDto.getEmail(), requestDto.getPassword(),
 			requestDto.getSocialLoginIdx(),
-		requestDto.getSocialLoginType()};
+			requestDto.getSocialLoginType()};
 		this.jdbcTemplate.update(query, params);
 		String lastInserIdQuery = "select max(accountIdx) from Account";
 		return this.jdbcTemplate.queryForObject(lastInserIdQuery,
 			int.class);
 	}
-
 }
