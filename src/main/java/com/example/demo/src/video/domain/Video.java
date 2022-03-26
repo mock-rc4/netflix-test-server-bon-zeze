@@ -17,6 +17,8 @@ public class Video {
 	private int season;
 	private String summary;
 	private String director;
+	private String resolution;
+	private String previewUrl;
 
 	@Getter
 	@Setter
@@ -31,6 +33,8 @@ public class Video {
 		private String photoUrl;
 		private String summary;
 		private String director;
+		private String resolution;
+		private String previewUrl;
 	}
 
 	@Getter

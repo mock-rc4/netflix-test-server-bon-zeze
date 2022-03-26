@@ -40,13 +40,15 @@ public class VideoDao {
 				rs.getString("runningTime"),
 				rs.getString("photoUrl"),
 				rs.getString("summary"),
-				rs.getString("director")
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewUrl")
 			),
 			genre);
 	}
 
 	public List<VideoContent.resDto> getVideoContentsByVideoIdx(int videoIdx) {
-		String query = "select * from Videos where videoIdx = ?";
+		String query = "select * from Videos where videoIdx = ? order by title ,season";
 		return this.jdbcTemplate.query(query,
 			(rs, rowNum) -> new VideoContent.resDto(
 				rs.getString("title"),
