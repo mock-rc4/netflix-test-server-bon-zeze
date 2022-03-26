@@ -101,6 +101,8 @@ public enum BaseResponseStatus {
 	API_FAILED_REQUEST(false, 5000, "API 요청에 실패하였습니다."),
 	API_INVALID_HOST(false, 5001, "잘못된 외부 API HOST에 대한 요청입니다."),
 	API_IS_EXPIRED_NAVER_ACCESS_TOKEN(false, 5002, "NAVER-ACCESS-TOKEN이 유효하지 않거나 이미 만료되었습니다."),
+	API_IS_EXPIRED_GOOGLE_ACCESS_TOKEN(false, 5003, "GOOGLE-ACCESS-TOKEN이 유효하지 않거나 이미 만료되었습니다."),
+	API_IS_EXPIRED_LINE_ACCESS_TOKEN(false, 5004, "LINE-ACCESS-TOKEN이 유효하지 않거나 이미 만료되었습니다."),
 
 	/** 이후 사용 예정입니다.
 	 * 6000 : 소셜 로그인 오류
