@@ -567,6 +567,29 @@
 	- 비디오 테이블에서 컬럼 추가
 ### 본(Bon)
 
+#### API 개발
+1. 소셜로그인 골격을 변경하는 Commit
+     - Facebook은 Social Login이 Javascript Documents 이므로 이외의 Social Login 서비스를 제공하는 Google, Line의 REST Login API를 사용하여 로그인 관련 서비스를 구현하였다.
+
+
+2. 이전 Pull Request에서의 Review를 반영한 수정내역 Commit
+
+3. Google REST LOGIN API
+    - 파라메터를 조합하여 Google 로그인 창 URL을 반환
+    - Google ID의 액세스 토큰 반환
+    - Google Account 조회
+    - Google Account로 회원가입
+    - Google Account로 로그인
+
+4. Line REST LOGIN API
+    - 파라메터를 조합하여 Line 로그인 창 URL을 반환
+    - Line ID의 액세스 토큰 반환
+    - Line Account 조회
+    - Line Account로 회원가입
+    - Line Account로 로그인
+5. 네이버 소셜 로그인 패스워드 암호화, 소셜로그인 유형 검사(DAO) 적용, 줄간격 리팩토링 등
+
+
 ### 제제(Zeze)
 #### API 개발
 - 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
