@@ -32,9 +32,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
+import com.example.demo.config.secret.Secret;
 import com.example.demo.src.naverAccount.domain.NaverAccount;
+import com.example.demo.utils.AES128;
 import com.example.demo.utils.JwtService;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.google.gson.Gson;
 
 @RestController
@@ -105,17 +106,18 @@ public class NaverAccountController {
 		params.add("state", state);
 
 		String requestUri = env.getProperty("social.naver.url.token");
-		try{
-		if (requestUri == null) {
-			throw new BaseException(API_INVALID_HOST);
-		}
-		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-		ResponseEntity<String> response = restTemplate.postForEntity(requestUri, request, String.class);
+		try {
+			if (requestUri == null) {
+				throw new BaseException(API_INVALID_HOST);
+			}
+			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+			ResponseEntity<String> response = restTemplate.postForEntity(requestUri, request, String.class);
 
-		Gson gson = new Gson();
-		if (response.getStatusCode() == HttpStatus.OK) {
-			return gson.fromJson(response.getBody(), NaverAccount.GetNaverTokenResDto.class);
-		}} catch (BaseException exception) {
+			Gson gson = new Gson();
+			if (response.getStatusCode() == HttpStatus.OK) {
+				return gson.fromJson(response.getBody(), NaverAccount.GetNaverTokenResDto.class);
+			}
+		} catch (BaseException exception) {
 			logger.error(exception.toString());
 			throw new BaseException(API_IS_EXPIRED_NAVER_ACCESS_TOKEN);
 		}
@@ -200,8 +202,10 @@ public class NaverAccountController {
 			return new BaseResponse<>(exception.getStatus());
 		}
 	}
+
 	@PostMapping("/sign-up")
-	public BaseResponse<NaverAccount.PostSignInNaverAccountResDto> CreateNaverAccount(@RequestBody NaverAccount.PostNaverAccountReqDto postNaverAccountReq) throws
+	public BaseResponse<NaverAccount.PostSignInNaverAccountResDto> CreateNaverAccount(
+		@RequestBody NaverAccount.PostNaverAccountReqDto postNaverAccountReq) throws
 		BaseException {
 		String naverAccessToken = getNaverAccessToken();
 		try {
@@ -213,19 +217,26 @@ public class NaverAccountController {
 			if (email == null) {
 				throw new BaseException(SOCIAL_MUST_AGREE_EMAIL);
 			}
+
+			String pwd;
+			try {
+				pwd = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(postNaverAccountReq.getPassword());
+				postNaverAccountReq.setPassword(pwd);
+			} catch (Exception ignored) {
+				throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+			}
+
 			NaverAccount.PostSignInNaverAccountResDto postSignInNaverAccountResDto =
 				naverAccountService.createNaverAccount(NaverAccount.PostSignInNaverAccountReqDto.builder()
-							.email(naverAccount.getResponse().getEmail())
-							.password(postNaverAccountReq.getPassword())
-							.socialLoginIdx(naverAccount.getResponse().getId()).build());
+					.email(naverAccount.getResponse().getEmail())
+					.password(postNaverAccountReq.getPassword())
+					.socialLoginIdx(naverAccount.getResponse().getId()).build());
 
 			return new BaseResponse<>(postSignInNaverAccountResDto);
 		} catch (BaseException exception) {
 			return new BaseResponse<>(exception.getStatus());
 		}
 	}
-
-
 
 	@ResponseBody
 	@GetMapping("/log-out")
@@ -275,10 +286,10 @@ public class NaverAccountController {
 	}
 
 	// Header에서 NAVER-ACCESS-TOKEN 추출
-    // @return String
-    //
+	// @return String
+	//
 	public String getNaverAccessToken() {
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
 		return request.getHeader("NAVER-ACCESS-TOKEN");
 	}
 }

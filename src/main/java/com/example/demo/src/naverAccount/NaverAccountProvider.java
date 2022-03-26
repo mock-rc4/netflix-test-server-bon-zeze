@@ -15,12 +15,10 @@ import com.example.demo.utils.JwtService;
 
 public class NaverAccountProvider {
 
-
 	private final JwtService jwtService;
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private final NaverAccountDao naverAccountDao;
-
 
 	@Autowired
 	public NaverAccountProvider(NaverAccountDao naverAccountDao, JwtService jwtService) {

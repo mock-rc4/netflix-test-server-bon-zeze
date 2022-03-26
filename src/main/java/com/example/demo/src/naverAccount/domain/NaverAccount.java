@@ -28,7 +28,6 @@ public class NaverAccount {
 		private String email;
 	}
 
-
 	@Getter
 	@Setter
 	@AllArgsConstructor
@@ -38,7 +37,6 @@ public class NaverAccount {
 		private String token_type;
 		private Integer expires_in;
 	}
-
 
 	@Getter
 	@Setter
@@ -63,8 +61,6 @@ public class NaverAccount {
 		private String access_token;
 		private String result;
 	}
-
-
 
 	@Getter
 	@Setter
