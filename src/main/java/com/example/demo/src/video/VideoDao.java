@@ -242,6 +242,26 @@ public class VideoDao {
 			videoIdx);
 	}
 
+	public List<Video.getVideoResDto> getVideoDetailByVideoIdx(int videoIdx) {
+		String query = "select * from Video where videoIdx = ?";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getVideoResDto(
+				rs.getInt("videoIdx"),
+				rs.getInt("year"),
+				rs.getInt("season"),
+				rs.getInt("ageGrade"),
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("photoUrl"),
+				rs.getString("summary"),
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewVideoUrl"),
+				rs.getString("openDate")
+			),
+			videoIdx);
+	}
+
 	private void setVideoCharacters(List<GetVideoRes> videos) {
 		for (GetVideoRes video : videos) {
 			int videoIdx = video.getVideoIdx();

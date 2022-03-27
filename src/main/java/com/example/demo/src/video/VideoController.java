@@ -183,12 +183,23 @@ public class VideoController {
 	}
 
 	@GetMapping("/details/{videoIdx}/characters")
-	public BaseResponse<List<VideoDetail.characterInfoResDto>> getCharactersByVideoIdx(@PathVariable("videoIdx") int videoIdx) {
+	public BaseResponse<List<VideoDetail.characterInfoResDto>> getCharactersByVideoIdx(
+		@PathVariable("videoIdx") int videoIdx) {
 		try {
 			List<VideoDetail.characterInfoResDto> result = videoProvider.getCharactersByVideoIdx(videoIdx);
 			return new BaseResponse<>(result);
 		} catch (BaseException exception) {
 			return new BaseResponse<>(exception.getStatus());
+		}
+	}
+
+	@GetMapping("/{videoIdx}")
+	public BaseResponse<List<Video.getVideoResDto>> getVideoDetailByVideoIdx(@PathVariable("videoIdx") int videoIdx) {
+		try {
+			List<Video.getVideoResDto> resDto = videoProvider.getVideoDetailByVideoIdx(videoIdx);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
 		}
 	}
 }

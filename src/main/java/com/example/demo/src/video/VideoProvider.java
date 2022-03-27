@@ -161,4 +161,12 @@ public class VideoProvider {
 		}
 	}
 
+	public List<Video.getVideoResDto> getVideoDetailByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getVideoDetailByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }
