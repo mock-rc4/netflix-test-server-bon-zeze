@@ -2,6 +2,7 @@ package com.example.demo.src.video;
 
 import java.util.List;
 
+import com.example.demo.src.search.SearchService;
 import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,13 +26,17 @@ public class VideoController {
     @Autowired
     private final VideoProvider videoProvider;
     @Autowired
+    private final SearchService searchService;
+    @Autowired
     private final JwtService jwtService;
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public VideoController(VideoService videoService, VideoProvider videoProvider, JwtService jwtService) {
+    public VideoController(VideoService videoService, VideoProvider videoProvider,
+                           SearchService searchService, JwtService jwtService) {
         this.videoService = videoService;
         this.videoProvider = videoProvider;
+        this.searchService = searchService;
         this.jwtService = jwtService;
     }
 
@@ -72,8 +77,8 @@ public class VideoController {
 			return new BaseResponse<>((exception.getStatus()));
 		}
 	}
-  
-  
+
+
     @ResponseBody
     @GetMapping("/genre")
     public BaseResponse<List<Video.getVideoResDto>> getByGenre(@RequestParam int videoType,
@@ -140,6 +145,7 @@ public class VideoController {
     @GetMapping("/search")
     public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {
         try {
+            searchService.saveSearch(keyword);
             List<GetVideoRes> getVideoResList = videoProvider.getVideosBySearch(keyword);
             return new BaseResponse<>(getVideoResList);
         } catch (BaseException exception) {

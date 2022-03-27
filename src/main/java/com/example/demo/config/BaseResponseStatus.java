@@ -76,6 +76,7 @@ public enum BaseResponseStatus {
     // Common
     RESPONSE_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
     RESPONSE_CATEGORY_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
+    SAVE_SEARCH_ERROR(false, 3000, "검색 키워드 저장을 실패하였습니다."),
 
     // [POST] /accounts
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
