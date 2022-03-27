@@ -151,4 +151,14 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+	public List<VideoDetail.characterInfoResDto> getCharactersByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getCharactersByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
 }

@@ -229,6 +229,19 @@ public class VideoDao {
 			videoIdx);
 	}
 
+	public List<VideoDetail.characterInfoResDto> getCharactersByVideoIdx(int videoIdx) {
+		String query = "select C.characterIdx, C.name from CharacterContact as CC\n"
+			+ "left join `Character` as C\n"
+			+ "on C.characterIdx = CC.characterIdx\n"
+			+ "where CC.videoIdx = ? ";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoDetail.characterInfoResDto(
+				rs.getInt("characterIdx"),
+				rs.getString("name")
+			),
+			videoIdx);
+	}
+
 	private void setVideoCharacters(List<GetVideoRes> videos) {
 		for (GetVideoRes video : videos) {
 			int videoIdx = video.getVideoIdx();

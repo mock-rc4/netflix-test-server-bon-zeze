@@ -181,4 +181,14 @@ public class VideoController {
 			return new BaseResponse<>(exception.getStatus());
 		}
 	}
+
+	@GetMapping("/details/{videoIdx}/characters")
+	public BaseResponse<List<VideoDetail.characterInfoResDto>> getCharactersByVideoIdx(@PathVariable("videoIdx") int videoIdx) {
+		try {
+			List<VideoDetail.characterInfoResDto> result = videoProvider.getCharactersByVideoIdx(videoIdx);
+			return new BaseResponse<>(result);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
 }
