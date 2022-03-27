@@ -216,8 +216,18 @@ public class VideoDao {
 			videoIdx);
 	}
 
-
-
+	public List<VideoDetail.genreInfoResDto> getGenresByVideoIdx(int videoIdx) {
+		String query = "select G.genreIdx, G.name from GenreContact as GC\n"
+			+ "left join Genre as G\n"
+			+ "on G.genreIdx = GC.genreIdx\n"
+			+ "where GC.videoIdx = ? ";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoDetail.genreInfoResDto(
+				rs.getInt("genreIdx"),
+				rs.getString("name")
+			),
+			videoIdx);
+	}
 
 	private void setVideoCharacters(List<GetVideoRes> videos) {
 		for (GetVideoRes video : videos) {
