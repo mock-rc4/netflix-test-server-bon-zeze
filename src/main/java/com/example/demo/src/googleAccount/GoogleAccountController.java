@@ -124,7 +124,11 @@ public class GoogleAccountController {
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 
-			String requestUrl = UriComponentsBuilder.fromHttpUrl(configUtils.getGoogleAuthUrl() + "/tokeninfo")
+			String requestAuthUri = configUtils.getGoogleAuthUrl();
+			if (requestAuthUri == null) {
+				throw new BaseException(API_INVALID_HOST);
+			}
+			String requestUrl = UriComponentsBuilder.fromHttpUrl(requestAuthUri + "/tokeninfo")
 				.queryParam("id_token", googleAccessToken)
 				.toUriString();
 			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
@@ -138,7 +142,7 @@ public class GoogleAccountController {
 			}
 		} catch (Exception e) {
 			logger.error(e.toString());
-			throw new BaseException(API_IS_EXPIRED_NAVER_ACCESS_TOKEN);
+			throw new BaseException(API_IS_EXPIRED_GOOGLE_ACCESS_TOKEN);
 		}
 		throw new BaseException(API_FAILED_REQUEST);
 	}
@@ -172,7 +176,7 @@ public class GoogleAccountController {
 			GoogleAccount.getGoogleAccountInfoResDto googleAccount =
 				getGoogleAccountInfo(GoogleAccessToken);
 			if (googleAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_GOOGLE_ACCOUNT);
 			String email = googleAccount.getEmail();
 			if (email == null) {
 				throw new BaseException(SOCIAL_MUST_AGREE_EMAIL);
@@ -205,9 +209,9 @@ public class GoogleAccountController {
 			GoogleAccount.getGoogleAccountInfoResDto googleAccount =
 				getGoogleAccountInfo(googleAccessToken);
 			if (googleAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_GOOGLE_ACCOUNT);
 			if (googleAccountProvider.checkGoogleAccountByEmail(googleAccount.getEmail()) == 0) {
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_GOOGLE_ACCOUNT);
 			}
 			GoogleAccount.GetGoogleAccountResDto getGoogleAccountResDto =
 				googleAccountProvider.getGoogleAccountById(googleAccount.getId());

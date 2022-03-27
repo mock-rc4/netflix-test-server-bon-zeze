@@ -189,7 +189,7 @@ public class LineAccountController {
 			LineAccount.getLineAccountInfoResDto lineAccount =
 				getLineAccountInfo(lineAccessToken);
 			if (lineAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_LINE_ACCOUNT);
 			String email = lineAccount.getEmail();
 			if (email == null) {
 				throw new BaseException(SOCIAL_MUST_AGREE_EMAIL);
@@ -222,9 +222,9 @@ public class LineAccountController {
 			LineAccount.getLineAccountInfoResDto lineAccount =
 				getLineAccountInfo(lineAccessToken);
 			if (lineAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_LINE_ACCOUNT);
 			if (lineAccountProvider.checkLineAccountByEmail(lineAccount.getEmail()) == 0) {
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_LINE_ACCOUNT);
 			}
 			LineAccount.GetLineAccountResDto getLineAccountResDto =
 				lineAccountProvider.getLineAccountById(lineAccount.getId());
