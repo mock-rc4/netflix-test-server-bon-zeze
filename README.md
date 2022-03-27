@@ -577,7 +577,7 @@
 
 <br>
 
-## 2022.03.25 개발 일지
+## 2022.03.26 개발 일지
 ### 제제 & 본(Bon)
 - 회의를 통한 API 기능 명세서 재정리
 	- 알람 기능 추가
@@ -617,16 +617,16 @@
 - 검색 조회 API 구현 `진행중`
 
 #### ISSUES
-- Git pull 충돌 해결
-	- 이전 날과 같은 오류가 발생.
-	  <img width="926" alt="스크린샷 2022-03-27 오후 9 41 05" src="https://user-images.githubusercontent.com/65826145/160281799-543ca0d7-5442-4914-a610-4a98709ce6ab.png">
-	- 이전 날에는 `git add .` 를 통하여 그냥 파일 추가하려하다가 더욱 꼬이게 되었었다.
-	- 그리고 이전 날에는 커밋 이력이 없고, 이미 최신 소스 코드들이 merge된 상태이기 때문에 `git reset --hard origin/main` 을 통해 해결하였다. +fetch
-	- 하지만, 이번에는 커밋 이력이 있고 개발하는 변경 사항이 존재했다.
-	- 그래서 이번의 해결 방법
-		1. error, app 에 관한 log 이기 때문에 문제가 되지 않는다고 팀원과 협의후에 파일을 직접 삭제하였다.
-	  	2. git fetch origin
-	  	3. git stash -> 커밋,개발 변경이력을 저장
-	  	4. `.idea` 파일들이 추가된 것들을 커밋
-	  	5. git push origin zeze
-	  	6. git pull origin zeze
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
+
+
+<br>
+
+## 2022.03.27 개발 일지
+### 본(Bon)
+### 제제(Zeze)
+- 프로필 알림 조회 API 구현
+- 검색(제목/사람/장르) 조회 API 구현
+- 검색 기록 저장 로직 구현
+- ERD 3차 설계 잘못된 부분 수정&보완
