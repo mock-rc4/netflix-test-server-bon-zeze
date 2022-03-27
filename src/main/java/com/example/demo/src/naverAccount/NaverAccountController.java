@@ -188,9 +188,9 @@ public class NaverAccountController {
 			NaverAccount naverAccount =
 				getNaverAccountInfo(naverAccessToken);
 			if (naverAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_NAVER_ACCOUNT);
 			if (naverAccountProvider.checkNaverAccountByEmail(naverAccount.getResponse().getEmail()) == 0) {
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_NAVER_ACCOUNT);
 			}
 			NaverAccount.GetNaverAccountResDto getNaverAccountResDto =
 				naverAccountProvider.getNaverAccountById(naverAccount.getResponse().getId());
@@ -212,7 +212,7 @@ public class NaverAccountController {
 			NaverAccount naverAccount =
 				getNaverAccountInfo(naverAccessToken);
 			if (naverAccount == null)
-				throw new BaseException(SOCIAL_CANNOT_FIND_ACCOUNT);
+				throw new BaseException(SOCIAL_CANNOT_FIND_NAVER_ACCOUNT);
 			String email = naverAccount.getResponse().getEmail();
 			if (email == null) {
 				throw new BaseException(SOCIAL_MUST_AGREE_EMAIL);
