@@ -28,7 +28,6 @@ public class AlarmController {
         this.alarmService = alarmService;
     }
 
-    //알람 조회: 해당 프로필의 알람에 해당되는 것들을 조회해준다.
     @GetMapping("/{profileIdx}")
     public BaseResponse<List<GetAlarmRes>> getProfileAlarms(@PathVariable int profileIdx) {
         try {

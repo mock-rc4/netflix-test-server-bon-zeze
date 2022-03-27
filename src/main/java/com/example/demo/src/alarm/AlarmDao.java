@@ -16,9 +16,9 @@ public class AlarmDao {
 
 
     public List<GetAlarmRes> getProfileAlarms(int profileIdx) {
-        String query = "select alarmIdx, title, photoUrl from Alarm\n"
-                + "join Video on Alarm.videoIdx = Video.videoIdx+\n"
-                + "where Alarm.profileIdx = ?";
+        String query = "select alarmIdx, title, photoUrl, openDate from Alarm\n" +
+                "join Video on Alarm.videoIdx = Video.videoIdx\n" +
+                "where Video.openDate is not null and Video.openDate <= now() and Alarm.profileIdx = ?";
 
         return this.jdbcTemplate.query(query, videoRowMapper(), profileIdx);
     }
@@ -27,7 +27,8 @@ public class AlarmDao {
         return (rs, rowNum) -> new GetAlarmRes(
                 rs.getInt("alarmIdx"),
                 rs.getString("title"),
-                rs.getString("photoUrl")
+                rs.getString("photoUrl"),
+                rs.getTimestamp("openDate").toLocalDateTime()
         );
     }
 }

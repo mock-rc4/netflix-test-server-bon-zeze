@@ -28,7 +28,6 @@ public class AlarmProvider {
         try {
             return alarmDao.getProfileAlarms(profileIdx);
         } catch (Exception exception) {
-            logger.error(exception.toString());
             throw new BaseException(DATABASE_ERROR);
         }
     }
