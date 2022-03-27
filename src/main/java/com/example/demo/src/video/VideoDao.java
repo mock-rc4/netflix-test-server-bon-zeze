@@ -11,6 +11,7 @@ import com.example.demo.src.character.CharacterDao;
 import com.example.demo.src.video.domain.GetVideoRes;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
+import com.example.demo.src.video.domain.VideoDetail;
 
 @Repository
 public class VideoDao {
@@ -201,6 +202,22 @@ public class VideoDao {
 			),
 			characterIdx);
 	}
+
+	public List<VideoDetail.actorInfoResDto> getActorsByVideoIdx(int videoIdx) {
+		String query = "select A.actorIdx, A.name from ActorParticipate as AP\n"
+			+ "left join Actor as A\n"
+			+ "on A.actorIdx = AP.actorIdx\n"
+			+ "where AP.videoIdx = ?;";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoDetail.actorInfoResDto(
+				rs.getInt("actorIdx"),
+				rs.getString("name")
+			),
+			videoIdx);
+	}
+
+
+
 
 	private void setVideoCharacters(List<GetVideoRes> videos) {
 		for (GetVideoRes video : videos) {

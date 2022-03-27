@@ -14,6 +14,7 @@ import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
+import com.example.demo.src.video.domain.VideoDetail;
 import com.example.demo.utils.JwtService;
 
 @RestController
@@ -151,6 +152,16 @@ public class VideoController {
 	public BaseResponse<List<Video.getVideoResDto>> getVideosByCharacter(@PathVariable("characterIdx") int characterIdx) {
 		try {
 			List<Video.getVideoResDto> result = videoProvider.getVideosByCharacter(characterIdx);
+			return new BaseResponse<>(result);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
+
+	@GetMapping("/details/{videoIdx}/actors")
+	public BaseResponse<List<VideoDetail.actorInfoResDto>> getActorsByVideoIdx(@PathVariable("videoIdx") int videoIdx) {
+		try {
+			List<VideoDetail.actorInfoResDto> result = videoProvider.getActorsByVideoIdx(videoIdx);
 			return new BaseResponse<>(result);
 		} catch (BaseException exception) {
 			return new BaseResponse<>(exception.getStatus());

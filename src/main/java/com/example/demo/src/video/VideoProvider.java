@@ -15,6 +15,7 @@ import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
+import com.example.demo.src.video.domain.VideoDetail;
 import com.example.demo.utils.JwtService;
 
 @Service
@@ -133,4 +134,13 @@ public class VideoProvider {
 		}
 	}
 
+
+	public List<VideoDetail.actorInfoResDto> getActorsByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getActorsByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }
