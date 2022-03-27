@@ -133,7 +133,7 @@ public class ProfileController {
 	}
 
 	@GetMapping("/{profileIdx}/validate-age-grade/{videoIdx}")
-	public BaseResponse<Boolean> checkIsValidAgeGradeForAdultContents(@PathVariable("profileIdx") int profileIdx,
+	public BaseResponse<Boolean> checkIsNeedToValidateAgeGrade(@PathVariable("profileIdx") int profileIdx,
 		@PathVariable("videoIdx") int videoIdx) {
 		try {
 			// 유효하면 true, 그렇지 않으면 false을 반환.

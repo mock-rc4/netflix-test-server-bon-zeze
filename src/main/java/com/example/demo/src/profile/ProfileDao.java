@@ -139,7 +139,7 @@ public class ProfileDao {
 		int videoAgeGrade = this.jdbcTemplate.queryForObject(queryForVideo,
 			int.class,
 			videoIdx);
-		// 비디오 연령등급이 청소년 관람불가이면서 프로필 연령등급이 18세 미만일 경우 거짓을 반환
-		return !(videoAgeGrade == ADULT_AGE_GRADE && profileAgeGrade < ADULT_AGE_GRADE);
+
+		return videoAgeGrade == ADULT_AGE_GRADE && profileAgeGrade < ADULT_AGE_GRADE;
 	}
 }
