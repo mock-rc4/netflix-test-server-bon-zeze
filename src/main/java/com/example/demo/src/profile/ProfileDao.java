@@ -16,6 +16,7 @@ import com.example.demo.src.profilePhoto.domain.ProfilePhoto;
 @Repository
 public class ProfileDao {
 
+	private static final int ADULT_AGE_GRADE = 18;
 	private final JdbcTemplate jdbcTemplate;
 	private final ProfilePhotoDao profilePhotoDao;
 
@@ -78,7 +79,7 @@ public class ProfileDao {
 	}
 
 	// profile 이름 조회
-	public String getProfileName(int profileIdx){
+	public String getProfileName(int profileIdx) {
 		String query = "select name from Profile where profileIdx = ?";
 		int param = profileIdx;
 		return this.jdbcTemplate.queryForObject(query, String.class, param);
@@ -127,5 +128,18 @@ public class ProfileDao {
 				rs.getInt("profilePhotoIdx")
 			),
 			params);
+	}
+
+	public boolean checkIsValidAgeGradeForAdultContents(int profileIdx, int videoIdx) {
+		String queryForProfile = "select ageGrade from Profile where profileIdx = ?";
+		int profileAgeGrade = this.jdbcTemplate.queryForObject(queryForProfile,
+			int.class,
+			profileIdx);
+		String queryForVideo = "select ageGrade from Video where videoIdx = ?";
+		int videoAgeGrade = this.jdbcTemplate.queryForObject(queryForVideo,
+			int.class,
+			videoIdx);
+		// 비디오 연령등급이 청소년 관람불가이면서 프로필 연령등급이 18세 미만일 경우 거짓을 반환
+		return !(videoAgeGrade == ADULT_AGE_GRADE && profileAgeGrade < ADULT_AGE_GRADE);
 	}
 }
