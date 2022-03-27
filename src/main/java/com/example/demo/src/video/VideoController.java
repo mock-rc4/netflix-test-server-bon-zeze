@@ -135,4 +135,15 @@ public class VideoController {
             return new BaseResponse<>(exception.getStatus());
         }
     }
+
+    //검색
+    @GetMapping("/search")
+    public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getVideosBySearch(keyword);
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
 }

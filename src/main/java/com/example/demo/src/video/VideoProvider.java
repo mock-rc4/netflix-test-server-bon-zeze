@@ -114,4 +114,30 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+	public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
+		try {
+			//제목 기준 찾기
+			List<GetVideoRes> resultByTitle = videoDao.getVideosByTitle(keyword);
+			if (!resultByTitle.isEmpty()) {
+				return resultByTitle;
+			}
+			//사람 기준 찾기
+			List<GetVideoRes> resultByActor = videoDao.getVideosByActor(keyword);
+			if (!resultByActor.isEmpty()) {
+				return resultByActor;
+			}
+			//장르 기준 찾기
+			List<GetVideoRes> resultByGenre = videoDao.getVideosByGenreName(keyword);
+			if (!resultByGenre.isEmpty()) {
+				return resultByGenre;
+			} else {
+				throw new BaseException(GET_VIDEO_SEARCH_ERROR);
+			}
+		} catch (BaseException exception) {
+			throw new BaseException(GET_VIDEO_SEARCH_ERROR);
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }

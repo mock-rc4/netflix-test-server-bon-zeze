@@ -150,6 +150,44 @@ public class VideoDao {
     }
 
 
+	public List<GetVideoRes> getVideosByTitle(String keyword) {
+		String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+				"from Video\n" +
+				"where title like ?";
+		String param = "%" + keyword + "%";
+
+		List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper(), param);
+		setVideoCharacters(videos);
+		return videos;
+	}
+
+	public List<GetVideoRes> getVideosByActor(String keyword) {
+		String query = "select Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+				"from Video\n" +
+				"join ActorParticipate AP on Video.videoIdx = AP.videoIdx\n" +
+				"join Actor A on A.actorIdx = AP.actorIdx\n" +
+				"where A.name like ?";
+		String param = "%" + keyword + "%";
+
+		List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper(), param);
+		setVideoCharacters(videos);
+		return videos;
+	}
+
+	public List<GetVideoRes> getVideosByGenreName(String keyword) {
+		String query = "select Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+				"from Video\n" +
+				"join GenreContact GC on Video.videoIdx = GC.videoIdx\n" +
+				"join Genre G on G.genreIdx = GC.genreIdx\n" +
+				"where G.name like ?";
+		String param = "%" + keyword + "%";
+
+		List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper(), param);
+		setVideoCharacters(videos);
+		return videos;
+	}
+
+
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
             int videoIdx = video.getVideoIdx();

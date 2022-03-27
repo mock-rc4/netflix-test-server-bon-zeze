@@ -67,6 +67,9 @@ public enum BaseResponseStatus {
     // [PATCH] /bookmark
     PATCH_BOOKMARK_STATUS_ERROR(false, 2024, "찜하기가 되어있지 않은 상태입니다."),
 
+    // [GET] /video
+    GET_VIDEO_SEARCH_ERROR(false, 2030, "검색 결과가 없습니다."),
+
     /**
      * 3000 : Response 오류
      */
