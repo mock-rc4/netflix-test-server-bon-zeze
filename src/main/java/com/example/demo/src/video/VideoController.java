@@ -72,8 +72,8 @@ public class VideoController {
 			return new BaseResponse<>((exception.getStatus()));
 		}
 	}
-  
-  
+
+
     @ResponseBody
     @GetMapping("/genre")
     public BaseResponse<List<Video.getVideoResDto>> getByGenre(@RequestParam int videoType,
@@ -135,4 +135,25 @@ public class VideoController {
             return new BaseResponse<>(exception.getStatus());
         }
     }
+
+	@GetMapping("/actors/{actorIdx}")
+	public BaseResponse<List<Video.getVideoResDto>> getVideosByActor(@PathVariable("actorIdx") int actorIdx) {
+		try {
+			List<Video.getVideoResDto> result = videoProvider.getVideosByActor(actorIdx);
+			return new BaseResponse<>(result);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
+
+
+	@GetMapping("/characters/{characterIdx}")
+	public BaseResponse<List<Video.getVideoResDto>> getVideosByCharacter(@PathVariable("characterIdx") int characterIdx) {
+		try {
+			List<Video.getVideoResDto> result = videoProvider.getVideosByCharacter(characterIdx);
+			return new BaseResponse<>(result);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
 }

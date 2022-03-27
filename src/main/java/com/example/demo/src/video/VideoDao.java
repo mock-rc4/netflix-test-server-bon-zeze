@@ -42,7 +42,7 @@ public class VideoDao {
 				rs.getString("summary"),
 				rs.getString("director"),
 				rs.getString("resolution"),
-				rs.getString("previewUrl")
+				rs.getString("previewVideoUrl")
 			),
 			genre);
 	}
@@ -151,6 +151,53 @@ public class VideoDao {
         return videos;
     }
 
+	public List<Video.getVideoResDto> getVideosByActor(int actorIdx) {
+		String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime, "
+			+ "V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl from ActorParticipate as AP "
+			+ "left join Video as V "
+			+ "on V.videoIdx = AP.videoIdx "
+			+ "where actorIdx = ? "
+			+ "order by V.updatedAt desc";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getVideoResDto(
+				rs.getInt("videoIdx"),
+				rs.getInt("year"),
+				rs.getInt("season"),
+				rs.getInt("ageGrade"),
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("photoUrl"),
+				rs.getString("summary"),
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewVideoUrl")
+			),
+			actorIdx);
+	}
+
+	public List<Video.getVideoResDto> getVideosByCharacter(int characterIdx) {
+		String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime,"
+			+ " V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl from CharacterContact as CC "
+			+ "left join Video as V "
+			+ "on V.videoIdx = CC.videoIdx "
+			+ "where characterIdx = ? "
+			+ "order by V.updatedAt desc";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getVideoResDto(
+				rs.getInt("videoIdx"),
+				rs.getInt("year"),
+				rs.getInt("season"),
+				rs.getInt("ageGrade"),
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("photoUrl"),
+				rs.getString("summary"),
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewVideoUrl")
+			),
+			characterIdx);
+	}
 
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {

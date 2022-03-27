@@ -58,4 +58,5 @@ public class Video {
 		private int season;
 		private int episodeCount;
 	}
+
 }
