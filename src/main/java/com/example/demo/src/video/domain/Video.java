@@ -35,6 +35,7 @@ public class Video {
 		private String director;
 		private String resolution;
 		private String previewUrl;
+		private String openDate;
 	}
 
 	@Getter
