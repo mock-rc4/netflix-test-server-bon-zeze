@@ -106,7 +106,14 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
+	public String getTheMostSearchedWord() throws BaseException {
+		try {
+			return videoDao.getTheMostSearchedWord();
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 	public List<GetVideoRes> getGenreVideos(int genreIdx) throws BaseException {
         try {
             return videoDao.getGenreVideos(genreIdx);

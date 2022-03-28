@@ -316,6 +316,12 @@ public class VideoDao {
 		return videos;
 	}
 
+	public String getTheMostSearchedWord() {
+		String theMostSearchedWordQuery = "select keyword from Search group by keyword order by count(keyword) desc limit 1";
+		return this.jdbcTemplate.queryForObject(theMostSearchedWordQuery,
+			String.class);
+	}
+
 
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {

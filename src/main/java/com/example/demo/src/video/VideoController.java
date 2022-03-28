@@ -135,6 +135,17 @@ public class VideoController {
         }
     }
 
+	@GetMapping("/the-most-searched")
+	public BaseResponse<List<GetVideoRes>> getVideosByTheMostSearchedWord() {
+		try {
+			String theMostSearchedWord = videoProvider.getTheMostSearchedWord();
+			List<GetVideoRes> getVideoResList = videoProvider.getVideosBySearch(theMostSearchedWord);
+			return new BaseResponse<>(getVideoResList);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
+
     @GetMapping("/genre/{genreIdx}")
     public BaseResponse<List<GetVideoRes>> getGenreVideos(@PathVariable("genreIdx") int genreIdx) {
         try {
