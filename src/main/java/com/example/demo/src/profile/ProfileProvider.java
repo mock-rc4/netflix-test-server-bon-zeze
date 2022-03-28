@@ -54,9 +54,18 @@ public class ProfileProvider {
 		}
 	}
 
-	public String getProfileName(int profileIdx)  throws BaseException {
+	public String getProfileName(int profileIdx) throws BaseException {
 		try {
 			return profileDao.getProfileName(profileIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public Boolean checkIsValidAgeGradeForAdultContents(int profileIdx, int videoIdx) throws BaseException {
+		try {
+			return profileDao.checkIsValidAgeGradeForAdultContents(profileIdx, videoIdx);
 		} catch (Exception exception) {
 			logger.error(exception.toString());
 			throw new BaseException(DATABASE_ERROR);

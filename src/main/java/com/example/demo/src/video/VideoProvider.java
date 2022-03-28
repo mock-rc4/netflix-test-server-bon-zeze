@@ -4,15 +4,17 @@ import static com.example.demo.config.BaseResponseStatus.*;
 
 import java.util.List;
 
-import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
+
+import com.example.demo.src.video.domain.GetVideoRes;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
+import com.example.demo.src.video.domain.VideoDetail;
 import com.example.demo.utils.JwtService;
 
 @Service
@@ -46,7 +48,9 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
-	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) throws BaseException {
+
+	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) throws
+		BaseException {
 		try {
 			return videoDao.getVideoContentsByVideoIdxAndSeasonNumber(videoIdx, seasonNumber);
 		} catch (Exception exception) {
@@ -73,47 +77,100 @@ public class VideoProvider {
 		}
 	}
 
-    public List<GetVideoRes> getNewVideos() throws BaseException {
-        try {
-            return videoDao.getNewVideos();
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
 
-    public List<GetVideoRes> getTopTenVideos() throws BaseException {
-        try {
-            return videoDao.getTopTenVideos();
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+	public List<GetVideoRes> getNewVideos() throws BaseException {
+		try {
+			return videoDao.getNewVideos();
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
-    public List<GetVideoRes> getPopularVideos() throws BaseException {
-        try {
-            return videoDao.getPopularVideos();
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+	public List<GetVideoRes> getTopTenVideos() throws BaseException {
+		try {
+			return videoDao.getTopTenVideos();
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
-    public List<GetVideoRes> getWatchingVideos(int profileIdx) throws BaseException {
-        try {
-            return videoDao.getWatchingVideos(profileIdx);
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+	public List<GetVideoRes> getPopularVideos() throws BaseException {
+		try {
+			return videoDao.getPopularVideos();
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
-    public List<GetVideoRes> getGenreVideos(int genreIdx) throws BaseException {
-        try {
-            return videoDao.getGenreVideos(genreIdx);
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+	public List<GetVideoRes> getWatchingVideos(int profileIdx) throws BaseException {
+		try {
+			return videoDao.getWatchingVideos(profileIdx);
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 
-	public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
+	public List<GetVideoRes> getGenreVideos(int genreIdx) throws BaseException {
+		try {
+			return videoDao.getGenreVideos(genreIdx);
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<Video.getVideoResDto> getVideosByActor(int actorIdx) throws BaseException {
+		try {
+			return videoDao.getVideosByActor(actorIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<Video.getVideoResDto> getVideosByCharacter(int characterIdx) throws BaseException {
+		try {
+			return videoDao.getVideosByCharacter(characterIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<VideoDetail.actorInfoResDto> getActorsByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getActorsByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<VideoDetail.genreInfoResDto> getGenresByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getGenresByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<VideoDetail.characterInfoResDto> getCharactersByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getCharactersByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<Video.getVideoResDto> getVideoDetailByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getVideoDetailByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+      
+      
+  public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
 		try {
 			//제목 기준 찾기
 			List<GetVideoRes> resultByTitle = videoDao.getVideosByMovieTitle(keyword);

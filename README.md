@@ -545,6 +545,7 @@
 ### 제제(Zeze)
 #### API 개발
 - 장르, 특징 코드 골격 구현
+- 장르 대분류 조회 API 구현
 - Top10 컨텐츠 조회 API 구현
 - 인기 컨텐츠 조회 API 구현
 - 시청중인 컨텐츠 조회 API 구현
@@ -552,3 +553,80 @@
 - 신규 컨텐츠 조회 API 구현
 - 찜하기 컨텐츠 조회 API 구현
 - 프로필 닉네임 조회 API 
+
+#### ISSUES
+- Git pull 충돌 해결 : **`error: 병합 때문에 추적하지 않는 다음 작업 폴더의 파일을 덮어씁니다.`**
+	- 내 브랜치가 합병 되고 git pull origin main 을 하는데 오류가 났다. 다음과 같은 에러가 발생
+	  <img width="823" alt="스크린샷 2022-03-26 오후 4 35 46" src="https://user-images.githubusercontent.com/65826145/160281312-b1b1c09e-8c7d-40cf-b890-01846777c0f7.png">
+	#### 원인
+	- 다른 사람들의 pull 에서는 발생하지 않는데, 나한테 발생하는 이유는 **내 local 에서 충돌이 발생**하여 그렇다.
+	그래서 메시지가 시키는대로 파일을 옮기거나 제거한다면 main 에 문제가 생길 수 있다.
+	- 무작정 `git add .` 를 통해서 해결하려다가 오히려 커밋에서 더욱 알 수 없는 파일들만 많이 추가되었다.
+	- **pull 을 사용하면서 착각하면 안되는 점**이 pull = fetch + merge 이다.
+	한마디로 pull을 받는다고 원격 저장소의 브랜치와 로컬 브랜치(내 컴퓨터)의 소스코드가 같아지는 것이 아니다. (불일치)
+	merge 라는건 합병이기때문에 내 코드와 + main 코드가 합쳐지는 것이니 충돌이 안 생기는 부분들이 존재한다면 일치하지 않을 수 있다.
+	- 결국 소스코드는 일치해도 log 파일에서 다르다보니 충돌이 발생한 것이다
+	
+	#### 해결 방법
+	(현재 나는 모든 최신 코드가 merge 되고 커밋 이력이 없는 깨끗한 상태라 가능한 방법이다. 1,2번을 차례대로 입력)
+	1. `git fetch --all`
+		- fetch 는 아무것도 merge 하지 않은 채로, 원격 저장소의 최신 이력을 확인, 이때 가져온 최신 커밋 이력은 이름없는 브랜치로 로컬에 다운로드 한다.
+	2. `git reset --hard origin/main`
+		- `reset`은 main 브랜치와 일치시킨다.
+		- `--hard`는 작업트리의 모든 파일은 origin/main 의 파일과 일치하도록 한다.
+
+<br>
+
+## 2022.03.26 개발 일지
+### 제제 & 본(Bon)
+- 회의를 통한 API 기능 명세서 재정리
+	- 알람 기능 추가
+	- 검색 기능 추가
+	- 기타 조회 추가
+- ERD 3차 설계
+	- 알림, 검색 테이블 추가
+	- 비디오 테이블에서 컬럼 추가
+### 본(Bon)
+
+#### API 개발
+1. 소셜로그인 골격을 변경하는 Commit
+     - Facebook은 Social Login이 Javascript Documents 이므로 이외의 Social Login 서비스를 제공하는 Google, Line의 REST Login API를 사용하여 로그인 관련 서비스를 구현하였다.
+
+
+2. 이전 Pull Request에서의 Review를 반영한 수정내역 Commit
+
+3. Google REST LOGIN API
+    - 파라메터를 조합하여 Google 로그인 창 URL을 반환
+    - Google ID의 액세스 토큰 반환
+    - Google Account 조회
+    - Google Account로 회원가입
+    - Google Account로 로그인
+
+4. Line REST LOGIN API
+    - 파라메터를 조합하여 Line 로그인 창 URL을 반환
+    - Line ID의 액세스 토큰 반환
+    - Line Account 조회
+    - Line Account로 회원가입
+    - Line Account로 로그인
+5. 네이버 소셜 로그인 패스워드 암호화, 소셜로그인 유형 검사(DAO) 적용, 줄간격 리팩토링 등
+
+
+### 제제(Zeze)
+#### API 개발
+- 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
+- 검색 조회 API 구현 `진행중`
+
+#### ISSUES
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
+
+
+<br>
+
+## 2022.03.27 개발 일지
+### 본(Bon)
+### 제제(Zeze)
+- 프로필 알림 조회 API 구현
+- 검색(제목/사람/장르) 조회 API 구현
+- 검색 기록 저장 로직 구현
+- ERD 3차 설계 잘못된 부분 수정&보완
