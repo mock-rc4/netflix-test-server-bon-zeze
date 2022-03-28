@@ -150,7 +150,7 @@ public class VideoDao {
     }
 
 
-	public List<GetVideoRes> getVideosByTitle(String keyword) {
+	public List<GetVideoRes> getVideosByMovieTitle(String keyword) {
 		String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
 				"from Video\n" +
 				"where title like ?";
@@ -161,7 +161,7 @@ public class VideoDao {
 		return videos;
 	}
 
-	public List<GetVideoRes> getVideosByActor(String keyword) {
+	public List<GetVideoRes> getVideosByActorName(String keyword) {
 		String query = "select Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
 				"from Video\n" +
 				"join ActorParticipate AP on Video.videoIdx = AP.videoIdx\n" +

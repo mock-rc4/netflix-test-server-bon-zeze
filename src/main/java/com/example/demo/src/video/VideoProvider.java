@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.BaseResponse;
-import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
 import com.example.demo.utils.JwtService;
@@ -118,12 +116,12 @@ public class VideoProvider {
 	public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
 		try {
 			//제목 기준 찾기
-			List<GetVideoRes> resultByTitle = videoDao.getVideosByTitle(keyword);
+			List<GetVideoRes> resultByTitle = videoDao.getVideosByMovieTitle(keyword);
 			if (!resultByTitle.isEmpty()) {
 				return resultByTitle;
 			}
 			//사람 기준 찾기
-			List<GetVideoRes> resultByActor = videoDao.getVideosByActor(keyword);
+			List<GetVideoRes> resultByActor = videoDao.getVideosByActorName(keyword);
 			if (!resultByActor.isEmpty()) {
 				return resultByActor;
 			}
