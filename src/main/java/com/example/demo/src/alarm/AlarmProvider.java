@@ -2,6 +2,7 @@ package com.example.demo.src.alarm;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.alarm.domain.GetAlarmRes;
+import com.example.demo.src.alarm.domain.SetAlarmReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,14 @@ public class AlarmProvider {
     public List<GetAlarmRes> getProfileAlarms(int profileIdx) throws BaseException {
         try {
             return alarmDao.getProfileAlarms(profileIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public int checkAlarmExists(SetAlarmReq setAlarmReq) throws BaseException {
+        try {
+            return alarmDao.checkAlarmExists(setAlarmReq);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

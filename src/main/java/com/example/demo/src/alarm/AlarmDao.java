@@ -1,6 +1,6 @@
 package com.example.demo.src.alarm;
 
-import com.example.demo.src.alarm.domain.GetAlarmRes;
+import com.example.demo.src.alarm.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +14,32 @@ public class AlarmDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    public int create(SetAlarmReq setAlarmReq) {
+        String query = "insert into Alarm (profileIdx, videoIdx) values (?,?)";
+        Object[] alarmParam = new Object[]{
+                setAlarmReq.getProfileIdx(),
+                setAlarmReq.getVideoIdx()};
+        this.jdbcTemplate.update(query, alarmParam);
+
+        String lastIdSql = "select last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastIdSql, int.class);
+    }
+
+    public int update(SetAlarmReq setAlarmReq) {
+        String query = "update Alarm set updatedAt = NOW(), status = ? where profileIdx = ? and videoIdx = ?";
+        Object[] alarmParam = new Object[]{
+                setAlarmReq.getStatus(),
+                setAlarmReq.getProfileIdx(),
+                setAlarmReq.getVideoIdx()};
+        return this.jdbcTemplate.update(query, alarmParam);
+    }
+
+    public int checkAlarmExists(SetAlarmReq setAlarmReq) {
+        String query = "select exists(select * from Alarm where profileIdx = ? and videoIdx = ?)";
+        int profileIdx = setAlarmReq.getProfileIdx();
+        int videoIdx = setAlarmReq.getVideoIdx();
+        return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx);
+    }
 
     public List<GetAlarmRes> getProfileAlarms(int profileIdx) {
         String query = "select alarmIdx, title, photoUrl, openDate from Alarm\n" +
