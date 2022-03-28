@@ -491,12 +491,7 @@
 - 찜하기 변경 API 구현
 
 #### ISSUES
-- BUILD ERROR : `java.lang.NoClassDeFoundError: org/apache/tools/ant/util/ReaderInputStream`
-	- 발생상황: pull이 충돌없이 정상적으로 잘 이루어진 이후에 갑자기 빌드 실패, clone을 통해서 받아도 Build results are outdated for requested compile scope. 문구 뜸
-	- `NoClassDeFoundError`: 컴파일 시점에 존재했던 클래스가 런타임에 존재하지 않으면 발생하는 에러, JVM이 내부의 클래스 정의 데이터 구조에서 Class를 찾지 못했다는 것 (단순한 Classpath의 문제와는 다름)
-		- ClassNotFoundException: Classpath에 로드하고자 하는 Class가 발견되지 않았을 때 발생
-		- 하지만, NoClassDeFoundError의 경우 Classpath의 문제가 아닌 다른 내제적인 문제에서 발생할 수 있다 (ex.라이브러리가 맞지 않아 발생)
-	- 원인/해결: 이번에는 인텔리제이에서 Load Gradle Project를 자동으로 해주지 않아서 Gradle을 자동으로 못읽어왔었던 것으로 이를 누르자 해결
+- BUILD ERROR : `java.lang.NoClassDeFoundError` 해결 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/50#issue-1182828859
 
 <br>
 
