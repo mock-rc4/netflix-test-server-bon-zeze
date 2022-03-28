@@ -35,6 +35,7 @@ public class Video {
 		private String director;
 		private String resolution;
 		private String previewUrl;
+		private String openDate;
 	}
 
 	@Getter
@@ -58,4 +59,5 @@ public class Video {
 		private int season;
 		private int episodeCount;
 	}
+
 }
