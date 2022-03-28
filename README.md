@@ -339,15 +339,8 @@
   - 협업하다보니 git에 대한 혼동이 생겨서 계속해서 공부해야 할 것 같다.
 
 #### 개발 이슈
-  - <img width="822" alt="스크린샷 2022-03-21 오후 11 30 08" src="https://user-images.githubusercontent.com/65826145/159286510-df368951-0447-4294-b807-5fba50de0b3f.png">
-  - <img width="641" alt="스크린샷 2022-03-21 오후 11 50 22" src="https://user-images.githubusercontent.com/65826145/159287757-cf0d1d05-fab2-403b-b3ce-6e9bf6a6ac16.png">
-
-  	- `git pull origin main` 하는 도중에 충돌 발생
-  	- `git config pull.ff only` 설정이 되어있었고 -> 이건 fast-forward만 하겠다는 것으로 이 경우 merge가 불가능하다.
-  	- fast-forward only 옵션을 끄고, merge를 할 수 있는 `git config pull.rebase false`
-  	- 추가로, 현재 브랜치가 저렇게 되었을때 충돌이 발생한건지 현재 헷갈려서 충돌 부분에 관하여 다시 내일 확인해봐야 할 것 같다.
-  		- main에서 push 를 하였는데 pull이 안되길래 commit을 먼저 했더니 발생했던 것으로 기억..
-
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 <br>
 
@@ -447,27 +440,9 @@
 #### 개발&협업 회고록
 - git 충돌로 개발보다 많은 시간을 보냈다. git을 기본적으로 공부할 필요를 느꼈다
 
-#### 개발 이슈
-- **git pull 충돌** (브랜치와 pull에 대한 개념이 약하여 발생)
-	- 원인1: local branch 에서 원격 브랜치에 push 하지 않고 그냥 commit 변경 상태가 있는 상태로 git pull origin main을 당겨옴.
-	- 원인2: 때문에, main에는 나의 작업한 내용이 존재하지 않고(merge가 안된 상태) 그래서 pull을 통해 당겨왔을 때 내 최신 코드가 날아갈 위험이 발생(commit 여부가 반영이 안되어있으니)
-	- 결과: 이로인하여 충돌이 발생
-	- 재발방지: 충돌을 방지하기 위하여는 main에 pr이 잘 된 상태, 그리고 내가 원격 브랜치에 push를 마치고 현재 커밋 기록이 남아있지 않은 상태여야 pull 했을 때 충돌이 발생하지 않는다.
-- git 요약 (코롱님과 본님의 설명 참조)
-	- `origin/zeze` 와 `origin/main` 을 따로 두는 이유
-		- main에서만 소스 코드를 다루게 되면 main에서 오류가 발생 위험도가 높아진다
-		- 따라서 브랜치에서 작업을 하고 검증을 통해 main에 합류시켜야 안전하다
-	- `local/zeze` 와 `local/main`을 따로두는 이유
-		- local에서도 main,zeze를 분리하여 오류 없이 상태를 관리
-	- `local/zeze` → `origin/zeze` 로 `push` 를 하는 이유
-		- main에 바로 push 하게 된다면 main에서 오류가 발생 위험도가 높아진다
-		- 때문에 원격 저장소 브랜치를 생성해서 여기에 push 한 후 Pull request를 통하여 main에 merge를 해주면 main은 검증된 안전한 코드로만 남아있을 수 있다.
-	- `local/main` ← `origin/main` `pull` 받아오기
-		- local/main이 존재하는 이유: orgin/main의 상태를 보존하기 위하여. 때문에 local/main에서 git pull origin main 을 권장
-	- `local/zeze` ← `origin/main` `pull` 받아오기
-		- 내 작업용 브랜치가 main의 최신소스 코드를 받아와도 되는 상태일때 가능
-		- 내 브랜치에는 현재 작업중인게 push 되었는데 main에는 그게 없는 상태에서(merge가 안된 상태) pull을 불러오면 충돌
-		- 받아와도 되는 상태란? 현재 작업이 진행중이지 않고(커밋 기록도 없고) 상태가 최신일때 가능
+#### ISSUE
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 
 ## 2022.03.23 개발 일지
@@ -543,7 +518,7 @@
 	- 멤버십 설정시 결제 기능을 사용하기 위해 카카오 페이 간편결제를 구현하고자 했으나 사업자 등록 & 가맹점 번호가 필요하므로 취소
 	- 구글 소셜 로그인인 공부 (진행중)
 ### 제제(Zeze)
-#### API 개발
+#### API & Todo
 - 장르, 특징 코드 골격 구현
 - 장르 대분류 조회 API 구현
 - Top10 컨텐츠 조회 API 구현
@@ -555,25 +530,8 @@
 - 프로필 닉네임 조회 API 
 
 #### ISSUES
-- Git pull 충돌 해결 : **`error: 병합 때문에 추적하지 않는 다음 작업 폴더의 파일을 덮어씁니다.`**
-	- 내 브랜치가 합병 되고 git pull origin main 을 하는데 오류가 났다. 다음과 같은 에러가 발생
-	  <img width="823" alt="스크린샷 2022-03-26 오후 4 35 46" src="https://user-images.githubusercontent.com/65826145/160281312-b1b1c09e-8c7d-40cf-b890-01846777c0f7.png">
-	#### 원인
-	- 다른 사람들의 pull 에서는 발생하지 않는데, 나한테 발생하는 이유는 **내 local 에서 충돌이 발생**하여 그렇다.
-	그래서 메시지가 시키는대로 파일을 옮기거나 제거한다면 main 에 문제가 생길 수 있다.
-	- 무작정 `git add .` 를 통해서 해결하려다가 오히려 커밋에서 더욱 알 수 없는 파일들만 많이 추가되었다.
-	- **pull 을 사용하면서 착각하면 안되는 점**이 pull = fetch + merge 이다.
-	한마디로 pull을 받는다고 원격 저장소의 브랜치와 로컬 브랜치(내 컴퓨터)의 소스코드가 같아지는 것이 아니다. (불일치)
-	merge 라는건 합병이기때문에 내 코드와 + main 코드가 합쳐지는 것이니 충돌이 안 생기는 부분들이 존재한다면 일치하지 않을 수 있다.
-	- 결국 소스코드는 일치해도 log 파일에서 다르다보니 충돌이 발생한 것이다
-	
-	#### 해결 방법
-	(현재 나는 모든 최신 코드가 merge 되고 커밋 이력이 없는 깨끗한 상태라 가능한 방법이다. 1,2번을 차례대로 입력)
-	1. `git fetch --all`
-		- fetch 는 아무것도 merge 하지 않은 채로, 원격 저장소의 최신 이력을 확인, 이때 가져온 최신 커밋 이력은 이름없는 브랜치로 로컬에 다운로드 한다.
-	2. `git reset --hard origin/main`
-		- `reset`은 main 브랜치와 일치시킨다.
-		- `--hard`는 작업트리의 모든 파일은 origin/main 의 파일과 일치하도록 한다.
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 <br>
 
@@ -612,7 +570,7 @@
 
 
 ### 제제(Zeze)
-#### API 개발
+#### API & Todo
 - 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
 - 검색 조회 API 구현 `진행중`
 
@@ -626,7 +584,10 @@
 ## 2022.03.27 개발 일지
 ### 본(Bon)
 ### 제제(Zeze)
+#### API & Todo
+- 알람,검색 코드 골격 구현
 - 프로필 알림 조회 API 구현
 - 검색(제목/사람/장르) 조회 API 구현
 - 검색 기록 저장 로직 구현
 - ERD 3차 설계 잘못된 부분 수정&보완
+- Issue 정리
