@@ -40,4 +40,12 @@ public class AlarmProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public Integer getVideoAlarmSetting(SetAlarmReq setAlarmReq) throws BaseException {
+        try {
+            return alarmDao.getVideoAlarmSetting(setAlarmReq);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

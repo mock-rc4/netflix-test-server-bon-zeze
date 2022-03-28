@@ -41,6 +41,14 @@ public class AlarmDao {
         return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx);
     }
 
+
+    public int getVideoAlarmSetting(SetAlarmReq setAlarmReq) {
+        String query = "select status from Alarm where profileIdx = ? and videoIdx = ?";
+        int profileIdx = setAlarmReq.getProfileIdx();
+        int videoIdx = setAlarmReq.getVideoIdx();
+        return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx);
+    }
+
     public List<GetAlarmRes> getProfileAlarms(int profileIdx) {
         String query = "select alarmIdx, title, photoUrl, openDate from Alarm\n" +
                 "join Video on Alarm.videoIdx = Video.videoIdx\n" +

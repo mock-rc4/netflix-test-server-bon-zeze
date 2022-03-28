@@ -49,6 +49,19 @@ public class AlarmController {
         }
     }
 
+    @GetMapping("")
+    public BaseResponse<Integer> getVideoAlarmSetting(@RequestBody SetAlarmReq setAlarmReq) {
+        try {
+            if (alarmProvider.checkAlarmExists(setAlarmReq) == 0) {
+                return new BaseResponse<>(0); //GET_ALARM_EXISTS_ERROR 변경 가능- create 호출
+            }
+            int alarmStatus = alarmProvider.getVideoAlarmSetting(setAlarmReq);
+            return new BaseResponse<>(alarmStatus);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
     @GetMapping("/{profileIdx}")
     public BaseResponse<List<GetAlarmRes>> getProfileAlarms(@PathVariable int profileIdx) {
         try {
