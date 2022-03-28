@@ -141,6 +141,26 @@ public class VideoController {
         }
     }
 
+    @GetMapping("/latest")
+    public BaseResponse<List<GetVideoRes>> getThisWeekOpenVideos() {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getThisWeekOpenVideos();
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @GetMapping("/latest/next-week")
+    public BaseResponse<List<GetVideoRes>> getNextWeekOpenVideos() {
+        try {
+            List<GetVideoRes> getVideoResList = videoProvider.getNextWeekOpenVideos();
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
     //검색
     @GetMapping("/search")
     public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {

@@ -113,6 +113,35 @@ public class VideoProvider {
         }
     }
 
+
+	public List<GetVideoRes> getThisWeekOpenVideos() throws BaseException {
+		try {
+			List<GetVideoRes> result = videoDao.getThisWeekOpenVideos();
+			if (result.isEmpty()) {
+				throw new BaseException(GET_VIDEOS_EXISTS_ERROR);
+			}
+			return result;
+		} catch (BaseException exception) {
+			throw new BaseException(GET_VIDEOS_EXISTS_ERROR);
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<GetVideoRes> getNextWeekOpenVideos() throws BaseException {
+		try {
+			List<GetVideoRes> result = videoDao.getNextWeekOpenVideos();
+			if (result.isEmpty()) {
+				throw new BaseException(GET_VIDEOS_EXISTS_ERROR);
+			}
+			return result;
+		} catch (BaseException exception) {
+			throw new BaseException(GET_VIDEOS_EXISTS_ERROR);
+		} catch (Exception exception) {
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
 	public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
 		try {
 			//제목 기준 찾기

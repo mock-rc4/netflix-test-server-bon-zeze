@@ -188,6 +188,27 @@ public class VideoDao {
 	}
 
 
+	public List<GetVideoRes> getThisWeekOpenVideos() {
+		String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+				"from Video\n" +
+				"where openDate > now() and openDate < date_add(now(), interval 1 week)";
+
+		List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper());
+		setVideoCharacters(videos);
+		return videos;
+	}
+
+	public List<GetVideoRes> getNextWeekOpenVideos() {
+		String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+				"from Video\n" +
+				"where openDate >= date_add(now(), interval 1 week) and openDate < date_add(now(), interval 2 week)";
+
+		List<GetVideoRes> videos = this.jdbcTemplate.query(query, videoRowMapper());
+		setVideoCharacters(videos);
+		return videos;
+	}
+
+
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {
             int videoIdx = video.getVideoIdx();

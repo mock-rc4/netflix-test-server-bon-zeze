@@ -69,6 +69,7 @@ public enum BaseResponseStatus {
 
     // [GET] /video
     GET_VIDEO_SEARCH_ERROR(false, 2030, "검색 결과가 없습니다."),
+    GET_VIDEOS_EXISTS_ERROR(false, 2031, "해당 비디오가 존재하지 않습니다."),
 
     /**
      * 3000 : Response 오류
