@@ -2,6 +2,9 @@ package com.example.demo.src.video;
 
 import java.util.List;
 
+
+import com.example.demo.src.search.SearchService;
+import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +28,26 @@ import com.example.demo.utils.JwtService;
 @RequestMapping("/videos")
 public class VideoController {
 
-	@Autowired
-	private final VideoService videoService;
-	@Autowired
-	private final VideoProvider videoProvider;
-	@Autowired
-	private final JwtService jwtService;
+
+    @Autowired
+    private final VideoService videoService;
+    @Autowired
+    private final VideoProvider videoProvider;
+    @Autowired
+    private final SearchService searchService;
+    @Autowired
+    private final JwtService jwtService;
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public VideoController(VideoService videoService, VideoProvider videoProvider, JwtService jwtService) {
-		this.videoService = videoService;
-		this.videoProvider = videoProvider;
-		this.jwtService = jwtService;
-	}
+
+    public VideoController(VideoService videoService, VideoProvider videoProvider,
+                           SearchService searchService, JwtService jwtService) {
+        this.videoService = videoService;
+        this.videoProvider = videoProvider;
+        this.searchService = searchService;
+        this.jwtService = jwtService;
+    }
 
 	@ResponseBody
 	@GetMapping("/{videoIdx}/contents")
@@ -78,6 +87,7 @@ public class VideoController {
 			return new BaseResponse<>((exception.getStatus()));
 		}
 	}
+
 
 	@ResponseBody
 	@GetMapping("/genre")
@@ -202,4 +212,16 @@ public class VideoController {
 			return new BaseResponse<>((exception.getStatus()));
 		}
 	}
+  
+  //검색
+    @GetMapping("/search")
+    public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {
+        try {
+            searchService.saveSearch(keyword);
+            List<GetVideoRes> getVideoResList = videoProvider.getVideosBySearch(keyword);
+            return new BaseResponse<>(getVideoResList);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
 }

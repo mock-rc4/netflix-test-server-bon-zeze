@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
+
 import com.example.demo.src.video.domain.GetVideoRes;
 import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.video.domain.VideoContent;
@@ -75,6 +76,7 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
 
 	public List<GetVideoRes> getNewVideos() throws BaseException {
 		try {
@@ -166,6 +168,30 @@ public class VideoProvider {
 			return videoDao.getVideoDetailByVideoIdx(videoIdx);
 		} catch (Exception exception) {
 			logger.error(exception.toString());
+      
+      
+  public List<GetVideoRes> getVideosBySearch(String keyword) throws BaseException {
+		try {
+			//제목 기준 찾기
+			List<GetVideoRes> resultByTitle = videoDao.getVideosByMovieTitle(keyword);
+			if (!resultByTitle.isEmpty()) {
+				return resultByTitle;
+			}
+			//사람 기준 찾기
+			List<GetVideoRes> resultByActor = videoDao.getVideosByActorName(keyword);
+			if (!resultByActor.isEmpty()) {
+				return resultByActor;
+			}
+			//장르 기준 찾기
+			List<GetVideoRes> resultByGenre = videoDao.getVideosByGenreName(keyword);
+			if (!resultByGenre.isEmpty()) {
+				return resultByGenre;
+			} else {
+				throw new BaseException(GET_VIDEO_SEARCH_ERROR);
+			}
+		} catch (BaseException exception) {
+			throw new BaseException(GET_VIDEO_SEARCH_ERROR);
+		} catch (Exception exception) {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}

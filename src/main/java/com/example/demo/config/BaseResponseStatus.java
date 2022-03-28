@@ -67,12 +67,16 @@ public enum BaseResponseStatus {
     // [PATCH] /bookmark
     PATCH_BOOKMARK_STATUS_ERROR(false, 2024, "찜하기가 되어있지 않은 상태입니다."),
 
+    // [GET] /video
+    GET_VIDEO_SEARCH_ERROR(false, 2030, "검색 결과가 없습니다."),
+
     /**
      * 3000 : Response 오류
      */
     // Common
     RESPONSE_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
     RESPONSE_CATEGORY_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
+    SAVE_SEARCH_ERROR(false, 3000, "검색 키워드 저장을 실패하였습니다."),
 
     // [POST] /accounts
     DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
