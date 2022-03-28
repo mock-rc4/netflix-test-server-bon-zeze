@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class GetAlarmRes {
     private int alarmIdx;
+    private int videoIdx;
     private String title;
     private String photoUrl;
     private LocalDateTime openDate;

@@ -50,9 +50,10 @@ public class AlarmDao {
     }
 
     public List<GetAlarmRes> getProfileAlarms(int profileIdx) {
-        String query = "select alarmIdx, title, photoUrl, openDate from Alarm\n" +
+        String query = "select alarmIdx, Video.videoIdx, title, photoUrl, openDate from Alarm\n" +
                 "join Video on Alarm.videoIdx = Video.videoIdx\n" +
-                "where Video.openDate is not null and Video.openDate <= now() and Alarm.profileIdx = ?";
+                "where Video.openDate is not null and Video.openDate <= now()\n" +
+                "and Alarm.status = 1 and Alarm.profileIdx = ?";
 
         return this.jdbcTemplate.query(query, videoRowMapper(), profileIdx);
     }
@@ -60,6 +61,7 @@ public class AlarmDao {
     private RowMapper<GetAlarmRes> videoRowMapper() {
         return (rs, rowNum) -> new GetAlarmRes(
                 rs.getInt("alarmIdx"),
+                rs.getInt("videoIdx"),
                 rs.getString("title"),
                 rs.getString("photoUrl"),
                 rs.getTimestamp("openDate").toLocalDateTime()
