@@ -39,4 +39,15 @@ public class VideoPlayProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+	public VideoPlay.getVideoPlayStatusAtMainMenuResDto getVideoPlayStatusAtMainMenu
+		(int profileIdx, int videoIdx) throws BaseException {
+		try {
+			return videoPlayDao.getVideoPlayStatusAtMainMenu(profileIdx, videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
 }

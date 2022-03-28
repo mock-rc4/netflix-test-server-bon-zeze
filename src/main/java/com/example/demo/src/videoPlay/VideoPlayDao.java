@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.src.video.domain.Video;
 import com.example.demo.src.videoPlay.domain.VideoPlay;
 
 @Repository
@@ -44,5 +45,21 @@ public class VideoPlayDao {
 		Object[] params = new Object[] {requestDto.getCurrentPlayTime(), requestDto.getProfileIdx(),
 			requestDto.getVideosIdx()};
 		this.jdbcTemplate.update(query, params);
+	}
+
+	public VideoPlay.getVideoPlayStatusAtMainMenuResDto getVideoPlayStatusAtMainMenu(int profileIdx, int videoIdx) {
+		String query = "select P.currentPlayTime, VS.videosIdx from Video as V\n"
+			+ "left join Videos as VS\n"
+			+ "on ? = VS.videoIdx\n"
+			+ "left join Play as P\n"
+			+ "on P.videosIdx = VS.videosIdx\n"
+			+ "where P.profileIdx = ?\n"
+			+ "group by videosIdx;";
+		return this.jdbcTemplate.queryForObject(query,
+			(rs, rowNum) -> new VideoPlay.getVideoPlayStatusAtMainMenuResDto(
+				rs.getFloat("currentPlayTime"),
+				rs.getInt("videosIdx")
+			),
+			videoIdx, profileIdx);
 	}
 }
