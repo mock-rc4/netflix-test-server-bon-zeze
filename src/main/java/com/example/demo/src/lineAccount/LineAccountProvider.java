@@ -1,4 +1,4 @@
-package com.example.demo.src.naverAccount;
+package com.example.demo.src.lineAccount;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -8,35 +8,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.naverAccount.domain.NaverAccount;
+import com.example.demo.src.lineAccount.domain.LineAccount;
 import com.example.demo.utils.JwtService;
 
 @Service
 
-public class NaverAccountProvider {
+public class LineAccountProvider {
 
 	private final JwtService jwtService;
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private final NaverAccountDao naverAccountDao;
+	private final LineAccountDao lineAccountDao;
 
 	@Autowired
-	public NaverAccountProvider(NaverAccountDao naverAccountDao, JwtService jwtService) {
-		this.naverAccountDao = naverAccountDao;
+	public LineAccountProvider(LineAccountDao lineAccountDao, JwtService jwtService) {
+		this.lineAccountDao = lineAccountDao;
 		this.jwtService = jwtService;
 	}
 
-	public int checkNaverAccountByEmail(String email) throws BaseException {
+	public int checkLineAccountByEmail(String email) throws BaseException {
 		try {
-			return naverAccountDao.checkNaverAccountByEmail(email);
+			return lineAccountDao.checkLineAccountByEmail(email);
 		} catch (Exception exception) {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
 
-	public NaverAccount.GetNaverAccountResDto getNaverAccountById(String id) throws BaseException {
+	public LineAccount.GetLineAccountResDto getLineAccountById(String id) throws BaseException {
 		try {
-			return naverAccountDao.getNaverAccountById(id);
+			return lineAccountDao.getLineAccountById(id);
 		} catch (Exception exception) {
 			throw new BaseException(DATABASE_ERROR);
 		}

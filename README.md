@@ -339,15 +339,8 @@
   - 협업하다보니 git에 대한 혼동이 생겨서 계속해서 공부해야 할 것 같다.
 
 #### 개발 이슈
-  - <img width="822" alt="스크린샷 2022-03-21 오후 11 30 08" src="https://user-images.githubusercontent.com/65826145/159286510-df368951-0447-4294-b807-5fba50de0b3f.png">
-  - <img width="641" alt="스크린샷 2022-03-21 오후 11 50 22" src="https://user-images.githubusercontent.com/65826145/159287757-cf0d1d05-fab2-403b-b3ce-6e9bf6a6ac16.png">
-
-  	- `git pull origin main` 하는 도중에 충돌 발생
-  	- `git config pull.ff only` 설정이 되어있었고 -> 이건 fast-forward만 하겠다는 것으로 이 경우 merge가 불가능하다.
-  	- fast-forward only 옵션을 끄고, merge를 할 수 있는 `git config pull.rebase false`
-  	- 추가로, 현재 브랜치가 저렇게 되었을때 충돌이 발생한건지 현재 헷갈려서 충돌 부분에 관하여 다시 내일 확인해봐야 할 것 같다.
-  		- main에서 push 를 하였는데 pull이 안되길래 commit을 먼저 했더니 발생했던 것으로 기억..
-
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 <br>
 
@@ -447,27 +440,9 @@
 #### 개발&협업 회고록
 - git 충돌로 개발보다 많은 시간을 보냈다. git을 기본적으로 공부할 필요를 느꼈다
 
-#### 개발 이슈
-- **git pull 충돌** (브랜치와 pull에 대한 개념이 약하여 발생)
-	- 원인1: local branch 에서 원격 브랜치에 push 하지 않고 그냥 commit 변경 상태가 있는 상태로 git pull origin main을 당겨옴.
-	- 원인2: 때문에, main에는 나의 작업한 내용이 존재하지 않고(merge가 안된 상태) 그래서 pull을 통해 당겨왔을 때 내 최신 코드가 날아갈 위험이 발생(commit 여부가 반영이 안되어있으니)
-	- 결과: 이로인하여 충돌이 발생
-	- 재발방지: 충돌을 방지하기 위하여는 main에 pr이 잘 된 상태, 그리고 내가 원격 브랜치에 push를 마치고 현재 커밋 기록이 남아있지 않은 상태여야 pull 했을 때 충돌이 발생하지 않는다.
-- git 요약 (코롱님과 본님의 설명 참조)
-	- `origin/zeze` 와 `origin/main` 을 따로 두는 이유
-		- main에서만 소스 코드를 다루게 되면 main에서 오류가 발생 위험도가 높아진다
-		- 따라서 브랜치에서 작업을 하고 검증을 통해 main에 합류시켜야 안전하다
-	- `local/zeze` 와 `local/main`을 따로두는 이유
-		- local에서도 main,zeze를 분리하여 오류 없이 상태를 관리
-	- `local/zeze` → `origin/zeze` 로 `push` 를 하는 이유
-		- main에 바로 push 하게 된다면 main에서 오류가 발생 위험도가 높아진다
-		- 때문에 원격 저장소 브랜치를 생성해서 여기에 push 한 후 Pull request를 통하여 main에 merge를 해주면 main은 검증된 안전한 코드로만 남아있을 수 있다.
-	- `local/main` ← `origin/main` `pull` 받아오기
-		- local/main이 존재하는 이유: orgin/main의 상태를 보존하기 위하여. 때문에 local/main에서 git pull origin main 을 권장
-	- `local/zeze` ← `origin/main` `pull` 받아오기
-		- 내 작업용 브랜치가 main의 최신소스 코드를 받아와도 되는 상태일때 가능
-		- 내 브랜치에는 현재 작업중인게 push 되었는데 main에는 그게 없는 상태에서(merge가 안된 상태) pull을 불러오면 충돌
-		- 받아와도 되는 상태란? 현재 작업이 진행중이지 않고(커밋 기록도 없고) 상태가 최신일때 가능
+#### ISSUE
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 
 ## 2022.03.23 개발 일지
@@ -516,12 +491,7 @@
 - 찜하기 변경 API 구현
 
 #### ISSUES
-- BUILD ERROR : `java.lang.NoClassDeFoundError: org/apache/tools/ant/util/ReaderInputStream`
-	- 발생상황: pull이 충돌없이 정상적으로 잘 이루어진 이후에 갑자기 빌드 실패, clone을 통해서 받아도 Build results are outdated for requested compile scope. 문구 뜸
-	- `NoClassDeFoundError`: 컴파일 시점에 존재했던 클래스가 런타임에 존재하지 않으면 발생하는 에러, JVM이 내부의 클래스 정의 데이터 구조에서 Class를 찾지 못했다는 것 (단순한 Classpath의 문제와는 다름)
-		- ClassNotFoundException: Classpath에 로드하고자 하는 Class가 발견되지 않았을 때 발생
-		- 하지만, NoClassDeFoundError의 경우 Classpath의 문제가 아닌 다른 내제적인 문제에서 발생할 수 있다 (ex.라이브러리가 맞지 않아 발생)
-	- 원인/해결: 이번에는 인텔리제이에서 Load Gradle Project를 자동으로 해주지 않아서 Gradle을 자동으로 못읽어왔었던 것으로 이를 누르자 해결
+- BUILD ERROR : `java.lang.NoClassDeFoundError` 해결 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/50#issue-1182828859
 
 <br>
 
@@ -543,8 +513,9 @@
 	- 멤버십 설정시 결제 기능을 사용하기 위해 카카오 페이 간편결제를 구현하고자 했으나 사업자 등록 & 가맹점 번호가 필요하므로 취소
 	- 구글 소셜 로그인인 공부 (진행중)
 ### 제제(Zeze)
-#### API 개발
+#### API & Todo
 - 장르, 특징 코드 골격 구현
+- 장르 대분류 조회 API 구현
 - Top10 컨텐츠 조회 API 구현
 - 인기 컨텐츠 조회 API 구현
 - 시청중인 컨텐츠 조회 API 구현
@@ -552,3 +523,66 @@
 - 신규 컨텐츠 조회 API 구현
 - 찜하기 컨텐츠 조회 API 구현
 - 프로필 닉네임 조회 API 
+
+#### ISSUES
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
+
+<br>
+
+## 2022.03.26 개발 일지
+### 제제 & 본(Bon)
+- 회의를 통한 API 기능 명세서 재정리
+	- 알람 기능 추가
+	- 검색 기능 추가
+	- 기타 조회 추가
+- ERD 3차 설계
+	- 알림, 검색 테이블 추가
+	- 비디오 테이블에서 컬럼 추가
+### 본(Bon)
+
+#### API 개발
+1. 소셜로그인 골격을 변경하는 Commit
+     - Facebook은 Social Login이 Javascript Documents 이므로 이외의 Social Login 서비스를 제공하는 Google, Line의 REST Login API를 사용하여 로그인 관련 서비스를 구현하였다.
+
+
+2. 이전 Pull Request에서의 Review를 반영한 수정내역 Commit
+
+3. Google REST LOGIN API
+    - 파라메터를 조합하여 Google 로그인 창 URL을 반환
+    - Google ID의 액세스 토큰 반환
+    - Google Account 조회
+    - Google Account로 회원가입
+    - Google Account로 로그인
+
+4. Line REST LOGIN API
+    - 파라메터를 조합하여 Line 로그인 창 URL을 반환
+    - Line ID의 액세스 토큰 반환
+    - Line Account 조회
+    - Line Account로 회원가입
+    - Line Account로 로그인
+5. 네이버 소셜 로그인 패스워드 암호화, 소셜로그인 유형 검사(DAO) 적용, 줄간격 리팩토링 등
+
+
+### 제제(Zeze)
+#### API & Todo
+- 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
+- 검색 조회 API 구현 `진행중`
+
+#### ISSUES
+- Git 충돌 발생 해결 -> 
+  https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
+
+
+<br>
+
+## 2022.03.27 개발 일지
+### 본(Bon)
+### 제제(Zeze)
+#### API & Todo
+- 알람,검색 코드 골격 구현
+- 프로필 알림 조회 API 구현
+- 검색(제목/사람/장르) 조회 API 구현
+- 검색 기록 저장 로직 구현
+- ERD 3차 설계 잘못된 부분 수정&보완
+- Issue 정리

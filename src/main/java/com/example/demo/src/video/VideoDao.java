@@ -2,15 +2,13 @@ package com.example.demo.src.video;
 
 import java.util.List;
 
-import com.example.demo.src.character.CharacterDao;
-import com.example.demo.src.video.domain.GetVideoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.src.video.domain.Video;
-import com.example.demo.src.video.domain.VideoContent;
+import com.example.demo.src.character.CharacterDao;
+import com.example.demo.src.video.domain.*;
 
 @Repository
 public class VideoDao {
@@ -24,71 +22,73 @@ public class VideoDao {
         this.characterDao = characterDao;
     }
 
-	public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) {
-		String isMovieOrSeries = videoType == 0 ? "=" : "<";
-		String query = "select V.* from GenreContact as GC "
-			+ "left join Video as V on GC.videoIdx = V.videoIdx "
-			+ "left join Genre as G on G.genreIdx = GC.genreIdx where G.name = ? and 0 " + isMovieOrSeries
-			+ "V.season;";
-		return this.jdbcTemplate.query(query,
-			(rs, rowNum) -> new Video.getVideoResDto(
-				rs.getInt("videoIdx"),
-				rs.getInt("year"),
-				rs.getInt("season"),
-				rs.getInt("ageGrade"),
-				rs.getString("title"),
-				rs.getString("runningTime"),
-				rs.getString("photoUrl"),
-				rs.getString("summary"),
-				rs.getString("director")
-			),
-			genre);
-	}
+    public List<Video.getVideoResDto> getVideosByGenre(int videoType, String genre) {
+        String isMovieOrSeries = videoType == 0 ? "=" : "<";
+        String query = "select V.* from GenreContact as GC "
+                + "left join Video as V on GC.videoIdx = V.videoIdx "
+                + "left join Genre as G on G.genreIdx = GC.genreIdx where G.name = ? and 0 " + isMovieOrSeries
+                + "V.season";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new Video.getVideoResDto(
+                        rs.getInt("videoIdx"),
+                        rs.getInt("year"),
+                        rs.getInt("season"),
+                        rs.getInt("ageGrade"),
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("photoUrl"),
+                        rs.getString("summary"),
+                        rs.getString("director"),
+                        rs.getString("resolution"),
+                        rs.getString("previewVideoUrl"),
+                        rs.getString("openDate")
+                ),
+                genre);
+    }
 
-	public List<VideoContent.resDto> getVideoContentsByVideoIdx(int videoIdx) {
-		String query = "select * from Videos where videoIdx = ?";
-		return this.jdbcTemplate.query(query,
-			(rs, rowNum) -> new VideoContent.resDto(
-				rs.getString("title"),
-				rs.getString("runningTime"),
-				rs.getString("summary"),
-				rs.getInt("season"),
-				rs.getInt("episode")
-			),
-			videoIdx);
-	}
+    public List<VideoContent.resDto> getVideoContentsByVideoIdx(int videoIdx) {
+        String query = "select * from Videos where videoIdx = ? order by title ,season";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new VideoContent.resDto(
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("summary"),
+                        rs.getInt("season"),
+                        rs.getInt("episode")
+                ),
+                videoIdx);
+    }
 
-	public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) {
-		String query = "select * from Videos where videoIdx = ? and season = ?";
-		return this.jdbcTemplate.query(query,
-			(rs, rowNum) -> new VideoContent.resDto(
-				rs.getString("title"),
-				rs.getString("runningTime"),
-				rs.getString("summary"),
-				rs.getInt("season"),
-				rs.getInt("episode")
-			),
-			videoIdx, seasonNumber);
-	}
+    public List<VideoContent.resDto> getVideoContentsByVideoIdxAndSeasonNumber(int videoIdx, int seasonNumber) {
+        String query = "select * from Videos where videoIdx = ? and season = ?";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new VideoContent.resDto(
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("summary"),
+                        rs.getInt("season"),
+                        rs.getInt("episode")
+                ),
+                videoIdx, seasonNumber);
+    }
 
-	public List<Video.getEachSeasonEpisodeCountsResDto> getEachSeasonEpisodeCounts(int videoIdx) {
-		String query = "select season, count(episode) as episodeCount from Videos where videoIdx = ? group by season";
-		return this.jdbcTemplate.query(query,
-			(rs, rowNum) -> new Video.getEachSeasonEpisodeCountsResDto(
-				rs.getInt("season"),
-				rs.getInt("episodeCount")
-			),
-			videoIdx);
-	}
+    public List<Video.getEachSeasonEpisodeCountsResDto> getEachSeasonEpisodeCounts(int videoIdx) {
+        String query = "select season, count(episode) as episodeCount from Videos where videoIdx = ? group by season";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new Video.getEachSeasonEpisodeCountsResDto(
+                        rs.getInt("season"),
+                        rs.getInt("episodeCount")
+                ),
+                videoIdx);
+    }
 
-
-	public int checkHasVideoIdx(int videoIdx) {
-		String query = "select exists(select videoIdx from Video where videoIdx = ?)";
-		int params = videoIdx;
-		return this.jdbcTemplate.queryForObject(query,
-			int.class,
-			params);
-	}
+    public int checkHasVideoIdx(int videoIdx) {
+        String query = "select exists(select videoIdx from Video where videoIdx = ?)";
+        int params = videoIdx;
+        return this.jdbcTemplate.queryForObject(query,
+                int.class,
+                params);
+    }
 
     public List<GetVideoRes> getNewVideos() {
         String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n"
@@ -149,6 +149,114 @@ public class VideoDao {
         return videos;
     }
 
+    public List<Video.getVideoResDto> getVideosByActor(int actorIdx) {
+        String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime, "
+                + "V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from ActorParticipate as AP "
+                + "left join Video as V "
+                + "on V.videoIdx = AP.videoIdx "
+                + "where actorIdx = ? "
+                + "order by V.updatedAt desc";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new Video.getVideoResDto(
+                        rs.getInt("videoIdx"),
+                        rs.getInt("year"),
+                        rs.getInt("season"),
+                        rs.getInt("ageGrade"),
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("photoUrl"),
+                        rs.getString("summary"),
+                        rs.getString("director"),
+                        rs.getString("resolution"),
+                        rs.getString("previewVideoUrl"),
+                        rs.getString("openDate")
+                ),
+                actorIdx);
+    }
+
+    public List<Video.getVideoResDto> getVideosByCharacter(int characterIdx) {
+        String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime,"
+                + " V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from CharacterContact as CC "
+                + "left join Video as V "
+                + "on V.videoIdx = CC.videoIdx "
+                + "where characterIdx = ? "
+                + "order by V.updatedAt desc";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new Video.getVideoResDto(
+                        rs.getInt("videoIdx"),
+                        rs.getInt("year"),
+                        rs.getInt("season"),
+                        rs.getInt("ageGrade"),
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("photoUrl"),
+                        rs.getString("summary"),
+                        rs.getString("director"),
+                        rs.getString("resolution"),
+                        rs.getString("previewVideoUrl"),
+                        rs.getString("openDate")
+                ),
+                characterIdx);
+    }
+
+    public List<VideoDetail.actorInfoResDto> getActorsByVideoIdx(int videoIdx) {
+        String query = "select A.actorIdx, A.name from ActorParticipate as AP\n"
+                + "left join Actor as A\n"
+                + "on A.actorIdx = AP.actorIdx\n"
+                + "where AP.videoIdx = ?;";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new VideoDetail.actorInfoResDto(
+                        rs.getInt("actorIdx"),
+                        rs.getString("name")
+                ),
+                videoIdx);
+    }
+
+    public List<VideoDetail.genreInfoResDto> getGenresByVideoIdx(int videoIdx) {
+        String query = "select G.genreIdx, G.name from GenreContact as GC\n"
+                + "left join Genre as G\n"
+                + "on G.genreIdx = GC.genreIdx\n"
+                + "where GC.videoIdx = ? ";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new VideoDetail.genreInfoResDto(
+                        rs.getInt("genreIdx"),
+                        rs.getString("name")
+                ),
+                videoIdx);
+    }
+
+    public List<VideoDetail.characterInfoResDto> getCharactersByVideoIdx(int videoIdx) {
+        String query = "select C.characterIdx, C.name from CharacterContact as CC\n"
+                + "left join `Character` as C\n"
+                + "on C.characterIdx = CC.characterIdx\n"
+                + "where CC.videoIdx = ? ";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new VideoDetail.characterInfoResDto(
+                        rs.getInt("characterIdx"),
+                        rs.getString("name")
+                ),
+                videoIdx);
+    }
+
+    public List<Video.getVideoResDto> getVideoDetailByVideoIdx(int videoIdx) {
+        String query = "select * from Video where videoIdx = ?";
+        return this.jdbcTemplate.query(query,
+                (rs, rowNum) -> new Video.getVideoResDto(
+                        rs.getInt("videoIdx"),
+                        rs.getInt("year"),
+                        rs.getInt("season"),
+                        rs.getInt("ageGrade"),
+                        rs.getString("title"),
+                        rs.getString("runningTime"),
+                        rs.getString("photoUrl"),
+                        rs.getString("summary"),
+                        rs.getString("director"),
+                        rs.getString("resolution"),
+                        rs.getString("previewVideoUrl"),
+                        rs.getString("openDate")
+                ),
+                videoIdx);
+    }
 
 	public List<GetVideoRes> getVideosByMovieTitle(String keyword) {
 		String query = "select videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
