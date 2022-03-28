@@ -229,4 +229,13 @@ public class VideoProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+	public List<Video.getVideoResDto> getAwardVideosByGenre(int videoType, String genre) throws BaseException {
+		try {
+			return videoDao.getAwardVideosByGenre(videoType, genre);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }

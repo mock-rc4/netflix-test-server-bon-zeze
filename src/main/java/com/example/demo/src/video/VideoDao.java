@@ -322,6 +322,29 @@ public class VideoDao {
 			String.class);
 	}
 
+	public List<Video.getVideoResDto> getAwardVideosByGenre(int videoType, String genre) {
+		String isMovieOrSeries = videoType == 0 ? "=" : "<";
+		String query = "select V.* from GenreContact as GC "
+			+ "left join Video as V on GC.videoIdx = V.videoIdx "
+			+ "left join Genre as G on G.genreIdx = GC.genreIdx where V.award = 1 and G.name = ? and 0 " + isMovieOrSeries
+			+ "V.season";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getVideoResDto(
+				rs.getInt("videoIdx"),
+				rs.getInt("year"),
+				rs.getInt("season"),
+				rs.getInt("ageGrade"),
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("photoUrl"),
+				rs.getString("summary"),
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewVideoUrl"),
+				rs.getString("openDate")
+			),
+			genre);
+	}
 
     private void setVideoCharacters(List<GetVideoRes> videos) {
         for (GetVideoRes video : videos) {

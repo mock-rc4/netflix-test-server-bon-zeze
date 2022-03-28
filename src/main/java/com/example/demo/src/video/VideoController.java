@@ -238,6 +238,18 @@ public class VideoController {
         }
     }
 
+	@ResponseBody
+	@GetMapping("/award-videos")
+	public BaseResponse<List<Video.getVideoResDto>> getAwardVideosByGenre(@RequestParam int videoType,
+		@RequestParam String genre) {
+		try {
+			List<Video.getVideoResDto> resDto = videoProvider.getAwardVideosByGenre(videoType, genre);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
+
     //검색
     @GetMapping("/search")
     public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {
