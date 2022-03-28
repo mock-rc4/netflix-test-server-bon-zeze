@@ -40,8 +40,7 @@ public class VideoDao {
                         rs.getString("summary"),
                         rs.getString("director"),
                         rs.getString("resolution"),
-                        rs.getString("previewVideoUrl"),
-                        rs.getString("openDate")
+                        rs.getString("previewVideoUrl")
                 ),
                 genre);
     }
@@ -168,8 +167,7 @@ public class VideoDao {
                         rs.getString("summary"),
                         rs.getString("director"),
                         rs.getString("resolution"),
-                        rs.getString("previewVideoUrl"),
-                        rs.getString("openDate")
+                        rs.getString("previewVideoUrl")
                 ),
                 actorIdx);
     }
@@ -193,8 +191,7 @@ public class VideoDao {
                         rs.getString("summary"),
                         rs.getString("director"),
                         rs.getString("resolution"),
-                        rs.getString("previewVideoUrl"),
-                        rs.getString("openDate")
+                        rs.getString("previewVideoUrl")
                 ),
                 characterIdx);
     }
@@ -252,8 +249,7 @@ public class VideoDao {
                         rs.getString("summary"),
                         rs.getString("director"),
                         rs.getString("resolution"),
-                        rs.getString("previewVideoUrl"),
-                        rs.getString("openDate")
+                        rs.getString("previewVideoUrl")
                 ),
                 videoIdx);
     }
@@ -340,8 +336,7 @@ public class VideoDao {
 				rs.getString("summary"),
 				rs.getString("director"),
 				rs.getString("resolution"),
-				rs.getString("previewVideoUrl"),
-				rs.getString("openDate")
+				rs.getString("previewVideoUrl")
 			),
 			genre);
 	}
