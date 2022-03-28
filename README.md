@@ -598,6 +598,9 @@
 - ERD 3차 설계 잘못된 부분 수정&보완
 - Issue 정리
 
+#### ISSUE
+JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/47#issue-1182603514
+
 
 ## 2022.03.28 개발 일지
 ### 제제 & 본(Bon)
@@ -623,3 +626,11 @@
 
 #### 지난 Pull Request Comment를 따라 리팩토링
 #44 (comment)
+
+
+### 제제(Zeze)
+#### API & Todo
+- 알람 설정 API 구현
+- 비디오 알람 조회 API 구현
+- 이번주 공개 컨텐츠 목록 조회 API 구현
+- 다음주 공개 컨텐츠 목록 조회 API 구현
