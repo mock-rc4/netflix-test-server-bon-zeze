@@ -343,6 +343,30 @@ public class VideoDao {
         }
     }
 
+	public List<Video.getVideoResDto> getVideosByDirector(int directorIdx) {
+		String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime,\n"
+			+ "V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from DirectorParticipate as DP\n"
+			+ "left join Video as V\n"
+			+ "on V.videoIdx = DP.videoIdx\n"
+			+ "where directorIdx = ? \n"
+			+ "order by V.updatedAt desc";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new Video.getVideoResDto(
+				rs.getInt("videoIdx"),
+				rs.getInt("year"),
+				rs.getInt("season"),
+				rs.getInt("ageGrade"),
+				rs.getString("title"),
+				rs.getString("runningTime"),
+				rs.getString("photoUrl"),
+				rs.getString("summary"),
+				rs.getString("director"),
+				rs.getString("resolution"),
+				rs.getString("previewVideoUrl")
+			),
+			directorIdx);
+	}
+
     private RowMapper<GetVideoRes> videoRowMapper() {
         return (rs, rowNum) -> new GetVideoRes(
                 rs.getInt("videoIdx"),
