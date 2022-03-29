@@ -15,8 +15,12 @@ public class BookmarkService {
 
     public int create(PostBookmarkReq postBookmarkReq) throws BaseException {
         try {
-            int bookmarkIdx = bookmarkDao.create(postBookmarkReq);
-            return bookmarkIdx;
+            if(bookmarkDao.checkBookmarkExists(postBookmarkReq)!=0){
+                throw new BaseException(POST_BOOKMARK_ALREADY_EXISTS);
+            }
+            return bookmarkDao.create(postBookmarkReq);
+        } catch (BaseException exception) {
+            throw new BaseException(POST_BOOKMARK_ALREADY_EXISTS);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

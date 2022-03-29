@@ -64,6 +64,9 @@ public enum BaseResponseStatus {
 
 	GET_VIDEO_INVALID_VIDEO_IDX(false,2400,"유효하지 않은 비디오 식별자입니다."),
 
+    // [POST] /bookmark
+    POST_BOOKMARK_ALREADY_EXISTS(false,2098,"찜하기에 대한 생성이 이미 존재합니다."),
+
     // [PATCH] /bookmark
     PATCH_BOOKMARK_STATUS_ERROR(false, 2024, "찜하기가 되어있지 않은 상태입니다."),
 

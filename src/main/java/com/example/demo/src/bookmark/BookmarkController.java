@@ -28,9 +28,8 @@ public class BookmarkController {
         this.bookmarkProvider = bookmarkProvider;
     }
 
-    @PostMapping("/{profileIdx}")
-    public BaseResponse<Integer> createBookmark(@PathVariable("profileIdx") int profileIdx,
-                                                        @RequestBody PostBookmarkReq postBookmarkReq) {
+    @PostMapping("")
+    public BaseResponse<Integer> createBookmark(@RequestBody PostBookmarkReq postBookmarkReq) {
         try {
             int bookmark_idx = bookmarkService.create(postBookmarkReq);
             return new BaseResponse<>(bookmark_idx);
@@ -40,9 +39,8 @@ public class BookmarkController {
     }
 
     //즐겨찾기 자리에서 삭제하면 바로 목록 바뀌게
-    @PatchMapping("/{profileIdx}")
-    public BaseResponse<String> updateBookmark(@PathVariable("profileIdx") int profileIdx,
-                                                             @RequestBody PatchBookmarkReq patchBookmarkReq) {
+    @PatchMapping("")
+    public BaseResponse<String> updateBookmark(@RequestBody PatchBookmarkReq patchBookmarkReq) {
         try {
             bookmarkService.update(patchBookmarkReq);
             return new BaseResponse<>(SUCCESS);

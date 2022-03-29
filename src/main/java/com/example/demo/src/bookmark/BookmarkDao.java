@@ -35,20 +35,30 @@ public class BookmarkDao {
     }
 
     public int update(PatchBookmarkReq patchBookmarkReq) {
-        String query = "update Bookmark set profileIdx = ?, videoIdx = ?, status = ?, updatedAt = NOW()";
-        Object[] params = new Object[]{patchBookmarkReq.getProfileIdx(), patchBookmarkReq.getVideoIdx(), patchBookmarkReq.getNewStatus()};
-        return this.jdbcTemplate.update(query, params);
+        String query = "update Bookmark set updatedAt = NOW(), status = ? " +
+                "where profileIdx = ? and videoIdx = ?";
+        int newStatus = patchBookmarkReq.getNewStatus();
+        int profileIdx = patchBookmarkReq.getProfileIdx();
+        int videoIdx =  patchBookmarkReq.getVideoIdx();
+        return this.jdbcTemplate.update(query, newStatus, profileIdx, videoIdx);
     }
 
     public List<GetBookmarkRes> getBookmarks(int profileIdx) {
-        //String sql = "select * from bookmark where profileIdx = ?";
         String query = "select Bookmark.bookmarkIdx, Video.videoIdx, Video.photoUrl, Video.ageGrade, Video.season, Video.runningTime, Video.resolution\n" +
                 "from Video\n" +
                 "join Bookmark on Bookmark.videoIdx = Video.videoIdx\n" +
-                "where Bookmark.profileIdx = ?";
+                "where Bookmark.status = 1 and Bookmark.profileIdx = ?";
         List<GetBookmarkRes> bookmarks = this.jdbcTemplate.query(query, bookmarkRowMapper(), profileIdx);
         setVideoCharacters(bookmarks);
         return bookmarks;
+    }
+
+
+    public int checkBookmarkExists(PostBookmarkReq postBookmarkReq) {
+        String query = "select exists(select * from Bookmark where profileIdx = ? and videoIdx = ?)";
+        int profileIdx = postBookmarkReq.getProfileIdx();
+        int videoIdx = postBookmarkReq.getVideoIdx();
+        return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx);
     }
 
     private RowMapper<GetBookmarkRes> bookmarkRowMapper() {
