@@ -634,3 +634,22 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 - 비디오 알람 조회 API 구현
 - 이번주 공개 컨텐츠 목록 조회 API 구현
 - 다음주 공개 컨텐츠 목록 조회 API 구현
+
+
+## 2022.03.29 개발 일지
+
+### 본(Bon)
+#### API 개발
+- 감독 제작 작품 목록 조회
+- 작품제작에 참여한 감독 목록을 조회
+
+#### Refactoring
+- 불필요한 파라메터 제거
+
+#### ERD
+- Director, DirectorParticipate 테이블 추가
+
+#### DB
+- 시리즈 작품 정보 데이터 추가
+	- 관련 테이블 필요한 모든 테이터 추가(장르, 특징, 출연진, 감독 데이터와 이를 있는 관계 테이블의 데이터)
+
