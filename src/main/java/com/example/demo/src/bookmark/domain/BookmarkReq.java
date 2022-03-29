@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostBookmarkReq {
+public class BookmarkReq {
     private int profileIdx;
     private int videoIdx;
 }

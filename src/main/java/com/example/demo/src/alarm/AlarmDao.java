@@ -28,7 +28,7 @@ public class AlarmDao {
     public int update(SetAlarmReq setAlarmReq) {
         String query = "update Alarm set updatedAt = NOW(), status = ? where profileIdx = ? and videoIdx = ?";
         Object[] alarmParam = new Object[]{
-                setAlarmReq.getStatus(),
+                setAlarmReq.getNewStatus(),
                 setAlarmReq.getProfileIdx(),
                 setAlarmReq.getVideoIdx()};
         return this.jdbcTemplate.update(query, alarmParam);

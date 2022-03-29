@@ -1,6 +1,7 @@
 package com.example.demo.src.bookmark;
 
 import com.example.demo.config.BaseException;
+import com.example.demo.src.bookmark.domain.BookmarkReq;
 import com.example.demo.src.bookmark.domain.GetBookmarkRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,4 +23,13 @@ public class BookmarkProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public int getBookmarkSetting(BookmarkReq bookmarkReq) throws BaseException {
+        try {
+            return bookmarkDao.getBookmarkSetting(bookmarkReq);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 }

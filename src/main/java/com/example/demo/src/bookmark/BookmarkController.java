@@ -4,7 +4,7 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.src.bookmark.domain.GetBookmarkRes;
 import com.example.demo.src.bookmark.domain.PatchBookmarkReq;
-import com.example.demo.src.bookmark.domain.PostBookmarkReq;
+import com.example.demo.src.bookmark.domain.BookmarkReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,10 @@ public class BookmarkController {
         this.bookmarkProvider = bookmarkProvider;
     }
 
-    @PostMapping("/{profileIdx}")
-    public BaseResponse<Integer> createBookmark(@PathVariable("profileIdx") int profileIdx,
-                                                        @RequestBody PostBookmarkReq postBookmarkReq) {
+    @PostMapping("")
+    public BaseResponse<Integer> createBookmark(@RequestBody BookmarkReq bookmarkReq) {
         try {
-            int bookmark_idx = bookmarkService.create(postBookmarkReq);
+            int bookmark_idx = bookmarkService.create(bookmarkReq);
             return new BaseResponse<>(bookmark_idx);
         } catch (BaseException exception) {
             return new BaseResponse<>(exception.getStatus());
@@ -40,12 +39,21 @@ public class BookmarkController {
     }
 
     //즐겨찾기 자리에서 삭제하면 바로 목록 바뀌게
-    @PatchMapping("/{profileIdx}")
-    public BaseResponse<String> updateBookmark(@PathVariable("profileIdx") int profileIdx,
-                                                             @RequestBody PatchBookmarkReq patchBookmarkReq) {
+    @PatchMapping("")
+    public BaseResponse<String> updateBookmark(@RequestBody PatchBookmarkReq patchBookmarkReq) {
         try {
             bookmarkService.update(patchBookmarkReq);
             return new BaseResponse<>(SUCCESS);
+        } catch (BaseException exception) {
+            return new BaseResponse<>(exception.getStatus());
+        }
+    }
+
+    @GetMapping("")
+    public BaseResponse<Integer> getBookmarkSetting(@RequestBody BookmarkReq bookmarkReq) {
+        try {
+            int bookmarkStatus = bookmarkProvider.getBookmarkSetting(bookmarkReq);
+            return new BaseResponse<>(bookmarkStatus);
         } catch (BaseException exception) {
             return new BaseResponse<>(exception.getStatus());
         }

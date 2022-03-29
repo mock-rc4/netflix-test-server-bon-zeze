@@ -2,9 +2,10 @@ package com.example.demo.src.bookmark;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.bookmark.domain.PatchBookmarkReq;
-import com.example.demo.src.bookmark.domain.PostBookmarkReq;
+import com.example.demo.src.bookmark.domain.BookmarkReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import static com.example.demo.config.BaseResponseStatus.*;
 
 @Service
@@ -13,10 +14,14 @@ public class BookmarkService {
 
     private final BookmarkDao bookmarkDao;
 
-    public int create(PostBookmarkReq postBookmarkReq) throws BaseException {
+    public int create(BookmarkReq bookmarkReq) throws BaseException {
         try {
-            int bookmarkIdx = bookmarkDao.create(postBookmarkReq);
-            return bookmarkIdx;
+            if (bookmarkDao.checkBookmarkExists(bookmarkReq) != 0) {
+                throw new BaseException(POST_BOOKMARK_ALREADY_EXISTS);
+            }
+            return bookmarkDao.create(bookmarkReq);
+        } catch (BaseException exception) {
+            throw new BaseException(POST_BOOKMARK_ALREADY_EXISTS);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
