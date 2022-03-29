@@ -16,7 +16,6 @@ public class Video {
 	private int year;
 	private int season;
 	private String summary;
-	private String director;
 	private String resolution;
 	private String previewUrl;
 
@@ -32,24 +31,8 @@ public class Video {
 		private String runningTime;
 		private String photoUrl;
 		private String summary;
-		private String director;
 		private String resolution;
 		private String previewUrl;
-	}
-
-	@Getter
-	@Setter
-	@AllArgsConstructor
-	public static class getVideoInfoPreviewResDto {
-		private int videoIdx;
-		private int year;
-		private int season;
-		private int ageGrade;
-		private String title;
-		private String runningTime;
-		private String photoUrl;
-		private String summary;
-		private String director;
 	}
 
 	@Getter

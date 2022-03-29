@@ -38,7 +38,6 @@ public class VideoDao {
                         rs.getString("runningTime"),
                         rs.getString("photoUrl"),
                         rs.getString("summary"),
-                        rs.getString("director"),
                         rs.getString("resolution"),
                         rs.getString("previewVideoUrl")
                 ),
@@ -150,7 +149,7 @@ public class VideoDao {
 
     public List<Video.getVideoResDto> getVideosByActor(int actorIdx) {
         String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime, "
-                + "V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from ActorParticipate as AP "
+                + "V.photoUrl, V.summary, V.resolution, V.previewVideoUrl, V.openDate from ActorParticipate as AP "
                 + "left join Video as V "
                 + "on V.videoIdx = AP.videoIdx "
                 + "where actorIdx = ? "
@@ -165,7 +164,6 @@ public class VideoDao {
                         rs.getString("runningTime"),
                         rs.getString("photoUrl"),
                         rs.getString("summary"),
-                        rs.getString("director"),
                         rs.getString("resolution"),
                         rs.getString("previewVideoUrl")
                 ),
@@ -174,7 +172,7 @@ public class VideoDao {
 
     public List<Video.getVideoResDto> getVideosByCharacter(int characterIdx) {
         String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime,"
-                + " V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from CharacterContact as CC "
+                + " V.photoUrl, V.summary, V.resolution, V.previewVideoUrl, V.openDate from CharacterContact as CC "
                 + "left join Video as V "
                 + "on V.videoIdx = CC.videoIdx "
                 + "where characterIdx = ? "
@@ -189,7 +187,6 @@ public class VideoDao {
                         rs.getString("runningTime"),
                         rs.getString("photoUrl"),
                         rs.getString("summary"),
-                        rs.getString("director"),
                         rs.getString("resolution"),
                         rs.getString("previewVideoUrl")
                 ),
@@ -247,7 +244,6 @@ public class VideoDao {
                         rs.getString("runningTime"),
                         rs.getString("photoUrl"),
                         rs.getString("summary"),
-                        rs.getString("director"),
                         rs.getString("resolution"),
                         rs.getString("previewVideoUrl")
                 ),
@@ -328,7 +324,6 @@ public class VideoDao {
 				rs.getString("runningTime"),
 				rs.getString("photoUrl"),
 				rs.getString("summary"),
-				rs.getString("director"),
 				rs.getString("resolution"),
 				rs.getString("previewVideoUrl")
 			),
@@ -345,7 +340,7 @@ public class VideoDao {
 
 	public List<Video.getVideoResDto> getVideosByDirector(int directorIdx) {
 		String query = "select V.videoIdx, V.year, V.season, V.ageGrade, V.title, V.runningTime,\n"
-			+ "V.photoUrl, V.summary, V.director, V.resolution, V.previewVideoUrl, V.openDate from DirectorParticipate as DP\n"
+			+ "V.photoUrl, V.summary, V.resolution, V.previewVideoUrl, V.openDate from DirectorParticipate as DP\n"
 			+ "left join Video as V\n"
 			+ "on V.videoIdx = DP.videoIdx\n"
 			+ "where directorIdx = ? \n"
@@ -360,7 +355,6 @@ public class VideoDao {
 				rs.getString("runningTime"),
 				rs.getString("photoUrl"),
 				rs.getString("summary"),
-				rs.getString("director"),
 				rs.getString("resolution"),
 				rs.getString("previewVideoUrl")
 			),
