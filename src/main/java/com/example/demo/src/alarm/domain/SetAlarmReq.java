@@ -9,6 +9,6 @@ import lombok.*;
 public class SetAlarmReq {
     private int profileIdx;
     private int videoIdx;
-    private int status;
+    private int newStatus;
 
 }
