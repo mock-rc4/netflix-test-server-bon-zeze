@@ -264,6 +264,16 @@ public class VideoController {
 		}
 	}
 
+	@GetMapping("/details/{videoIdx}/directors")
+	public BaseResponse<List<VideoDetail.directorInfoResDto>> getDirectorsByVideoIdx(@PathVariable("videoIdx") int videoIdx) {
+		try {
+			List<VideoDetail.directorInfoResDto> result = videoProvider.getDirectorsByVideoIdx(videoIdx);
+			return new BaseResponse<>(result);
+		} catch (BaseException exception) {
+			return new BaseResponse<>(exception.getStatus());
+		}
+	}
+
     //검색
     @GetMapping("/search")
     public BaseResponse<List<GetVideoRes>> getVideosBySearch(@RequestParam("q") String keyword) {

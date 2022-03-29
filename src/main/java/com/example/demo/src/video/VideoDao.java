@@ -367,7 +367,21 @@ public class VideoDao {
 			directorIdx);
 	}
 
-    private RowMapper<GetVideoRes> videoRowMapper() {
+	public List<VideoDetail.directorInfoResDto> getDirectorsByVideoIdx(int videoIdx) {
+		String query = "select D.directorIdx, D.name from DirectorParticipate as DP\n"
+			+ "left join Director as D\n"
+			+ "on D.directorIdx = DP.directorIdx\n"
+			+ "where DP.videoIdx = ? ";
+		return this.jdbcTemplate.query(query,
+			(rs, rowNum) -> new VideoDetail.directorInfoResDto(
+				rs.getInt("directorIdx"),
+				rs.getString("name")
+			),
+			videoIdx);
+	}
+
+
+	private RowMapper<GetVideoRes> videoRowMapper() {
         return (rs, rowNum) -> new GetVideoRes(
                 rs.getInt("videoIdx"),
                 rs.getString("photoUrl"),
