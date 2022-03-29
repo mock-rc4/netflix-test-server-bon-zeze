@@ -28,4 +28,11 @@ public class VideoDetail {
 		private int characterIdx;
 		private String name;
 	}
+
+	@Getter
+	@AllArgsConstructor
+	public static class directorInfoResDto {
+		private int directorIdx;
+		private String name;
+	}
 }

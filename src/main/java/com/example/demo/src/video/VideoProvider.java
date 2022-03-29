@@ -231,4 +231,22 @@ public class VideoProvider {
 			throw new BaseException(DATABASE_ERROR);
 		}
 	}
+
+	public List<Video.getVideoResDto> getVideosByDirector(int directorIdx) throws BaseException {
+		try {
+			return videoDao.getVideosByDirector(directorIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
+
+	public List<VideoDetail.directorInfoResDto> getDirectorsByVideoIdx(int videoIdx) throws BaseException {
+		try {
+			return videoDao.getDirectorsByVideoIdx(videoIdx);
+		} catch (Exception exception) {
+			logger.error(exception.toString());
+			throw new BaseException(DATABASE_ERROR);
+		}
+	}
 }
