@@ -63,4 +63,12 @@ public class VideoPlay {
 		private float currentPlayTime;
 	}
 
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	public static class getVideoPlayStatusAtMainMenuResDto {
+		private float currentPlayTime;
+		private int videosIdx;
+	}
+
 }

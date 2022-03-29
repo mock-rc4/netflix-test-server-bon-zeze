@@ -77,4 +77,18 @@ public class VideoPlayController {
 			return new BaseResponse<>(exception.getStatus());
 		}
 	}
+
+	@ResponseBody
+	@GetMapping("/play/{profileIdx}/{videoIdx}")
+	public BaseResponse<VideoPlay.getVideoPlayStatusAtMainMenuResDto> getVideoPlayStatusAtMainMenu
+		(@PathVariable("profileIdx") int profileIdx,
+		@PathVariable("videoIdx") int videoIdx) {
+		try {
+			VideoPlay.getVideoPlayStatusAtMainMenuResDto resDto =
+				videoPlayProvider.getVideoPlayStatusAtMainMenu(profileIdx, videoIdx);
+			return new BaseResponse<>(resDto);
+		} catch (BaseException exception) {
+			return new BaseResponse<>((exception.getStatus()));
+		}
+	}
 }
