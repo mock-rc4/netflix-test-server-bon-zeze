@@ -331,7 +331,7 @@ public class VideoDao {
                 rs.getString("photoUrl"),
                 rs.getInt("ageGrade"),
                 rs.getInt("season"),
-                rs.getInt("runningTime"),
+                rs.getString("runningTime"),
                 rs.getString("resolution")
         );
     }

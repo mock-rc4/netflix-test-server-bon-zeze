@@ -15,11 +15,11 @@ public class GetVideoRes {
 
     //영화냐 시리즈냐에 따라 보여주는게 다르기는 함.(리팩토링 필요)
     private int season;
-    private int runningTime;
+    private String runningTime;
     private String resolution;
     private List<String> character;
 
-    public GetVideoRes(int videoIdx, String photoUrl, int ageGrade, int season, int runningTime, String resolution) {
+    public GetVideoRes(int videoIdx, String photoUrl, int ageGrade, int season, String runningTime, String resolution) {
         this.videoIdx = videoIdx;
         this.photoUrl = photoUrl;
         this.ageGrade = ageGrade;
