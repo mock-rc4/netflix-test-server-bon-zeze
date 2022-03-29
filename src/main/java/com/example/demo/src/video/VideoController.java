@@ -2,6 +2,7 @@ package com.example.demo.src.video;
 
 import java.util.List;
 
+import com.example.demo.src.search.SearchProvider;
 import com.example.demo.src.search.SearchService;
 import com.example.demo.src.video.domain.GetVideoRes;
 import org.slf4j.Logger;
@@ -30,17 +31,20 @@ public class VideoController {
     private final VideoProvider videoProvider;
     @Autowired
     private final SearchService searchService;
+	@Autowired
+	private final SearchProvider searchProvider;
     @Autowired
     private final JwtService jwtService;
 
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public VideoController(VideoService videoService, VideoProvider videoProvider,
-                           SearchService searchService, JwtService jwtService) {
+		SearchService searchService, SearchProvider searchProvider, JwtService jwtService) {
         this.videoService = videoService;
         this.videoProvider = videoProvider;
         this.searchService = searchService;
-        this.jwtService = jwtService;
+		this.searchProvider = searchProvider;
+		this.jwtService = jwtService;
     }
 
     @ResponseBody
@@ -138,7 +142,7 @@ public class VideoController {
 	@GetMapping("/the-most-searched")
 	public BaseResponse<List<GetVideoRes>> getVideosByTheMostSearchedWord() {
 		try {
-			String theMostSearchedWord = videoProvider.getTheMostSearchedWord();
+			String theMostSearchedWord = searchProvider.getTheMostSearchedWord();
 			List<GetVideoRes> getVideoResList = videoProvider.getVideosBySearch(theMostSearchedWord);
 			return new BaseResponse<>(getVideoResList);
 		} catch (BaseException exception) {
