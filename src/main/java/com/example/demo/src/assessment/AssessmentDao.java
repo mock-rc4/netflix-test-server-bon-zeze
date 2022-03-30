@@ -48,4 +48,12 @@ public class AssessmentDao {
 			profileIdx, videoIdx);
 	}
 
+	public int checkIsDuplicatedEmail(String email) {
+		String query = "select exists(select email from Account where email = ?)";
+		String params = email;
+		return this.jdbcTemplate.queryForObject(query,
+			int.class,
+			params);
+	}
+
 }
