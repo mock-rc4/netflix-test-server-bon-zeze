@@ -1,8 +1,12 @@
 package com.example.demo.src.account;
 
 import static com.example.demo.config.BaseResponseStatus.*;
+import static com.example.demo.utils.ValidationRegex.isRegexPassword;
 
+import com.example.demo.config.BaseResponse;
+import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.account.domain.PatchAccountReq;
+import com.example.demo.src.account.domain.PatchPasswordReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,16 +72,22 @@ public class AccountService {
         }
     }
 
-    public void updatePassword(PatchAccountReq patchAccountReq) throws BaseException {
-        String password;
-        try {
-            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(patchAccountReq.getUpdateParam());
-            patchAccountReq.setUpdateParam(password);
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+    public void updatePassword(PatchPasswordReq patchPasswordReq) throws BaseException {
+        Account account = accountDao.getPasswordByAccountIdx(patchPasswordReq);
+
+        //기존 비밀번호 일치 확인
+        String password = decryptPassword(account);
+        if (!password.equals(patchPasswordReq.getPassword())) {
+            throw new BaseException(WRONG_PASSWORD);
         }
+
+        //기존 비밀번호가 맞고, 새 비밀번호 형식이 맞으면 update
+        String newPassword = patchPasswordReq.getNewPassword();
+        newPassword = encryptPassword(newPassword);
+        patchPasswordReq.setNewPassword(newPassword);
+
         try {
-            int result = accountDao.updatePassword(patchAccountReq);
+            int result = accountDao.updatePassword(patchPasswordReq);
             if (result == 0) {
                 throw new BaseException(PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR);
             }
@@ -122,4 +132,21 @@ public class AccountService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    private String encryptPassword(String password) throws BaseException {
+        try {
+            return new AES128(Secret.USER_INFO_PASSWORD_KEY).encrypt(password);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+    }
+
+    private String decryptPassword(Account account) throws BaseException {
+        try {
+            return new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
+        }
+    }
+
 }

@@ -46,10 +46,10 @@ public class ProfileController {
 	}
 
 	@PostMapping("/manage")
-	public BaseResponse<PostProfileRes> createProfile(@RequestBody PostProfileReq postProfileReq) {
+	public BaseResponse<Integer> createProfile(@RequestBody PostProfileReq postProfileReq) {
 		try {
-			PostProfileRes postProfileRes = profileService.create(postProfileReq);
-			return new BaseResponse<>(postProfileRes);
+			int profileIdx = profileService.create(postProfileReq);
+			return new BaseResponse<>(profileIdx);
 		} catch (BaseException exception) {
 			logger.error(exception.toString());
 			return new BaseResponse<>(exception.getStatus());
