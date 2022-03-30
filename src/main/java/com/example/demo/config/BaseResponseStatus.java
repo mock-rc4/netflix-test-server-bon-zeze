@@ -35,7 +35,9 @@ public enum BaseResponseStatus {
     POST_ACCOUNTS_INVALID_PHONE_NUMBER(false,2020,"휴대폰번호 형식을 확인해주세요."),
     POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"계정이 존재하지 않거나, 탈퇴된 유저입니다."),
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
+	POST_ACCOUNTS_MUST_AGREE_PERSONAL_INFORMATION(false,2040,"개인 정보 처리 방침에 동의하지 않았습니다."),
 	POST_ACCOUNTS_JOIN_MEMBERSHIP(false,2023,"멤버쉽 가입이 필요합니다. 원하시는 멤버쉽을 선택해주세요."),
+
 
     // [PATCH] /accounts
     PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2025, "이메일 변경에 실패하였습니다."),
@@ -78,7 +80,8 @@ public enum BaseResponseStatus {
     // [GET] /alarm
     GET_ALARM_EXISTS_ERROR(false, 2031, "해당 알람은 존재하지 않습니다."),
 
-    /**
+
+	/**
      * 3000 : Response 오류
      */
     // Common

@@ -29,6 +29,6 @@ public class Profile {
 		private String name;
 		private String language;
 		private int ageGrade;
-		private int profilePhotoIdx;
+		private String profilePhotoUrl;
 	}
 }

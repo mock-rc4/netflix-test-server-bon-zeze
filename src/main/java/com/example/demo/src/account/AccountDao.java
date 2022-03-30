@@ -1,5 +1,6 @@
 package com.example.demo.src.account;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -26,8 +27,8 @@ public class AccountDao {
 
     // 회원가입
     public int createAccount(Account.createReqDto requestDto) {
-        String query = "insert into Account (password, email) VALUES (?,?)";
-        Object[] params = new Object[]{requestDto.getPassword(), requestDto.getEmail()};
+        String query = "insert into Account (password, email, maileSubscriptionAgreement) VALUES (?,?,?)";
+        Object[] params = new Object[]{requestDto.getPassword(), requestDto.getEmail(), requestDto.getEmail_subscription_agreement()};
         this.jdbcTemplate.update(query, params);
 
         String lastInsertedIdQuery = "select max(accountIdx) from Account";
@@ -115,7 +116,8 @@ public class AccountDao {
                         rs.getString("phoneNumber"),
                         rs.getString("membership"),
                         rs.getString("socialLoginIdx"),
-                        rs.getString("socialLoginType")
+                        rs.getString("socialLoginType"),
+						rs.getString("membershipStartDate")
                 ),
                 params);
     }

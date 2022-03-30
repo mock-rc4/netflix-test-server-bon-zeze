@@ -2,6 +2,8 @@ package com.example.demo.src.account;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.example.demo.config.secret.Secret;
@@ -96,6 +98,7 @@ public class AccountProvider {
             Account.getResDto getResDto = accountDao.getAccount(accountIdx);
             return getResDto;
         } catch (Exception exception) {
+			logger.error(exception.toString());
             throw new BaseException(DATABASE_ERROR);
         }
     }
