@@ -652,6 +652,10 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 - 시리즈 작품 정보 데이터 추가
 	- 관련 테이블 필요한 모든 테이터 추가(장르, 특징, 출연진, 감독 데이터와 이를 있는 관계 테이블의 데이터)
 
+#### ISSUE
+![image](https://user-images.githubusercontent.com/34790699/160873000-fa97411b-abfe-41df-a580-90734b43c556.png)  
+  
+→해당 ISSUE 조회하기 (https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/65#issue-1186629313)
 
 ### 제제(Zeze)
 #### API & Todo
@@ -664,7 +668,31 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 
 ## 2022.03.30 개발 일지
 
+#### 2주차 위클리 스크럼 후 Todo
+- 각종 조회 API에서 필요한 공통된 데이터를 조금 더 추가할 것
+- 내일 저녁 이전 오후까지 수정, 보완에 대한 희망사항을 프론트 팀원들로부터 공유 받을 예정
+
+
 ### 본(Bon)
+#### API
+- 리팩토링
+	- 외부 API 사용을 위한 baseURL 변경
+	- Validation & 에러코드 추가
+	- 외부 API 사용을 위한 baseURL 변경, 파라메터 추가, Validation & 에러코드 추가 등
+	- 프로필 삭제시 jwt를 header에서 요구하지 않음
+	- profile 목록과 profile 조회시 profilePhotoIdx -> profilePhotoUrl으로 리턴하도록 쿼리 구조 변경
+
+#### DOCS
+- 담당하고 있는 API 기능 명세 전체 작성 완료
+	- 48건의 API 시트 검수
+	- 1건 삭제 (사유 : 구현하고 보니 관리자를 위한 API이므로 삭제)
+	- 47건의 API 시트에 스크린 샷 첨부 후 양식과 줄간격 통일
+
+#### Todo tomorrow
+- email 인증 api 알아보고 가능하다면 적용시키기
+
+
+
 
 ### 제제(Zeze)
 #### API & Todo
