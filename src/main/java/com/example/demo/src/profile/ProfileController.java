@@ -83,11 +83,6 @@ public class ProfileController {
 		@PathVariable("profileIdx") int profileIdx
 	) {
 		try {
-
-			int accountIdByJwt = jwtService.getUserIdx();
-			if (accountIdx != accountIdByJwt) {
-				return new BaseResponse<>(INVALID_USER_JWT);
-			}
 			Profile.DeactivateReqDto deactivateReqDto = new Profile.DeactivateReqDto(profileIdx);
 			profileService.deactivate(deactivateReqDto);
 
