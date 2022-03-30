@@ -31,12 +31,9 @@ public class ProfileService {
 		this.jwtService = jwtService;
 	}
 
-	public PostProfileRes create(PostProfileReq postProfileReq) throws BaseException {
+	public int create(PostProfileReq postProfileReq) throws BaseException {
 		try {
-			int profileIdx = profileDao.create(postProfileReq);
-
-			String jwt = jwtService.createJwt(profileIdx);
-			return new PostProfileRes(profileIdx, jwt);
+			return profileDao.create(postProfileReq);
 		} catch (Exception exception) {
 			logger.error(exception.toString());
 			throw new BaseException(POST_PROFILE_CREATE_ERROR);
