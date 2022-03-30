@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Objects;
 
 import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.account.domain.PatchAccountReq;
-import com.example.demo.src.account.domain.PostAccountRes;
-import com.example.demo.src.account.domain.PostLoginReq;
+import com.example.demo.config.secret.Secret;
+import com.example.demo.src.account.domain.*;
+import com.example.demo.utils.AES128;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.account.domain.Account;
 import com.example.demo.utils.JwtService;
 
 @RestController
@@ -171,18 +170,18 @@ public class AccountController {
 
     @ResponseBody
     @PatchMapping("/password")
-    public BaseResponse<String> updatePassword(@RequestBody PatchAccountReq patchAccountReq) {
+    public BaseResponse<String> updatePassword(@RequestBody PatchPasswordReq patchPasswordReq) {
         try {
-            if (!isRegexPassword(patchAccountReq.getUpdateParam())) {
-                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+            if (!isRegexPassword(patchPasswordReq.getNewPassword())) {
+                return new BaseResponse<>(POST_ACCOUNTS_INVALID_PASSWORD);
             }
 
             int accountIdxByJwt = jwtService.getUserIdx();
-            if (accountIdxByJwt != patchAccountReq.getAccountIdx()) {
+            if (accountIdxByJwt != patchPasswordReq.getAccountIdx()) {
                 return new BaseResponse<>(BaseResponseStatus.INVALID_USER_JWT);
             }
 
-            accountService.updatePassword(patchAccountReq);
+            accountService.updatePassword(patchPasswordReq);
             return new BaseResponse<>("update password success");
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));

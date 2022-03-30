@@ -38,7 +38,7 @@ public class AccountProvider {
 
     public int checkIsDuplicatedEmail(String email) throws BaseException {
         try {
-            return accountDao.checkIsDuplicatedEmail(email);
+            return accountDao.checkExistsEmail(email);
         } catch (Exception exception) {
             logger.error(exception.toString());
             throw new BaseException(DATABASE_ERROR);
@@ -100,75 +100,6 @@ public class AccountProvider {
         }
     }
 
-    private String checkExistAccount(PostLoginReq postLoginReq) throws BaseException {
-        String emailOrPhone = postLoginReq.getEmailOrPhone();
-        String id = PHONE;
-
-        //넷플릭스 이메일 판정 - 영어가 한글자라도 있는가
-        for (int i = 0; i < emailOrPhone.length(); i++) {
-            if ('a' <= emailOrPhone.charAt(i) && emailOrPhone.charAt(i) <= 'z') {
-                id = EMAIL;
-                break;
-            }
-        }
-
-        if (id == EMAIL) {
-            if (accountDao.checkIsDuplicatedEmail(emailOrPhone) == 0) {
-                throw new BaseException(INVALID_USER_MAIL_LOGIN);
-            }
-            return EMAIL;
-        } else {
-            if (accountDao.checkHasPhoneNumber(emailOrPhone) == 0) {
-                throw new BaseException(INVALID_USER_PHONE_LOGIN);
-            }
-            return PHONE;
-        }
-    }
-
-
-    public PostAccountRes loginByEmail(PostLoginReq postLoginReq) throws BaseException {
-        Account account = accountDao.getPasswordByEmail(postLoginReq);
-        String password;
-
-        try {
-            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-        }
-
-        if (postLoginReq.getPassword().equals(password)) {
-            int memberIdx = accountDao.getPasswordByEmail(postLoginReq).getAccountIdx();
-
-            //jwt 발급(회원 일치)
-            String jwt = jwtService.createJwt(memberIdx);
-            return new PostAccountRes(memberIdx, jwt);
-        } else {
-            throw new BaseException(FAILED_TO_LOGIN);
-        }
-    }
-
-    public PostAccountRes loginByPhone(PostLoginReq postLoginReq) throws BaseException {
-        Account account = accountDao.getPasswordByPhone(postLoginReq);
-        String password;
-
-        try {
-            password = new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
-        }
-
-        if (postLoginReq.getPassword().equals(password)) {
-            int memberIdx = accountDao.getPasswordByPhone(postLoginReq).getAccountIdx();
-
-            //jwt 발급(회원 일치)
-            String jwt = jwtService.createJwt(memberIdx);
-            return new PostAccountRes(memberIdx, jwt);
-        } else {
-            throw new BaseException(FAILED_TO_LOGIN);
-        }
-    }
-
-
     public PostAccountRes login(PostLoginReq postLoginReq) throws BaseException {
         String id = checkExistAccount(postLoginReq);
 
@@ -179,15 +110,88 @@ public class AccountProvider {
         }
     }
 
+    //리팩토링 진행중.
     public PostAccountRes logout(int accountIdx) throws BaseException {
         try {
             int accountIdxByJwt = jwtService.getUserIdx();
+            String membership = accountDao.getMembership(accountIdx);
 
             //jwt 토큰 만료
             String jwt = jwtService.removeJwt(accountIdxByJwt);
-            return new PostAccountRes(accountIdxByJwt, jwt);
+            return new PostAccountRes(accountIdxByJwt, membership, jwt);
         } catch (Exception e) {
             throw new BaseException(FAILED_TO_LOGOUT);
+        }
+    }
+
+    private String checkExistAccount(PostLoginReq postLoginReq) throws BaseException {
+        String emailOrPhone = postLoginReq.getEmailOrPhone();
+        String id = checkIsEmail(emailOrPhone);
+
+        if (id == EMAIL) {
+            if (accountDao.checkExistsEmail(emailOrPhone) == 0) {
+                throw new BaseException(INVALID_USER_MAIL_LOGIN);
+            }
+            return EMAIL;
+        } else {
+            if (accountDao.checkExistsPhoneNumber(emailOrPhone) == 0) {
+                throw new BaseException(INVALID_USER_PHONE_LOGIN);
+            }
+            return PHONE;
+        }
+    }
+
+    private String checkIsEmail(String emailOrPhone) {
+        for (int i = 0; i < emailOrPhone.length(); i++) {
+            if ('a' <= emailOrPhone.charAt(i) && emailOrPhone.charAt(i) <= 'z') {
+                return EMAIL;
+            }
+        }
+        return PHONE;
+    }
+
+    private PostAccountRes loginByEmail(PostLoginReq postLoginReq) throws BaseException {
+        Account account = accountDao.getPasswordByEmail(postLoginReq);
+        String password = decryptPassword(account);
+        String membership = getAccountMembership(account);
+
+        if (postLoginReq.getPassword().equals(password)) {
+            int accountIdx = accountDao.getPasswordByEmail(postLoginReq).getAccountIdx();
+            //jwt 발급(회원 일치)
+            String jwt = jwtService.createJwt(accountIdx);
+            return new PostAccountRes(accountIdx, membership, jwt);
+        } else {
+            throw new BaseException(FAILED_TO_LOGIN);
+        }
+    }
+
+    private PostAccountRes loginByPhone(PostLoginReq postLoginReq) throws BaseException {
+        Account account = accountDao.getPasswordByPhone(postLoginReq);
+        String password = decryptPassword(account);
+        String membership = getAccountMembership(account);
+
+        if (postLoginReq.getPassword().equals(password)) {
+            int accountIdx = accountDao.getPasswordByPhone(postLoginReq).getAccountIdx();
+            String jwt = jwtService.createJwt(accountIdx);
+            return new PostAccountRes(accountIdx, membership, jwt);
+        } else {
+            throw new BaseException(FAILED_TO_LOGIN);
+        }
+    }
+
+    private String getAccountMembership(Account account) throws BaseException {
+        try {
+            return accountDao.getMembership(account.getAccountIdx());
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    private String decryptPassword(Account account) throws BaseException {
+        try {
+            return new AES128(Secret.USER_INFO_PASSWORD_KEY).decrypt(account.getPassword());
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_DECRYPTION_ERROR);
         }
     }
 }
