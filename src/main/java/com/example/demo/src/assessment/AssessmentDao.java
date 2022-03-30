@@ -20,9 +20,8 @@ public class AssessmentDao {
 	public int checkHasAssessment(Assessment.createOrModifyDto requestDto) {
 		int profileIdx = requestDto.getProfileIdx();
 		int videoIdx = requestDto.getVideoIdx();
-		int status = requestDto.getStatus();
-		String query = "select exists(select AssessmentIdx from Assessment where profileIdx = ? and videoIdx = ? and status = ?)";
-		return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx, status);
+		String query = "select exists(select assessmentIdx from Assessment where profileIdx = ? and videoIdx = ?)";
+		return this.jdbcTemplate.queryForObject(query, Integer.class, profileIdx, videoIdx);
 	}
 
 
@@ -47,13 +46,4 @@ public class AssessmentDao {
 			int.class,
 			profileIdx, videoIdx);
 	}
-
-	public int checkIsDuplicatedEmail(String email) {
-		String query = "select exists(select email from Account where email = ?)";
-		String params = email;
-		return this.jdbcTemplate.queryForObject(query,
-			int.class,
-			params);
-	}
-
 }

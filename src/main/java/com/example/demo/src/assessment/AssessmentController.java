@@ -1,5 +1,7 @@
 package com.example.demo.src.assessment;
 
+import static com.example.demo.config.BaseResponseStatus.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,15 @@ public class AssessmentController {
 	private final AssessmentService assessmentService;
 	@Autowired
 	private final AssessmentProvider assessmentProvider;
+	@Autowired
+	private final AssessmentDao assessmentDao;
 
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public AssessmentController(AssessmentService assessmentService, AssessmentProvider assessmentProvider) {
+	public AssessmentController(AssessmentService assessmentService, AssessmentProvider assessmentProvider, AssessmentDao assessmentDao) {
 		this.assessmentService = assessmentService;
 		this.assessmentProvider = assessmentProvider;
+		this.assessmentDao = assessmentDao;
 	}
 
 	@ResponseBody
@@ -42,6 +47,7 @@ public class AssessmentController {
 				new Assessment.createOrModifyDto(profileIdx, videoIdx, requestDto.getStatus()));
 			return new BaseResponse<>(resDto);
 		} catch (BaseException exception) {
+			logger.error(exception.toString());
 			return new BaseResponse<>(exception.getStatus());
 		}
 	}

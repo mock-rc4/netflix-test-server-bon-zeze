@@ -1,0 +1,16 @@
+16:27:35.326 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:27:40.129 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:19.364 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:19.366 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:20.242 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:20.244 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:24.077 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:29:24.078 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:15.715 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:15.716 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:20.515 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:20.517 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:42.392 ERROR [File:AssessmentService.java] [Func:createAssessment] [Line:35] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:30:42.393 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:31:57.935 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
+16:32:16.105 ERROR [File:AssessmentController.java] [Func:createAssessment] [Line:50] [Message:com.example.demo.config.BaseException]- com.example.demo.config.BaseException
