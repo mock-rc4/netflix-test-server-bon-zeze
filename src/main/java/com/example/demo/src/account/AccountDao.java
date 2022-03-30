@@ -5,9 +5,11 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.example.demo.src.account.domain.PatchAccountReq;
+import com.example.demo.src.account.domain.PatchPasswordReq;
 import com.example.demo.src.account.domain.PostLoginReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.src.account.domain.Account;
@@ -126,6 +128,13 @@ public class AccountDao {
                 params);
     }
 
+    public Account getPasswordByAccountIdx(PatchPasswordReq patchPasswordReq){
+        String getPasswordQuery = "select * from Account where accountIdx = ?";
+        int param = patchPasswordReq.getAccountIdx();
+
+        return this.jdbcTemplate.queryForObject(getPasswordQuery, accountRowMapper(), param);
+    }
+
     public Account getPasswordByEmail(PostLoginReq postLoginReq) {
         String getPasswordQuery = "select * from Account where email = ?";
         String param = postLoginReq.getEmailOrPhone();
@@ -146,10 +155,11 @@ public class AccountDao {
         return updateAccount(patchAccountReq, updateQuery);
     }
 
-    public int updatePassword(PatchAccountReq patchAccountReq) {
+    public int updatePassword(PatchPasswordReq patchPasswordReq) {
         String updateQuery = "update Account set updatedAt = now() , password = ? where accountIdx = ?";
+        Object[] updateParams = new Object[]{patchPasswordReq.getNewPassword(), patchPasswordReq.getAccountIdx()};
 
-        return updateAccount(patchAccountReq, updateQuery);
+        return this.jdbcTemplate.update(updateQuery, updateParams);
     }
 
     public int updatePhoneNumber(PatchAccountReq patchAccountReq) {
@@ -183,6 +193,19 @@ public class AccountDao {
                         rs.getInt("status")
                 ),
                 param
+        );
+    }
+
+    private RowMapper<Account> accountRowMapper() {
+        return  (rs, rowNum) -> new Account(
+                rs.getInt("accountIdx"),
+                rs.getString("password"),
+                rs.getString("email"),
+                rs.getString("phoneNumber"),
+                rs.getString("membership"),
+                rs.getString("socialLoginIdx"),
+                rs.getString("socialLoginType"),
+                rs.getInt("status")
         );
     }
 }
