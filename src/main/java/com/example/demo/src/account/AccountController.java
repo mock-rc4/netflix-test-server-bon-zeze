@@ -4,6 +4,8 @@ import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.config.Constant.*;
 import static com.example.demo.utils.ValidationRegex.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,6 +13,8 @@ import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.account.domain.PatchAccountReq;
 import com.example.demo.src.account.domain.PostAccountRes;
 import com.example.demo.src.account.domain.PostLoginReq;
+
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +87,9 @@ public class AccountController {
 	        if (!isRegexPassword(requestDto.getPassword())) {
 	            return new BaseResponse<>(POST_ACCOUNTS_INVALID_PASSWORD);
 	        }
+			if (!requestDto.getPersonal_information_agreement()) {
+				return new BaseResponse<>(POST_ACCOUNTS_MUST_AGREE_PERSONAL_INFORMATION);
+			}
 	        Account.createResDto createResDto = accountService.createAccount(requestDto);
 	        return new BaseResponse<>(createResDto);
 	    } catch (BaseException exception) {
@@ -166,7 +173,6 @@ public class AccountController {
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
-
     }
 
     @ResponseBody

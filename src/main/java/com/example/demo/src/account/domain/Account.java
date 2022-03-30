@@ -25,6 +25,8 @@ public class Account {
 	public static class createReqDto {
 		private String password;
 		private String email;
+		private Boolean personal_information_agreement;
+		private Boolean email_subscription_agreement;
 	}
 
 	@Getter
@@ -42,6 +44,7 @@ public class Account {
 	}
 
 	@Getter
+	@Setter
 	@AllArgsConstructor
 	public static class getResDto {
 		private int accountIdx;
@@ -51,6 +54,7 @@ public class Account {
 		private String membership;
 		private String socialLoginIdx;
 		private String socialLoginType;
+		private String membershipStartDate;
 
 	}
 
