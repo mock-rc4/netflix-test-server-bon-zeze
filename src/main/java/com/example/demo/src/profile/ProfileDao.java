@@ -95,13 +95,16 @@ public class ProfileDao {
 				rs.getString("name"),
 				rs.getString("language"),
 				rs.getInt("ageGrade"),
-				rs.getInt("profilePhotoIdx")
+				rs.getString("profilePhotoUrl")
 			),
 			params);
 	}
 
 	public List<Profile.getProfileInfoResDto> getProfilesByAccountIdx(int accountIdx) {
-		String query = "select * from Profile where accountIdx =?";
+		String query = "select P.profileIdx, P.status, P.name, P.language, P.ageGrade, PP.profilePhotoUrl from Profile as P \n"
+			+ "left join ProfilePhoto as PP\n"
+			+ "on PP.profilePhotoIdx = P.profilePhotoIdx\n"
+			+ "where accountIdx = ?";
 		int params = accountIdx;
 		return this.jdbcTemplate.query(query,
 			(rs, rowNum) -> new Profile.getProfileInfoResDto(
@@ -110,13 +113,16 @@ public class ProfileDao {
 				rs.getString("name"),
 				rs.getString("language"),
 				rs.getInt("ageGrade"),
-				rs.getInt("profilePhotoIdx")
+				rs.getString("profilePhotoUrl")
 			),
 			params);
 	}
 
 	public Profile.getProfileInfoResDto getProfileInfo(int profileIdx) {
-		String query = "select * from Profile where profileIdx=?";
+		String query = "select P.profileIdx, P.status, P.name, P.language, P.ageGrade, PP.profilePhotoUrl from Profile as P \n"
+			+ "left join ProfilePhoto as PP\n"
+			+ "on PP.profilePhotoIdx = P.profilePhotoIdx\n"
+			+ "where profileIdx = ?";
 		int params = profileIdx;
 		return this.jdbcTemplate.queryForObject(query,
 			(rs, rowNum) -> new Profile.getProfileInfoResDto(
@@ -125,7 +131,7 @@ public class ProfileDao {
 				rs.getString("name"),
 				rs.getString("language"),
 				rs.getInt("ageGrade"),
-				rs.getInt("profilePhotoIdx")
+				rs.getString("profilePhotoUrl")
 			),
 			params);
 	}
