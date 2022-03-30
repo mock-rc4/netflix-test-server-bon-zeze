@@ -21,9 +21,9 @@ public enum BaseResponseStatus {
     EMPTY_JWT(false, 2001, "JWT를 입력해주세요."),
     INVALID_JWT(false, 2002, "유효하지 않은 JWT입니다."),
     INVALID_USER_JWT(false,2003,"권한이 없는 유저의 접근입니다."),
-    INVALID_USER_MAIL_LOGIN(false,2003,"이 이메일 주소를 사용하는 계정을 찾을 수 없습니다."),
-    INVALID_USER_PHONE_LOGIN(false,2003,"이 전화번호를 사용하는 계정을 찾을 수 없습니다. "),
-    INVALID_LOGOUT_JWT(false,2003,"로그인 되어있지 않은 유저의 접근입니다."),
+    INVALID_USER_MAIL_LOGIN(false,2004,"이 이메일 주소를 사용하는 계정을 찾을 수 없습니다."),
+    INVALID_USER_PHONE_LOGIN(false,2005,"이 전화번호를 사용하는 계정을 찾을 수 없습니다. "),
+    INVALID_LOGOUT_JWT(false,2010,"로그인 되어있지 않은 유저의 접근입니다."),
 
 
     // [POST] /accounts
@@ -35,12 +35,13 @@ public enum BaseResponseStatus {
     POST_ACCOUNTS_INVALID_PHONE_NUMBER(false,2020,"휴대폰번호 형식을 확인해주세요."),
     POST_ACCOUNTS_DEACTIVATED_ACCOUNT(false,2021,"계정이 존재하지 않거나, 탈퇴된 유저입니다."),
 	POST_ACCOUNTS_EMPTY_MEMBERSHIP(false,2022,"멤버쉽을 입력해주세요."),
+	POST_ACCOUNTS_JOIN_MEMBERSHIP(false,2023,"멤버쉽 가입이 필요합니다. 원하시는 멤버쉽을 선택해주세요."),
 
     // [PATCH] /accounts
-    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2023, "이메일 변경에 실패하였습니다."),
-    PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR(false, 2023, "비밀번호 변경에 실패하였습니다."),
-    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2023, "핸드폰 변경에 실패하였습니다."),
-    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2023, "멤버쉽 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_EMAIL_UPDATE_ERROR(false, 2025, "이메일 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PASSWORD_UPDATE_ERROR(false, 2026, "비밀번호 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_PHONE_UPDATE_ERROR(false, 2027, "핸드폰 변경에 실패하였습니다."),
+    PATCH_ACCOUNTS_MEMBERSHIP_UPDATE_ERROR(false, 2028, "멤버쉽 변경에 실패하였습니다."),
 
 
     // [POST] /profile

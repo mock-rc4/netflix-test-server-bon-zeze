@@ -35,12 +35,10 @@ public class AccountDao {
     }
 
     // 이메일 확인
-    public int checkIsDuplicatedEmail(String email) {
+    public int checkExistsEmail(String email) {
         String query = "select exists(select email from Account where email = ?)";
         String params = email;
-        return this.jdbcTemplate.queryForObject(query,
-                int.class,
-                params);
+        return this.jdbcTemplate.queryForObject(query, int.class, params);
     }
 
 	// 이메일 확인
@@ -53,29 +51,23 @@ public class AccountDao {
 	}
 
     // 핸드폰 확인
-    public int checkHasPhoneNumber(String phone) {
+    public int checkExistsPhoneNumber(String phone) {
         String query = "select exists(select phoneNumber from Account where phoneNumber = ?)";
-        return this.jdbcTemplate.queryForObject(query,
-                int.class,
-                phone);
+        return this.jdbcTemplate.queryForObject(query, int.class, phone);
     }
 
 	// 유효한 계정 식별 ID(accountIdx)인지 확인
 	public int checkIsValidAccountIdx(int accountIdx) {
 		String query = "select exists(select accountIdx from Account where accountIdx = ?)";
 		int params = accountIdx;
-		return this.jdbcTemplate.queryForObject(query,
-			int.class,
-			params);
+		return this.jdbcTemplate.queryForObject(query, int.class, params);
 	}
 
     // 이메일로 탈퇴 회원인지 확인
     public int checkIsDeactivatedAccount(String email) {
         String query = "select exists(select status from Account where email = ?)";
         String params = email;
-        return this.jdbcTemplate.queryForObject(query,
-                int.class,
-                params);
+        return this.jdbcTemplate.queryForObject(query, int.class, params);
     }
 
     // 회원 비활성화
@@ -126,6 +118,12 @@ public class AccountDao {
                         rs.getString("socialLoginType")
                 ),
                 params);
+    }
+
+
+    public String getMembership(int accountIdx) {
+        String query = "select membership from Account where accountIdx = ?";
+        return this.jdbcTemplate.queryForObject(query, String.class, accountIdx);
     }
 
     public Account getPasswordByAccountIdx(PatchPasswordReq patchPasswordReq){

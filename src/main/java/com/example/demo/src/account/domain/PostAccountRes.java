@@ -8,5 +8,6 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PostAccountRes {
     private int accountIdx;
+    private String membership;
     private String jwt;
 }
