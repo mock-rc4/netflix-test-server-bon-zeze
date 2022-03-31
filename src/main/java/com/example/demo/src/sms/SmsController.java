@@ -107,7 +107,7 @@ public class SmsController {
 
 		int phoneNumberLength = recipientPhoneNumber.length();
 		if (phoneNumberLength < 10 || 11 < phoneNumberLength) {
-			throw new BaseException(SMS_INVALID_PHONE_NUMBER);
+			throw new BaseException(MESSAGE_INVALID_PHONE_NUMBER);
 		}
 
 		RestTemplate restTemplate = new RestTemplate();
@@ -163,11 +163,11 @@ public class SmsController {
 
 		int phoneNumberLength = recipientPhoneNumber.length();
 		if (phoneNumberLength < 10 || 11 < phoneNumberLength) {
-			throw new BaseException(SMS_INVALID_PHONE_NUMBER);
+			throw new BaseException(MESSAGE_INVALID_PHONE_NUMBER);
 		}
 
 		if (content.isEmpty()) {
-			throw new BaseException(SMS_NO_ANY_CONTENT);
+			throw new BaseException(MESSAGE_NO_ANY_CONTENT);
 		}
 
 		RestTemplate restTemplate = new RestTemplate();

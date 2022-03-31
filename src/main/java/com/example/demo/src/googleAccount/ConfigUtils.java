@@ -76,7 +76,7 @@ public class ConfigUtils {
 	}
 
 	public String getGoogleRedirectUri() {
-		return "https://teamflix.shop:9000/google-accounts/redirect";
+		return baseUrl + googleRedirectUrl;
 	}
 
 	public String getGoogleSecret() {
