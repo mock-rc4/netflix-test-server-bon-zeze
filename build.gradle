@@ -67,7 +67,10 @@ dependencies {
     // Json을 결과로 매핑하기 위한 의존성
     implementation ('com.google.code.gson:gson')
 
-
+	// mail 
+	 compile ('org.springframework.boot:spring-boot-starter-mail') 
+	 compile ('org.springframework:spring-context-support') 
+	 implementation group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
 }
 
 test {
