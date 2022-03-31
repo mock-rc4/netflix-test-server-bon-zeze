@@ -101,7 +101,7 @@ public class VideoDao {
 
     //현재 10개까지 값이 안불러와지는 것은 좋아요에 대한 데이터가 부족해서. (데이터 추가 필요)
     public List<GetVideoRes> getTopTenVideos() {
-        String query = "select totalScore, Video.videoIdx, photoUrl, ageGrade, season, runningTime, resolution\n" +
+        String query = "select totalScore, Video.videoIdx, heightPhotoUrl as photoUrl, ageGrade, season, runningTime, resolution\n" +
                 "from (select videoIdx, sum(status) as totalScore from Assessment group by videoIdx order by totalScore desc limit 10) as Popular\n" +
                 "join Video on Video.videoIdx = Popular.videoIdx";
 

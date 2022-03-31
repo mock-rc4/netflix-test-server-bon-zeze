@@ -226,7 +226,7 @@ public class AccountController {
     public BaseResponse<String> updatePhoneNumber(@RequestBody PatchAccountReq patchAccountReq) {
         try {
             if (!isRegexPhoneNumber(patchAccountReq.getUpdateParam())) {
-                return new BaseResponse<>(POST_ACCOUNTS_INVALID_EMAIL);
+                return new BaseResponse<>(POST_ACCOUNTS_INVALID_PHONE_NUMBER);
             }
 
             int accountIdxByJwt = jwtService.getUserIdx();
