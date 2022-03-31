@@ -35,8 +35,8 @@ public class AssessmentDao {
 	}
 
 	public void modifyAssessment(Assessment.createOrModifyDto requestDto) {
-		String query = "update Assessment set profileIdx = ?, videoIdx = ?, status = ?, updatedAt = NOW()";
-		Object[] params = new Object[]{requestDto.getProfileIdx(), requestDto.getVideoIdx(), requestDto.getStatus()};
+		String query = "update Assessment set status = ?, updatedAt = NOW() where profileIdx = ? and videoIdx = ? ";
+		Object[] params = new Object[]{requestDto.getStatus(), requestDto.getProfileIdx(), requestDto.getVideoIdx()};
 		this.jdbcTemplate.update(query, params);
 	}
 
