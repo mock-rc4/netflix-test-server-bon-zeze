@@ -131,10 +131,12 @@ public enum BaseResponseStatus {
 
 
 	/**
-	 * 7000 : SMS 오류
+	 * 7000 : SMS & Email 오류
 	 */
-	SMS_NO_ANY_CONTENT(false, 7000, "내용이 비었습니다."),
-	SMS_INVALID_PHONE_NUMBER(false, 7001, "휴대폰 번호는 '-' 없이 10자거나 11자여야 합니다. ex)01012345678 ");
+	MESSAGE_NO_ANY_CONTENT(false, 7000, "내용이 비었습니다."),
+	MESSAGE_INVALID_PHONE_NUMBER(false, 7001, "휴대폰 번호는 '-' 없이 10자거나 11자여야 합니다. ex)01012345678 "),
+	MESSAGE_NO_TITLE(false, 7002, "제목이 비었습니다."),
+	MESSAGE_INVALID_EMAIL(false, 7003, "이메일 형식을 확인해주세요.");
 
     private final boolean isSuccess;
     private final int code;
