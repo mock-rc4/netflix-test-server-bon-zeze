@@ -701,3 +701,14 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- 회원 핸드폰번호 변경 리팩토링
 	- 프로필 생성시 jwt 미적용 리팩토링
 	- 로그아웃 리팩토링 `진행중`
+
+
+## 2022.03.31 개발 일지
+### 본(Bon)
+
+### 제제(Zeze)
+#### API & Todo
+- `개발`
+	- 카카오 소셜 로그인 API  -> `진행중`
+- `리팩토링`
+	- Top10 조회시에는 세로 사진 반환
