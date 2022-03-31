@@ -13,6 +13,17 @@ spring:
         password: Bon0206! # 비밀번호를 입력해주세요!
         driver-class-name: com.mysql.cj.jdbc.Driver
 
+    mail :
+        host : smtp.gmail.com
+        port : 587
+        username : teamflix.bon@gmail.com
+        password : Risingtest123!
+        properties :
+            mail :
+                smtp :
+                    auth : true
+                    starttls :
+                        enable : true
 
 # 문자 서비스는 과금되므로 신중한 사용 부탁드립니다!
 url:
