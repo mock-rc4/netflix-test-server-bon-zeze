@@ -1,13 +1,20 @@
-# netflix-test-server-bon-zeze
-💻 넷플릭스_b 서버 팀 프로젝트을 위한 저장소
+## 💻 넷플릭스 서버 팀 프로젝트
+
+### 🛠 Structure
+<details>
+	<summary><b>⚙️ API 명세서</b></summary>
+<div markdown="1">
+	
+➡️ https://docs.google.com/spreadsheets/d/1XnL2T2ZSV2B-bibM3HePSYKhbeYDM_Ar/edit#gid=990061567
+	
+</div>
+</details>
 
 <details>
-	<summary><b>기능 API 목록</b></summary>
+	<summary><b>⚙️  기능 명세서</b></summary>
 <div markdown="1">
-  
 
-기능 API 목록
-- 계정(Account)
+- **계정(Account)**
     - [x] 생성
         - [x] 회원 가입 단계 조회 `bon`
 		- [x] 회원 등록 `bon`
@@ -17,7 +24,7 @@
         - [x] 이메일 `zeze`
         - [x] 비밀번호 `zeze`
         - [x] 휴대폰번호 `zeze`
-        - [x] 멤버쉽 (*결제API 구현 이후*)
+        - [x] 멤버쉽 `zeze`
     - [x] 탈퇴 `bon`
     - [x] 전체 회원 조회 또는 membership으로 검색 조회 `bon`
     - [x] 식별자로 회원 조회 `bon`
@@ -35,66 +42,87 @@
         - [x] 문자 보내기 `bon`
         - [x] SMS 인증 `bon`
 
-
-
-- 프로필(Profile)
+	
+- **프로필(Profile)**
     - [x] 생성(1계정당 5개 가능) `zeze`
     - [x] 변경
         - [x] 전체 변경 (언어,이름,자동재생설정) `zeze`
-        - [x] 사진선택 `zeze`
+        - [x] 사진 변경 `zeze`
     - [x] 삭제 `bon`
     - [x] 목록 조회 `bon`
     - [x] 조회 `bon`
     - [x] 닉네임 조회 `zeze`
 
----
-
-- 비디오
+- **비디오(Video)**
     - [x] 목록 조회 (1개의 API) `제제`
-        - [x]  TOP 10 순위 영상들 (서비스) + API (알림) `제제`
-        - [x]  찜한 콘텐츠 보여주기 (서비스) + API (+ 내가 찜한 콘텐츠) `제제`
-        - [x]  인기 콘텐츠 보여주기 (서비스) `제제`
-        - [x]  신규 콘텐츠 (서비스) + API (알림) `제제`
-        - [x]  시청중인 콘텐츠 (서비스) `제제`
-        - [x]  장르별 콘텐츠 (서비스) `제제` `본`
-    - [x]  하나의 영화 또는 시리즈의 방영분 (회차)목록 조회 (서비스) `본`
-    - [x]  좋아요 조회 (서비스) `o` `본`
-    - [x]  상세정보 조회(작품정보, 해당 작품에 속한 모든 출연자, 장르, 특징, 총망라 조회)`본`
+        - [x]  TOP 10 콘텐츠 목록 조회 `제제`
+        - [x]  내가 찜한 콘텐츠 목록 조회 `제제`
+        - [x]  인기 콘텐츠 목록 조회 `제제`
+        - [x]  신규 콘텐츠 목록 조회 `제제`
+        - [x]  시청중인 콘텐츠 목록 조회 `제제`
+        - [x]  장르별 콘텐츠 목록 조회 `제제` `본`
     - [x]  장르 대분류 목록 조회 (영화, 시리즈 내부 기능) `제제`
+    - [x]  하나의 영화 또는 시리즈의 방영분 (회차)목록 조회 `본`
+    - [x]  상세정보 조회(작품정보, 해당 작품에 속한 모든 출연자, 장르, 특징, 총망라 조회)`본`
     - [x] 출연자 조회 (출연자 이름 클릭) `본`
     - [x] 특징 조회 (영화/시리즈 특징 클릭) `본`
-- 북마크
+- **북마크(Bookmark)**
     - [x]  북마크 누르기 `제제`
     - [x]  북마크 변경  `제제`
-    - [x]  좋아요 누르기 `본`
-- 좋아요	
+    - [x]  북마크 조회 `제제`
+- **좋아요(Assessment)**
     - [x]  좋아요 누르기 `본`
     - [x]  좋아요 변경  `본`
-- 영상 시청을 위한 정보
+    - [x]  좋아요 조회 `본`
+- **영상 시청을 위한 정보(Play)**
     - [x]  생성  `본`
     - [x]  변경  `본`
-    - [x]  조회  `본`
-    - 동영상 스트리밍?    
-- 알림 기능 API `제제`
-- 검색
-    - 조회 (제목/사람/장르) `제제`
-- [기타] 영화 크롤링 서버 저장 외부 API `본`
-
+    - [x]  조회  `본` 
+- **알림(Alarm)**
+    - [x]  생성  `제제`
+    - [x]  변경  `제제`
+    - [x]  조회  `제제`
+- **검색(Search)**
+    - [x] 검색(제목/사람/장르) 콘텐츠 목록 조회 `제제`
 
 </div>
 </details>
 
 <details>
-	<summary><b>ERD 구성</b></summary>
+	<summary><b>⚙️  ERD 구성</b></summary>
 <div markdown="1">
 
 ![ERD 3차 설계](https://user-images.githubusercontent.com/65826145/160785436-6e5106a9-53da-47ae-bc5b-5565e8bd86da.png)
+	
 </div>
 </details>
 
------
 
 
+
+
+
+<br>
+
+
+
+
+
+
+
+
+### 📝 개발일지
+
+<details>
+	<summary><b>개발 일지 (22.03.19 ~ 22.03.31)</b></summary>
+<div markdown="1">
+
+<br>
+	
+<details>
+	<summary><b>2022.03.19 개발 일지</b></summary>
+<div markdown="1">
+	
 ## 2022.03.19 개발 일지
 ### 제제 & 본(Bon)
 1. 개발 명세서 작성
@@ -159,9 +187,14 @@
 
 #### 회의 회고록
   - ERD 를 설계하며 서로 다른 스타일을 맞춰나가며 협업하여 ERD를 설계하는 경험을 쌓을 수 있었다.
+	
+</div>
+</details>
 
-<br>
-
+<details>
+	<summary><b>2022.03.20 개발 일지</b></summary>
+<div markdown="1">
+	
 ## 2022.03.20 개발 일지
 
 ### 본(Bon)
@@ -253,8 +286,12 @@
     - 원인/이유) POST Mapping 인데 PostMan 에서 Get 으로 호출하였더니 발생한 오류
 
 
+</div>
+</details>
 
-<br>
+<details>
+	<summary><b>2022.03.21 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.21 개발 일지
 
@@ -341,7 +378,12 @@
 - Git 충돌 발생 해결 -> 
   https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
-<br>
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.22 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.22 개발 일지
 
@@ -443,9 +485,23 @@
 - Git 충돌 발생 해결 -> 
   https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.23 개발 일지 (피드백1)</b></summary>
+<div markdown="1">	
 
 ## 2022.03.23 개발 일지
-
+	
+### 1차 피드백
+- 모든 테이블에는 createdAt, updatedAt, status 컬럼이 들어가는 것이 좋음
+- 관리자 API보다는 사용자API에 집중하여 구현하는 것이 좋음
+- ERD 테이블에 관하여 재설계 필요
+	- 영화,시리즈 대신 비디오로 통일
+	- 영화에 인물을 넣는 것이 아닌 배우 테이블을 따로 생성
+	
+	
 ### 1차 위클리 스크럼 회의록
 - 각 팀원들 전원이 현재까지 진행 상황에 대한 보고
 - 실제 서비스에 가까운 형태로 어떻게 구현할 수 있을지에 대한 토론
@@ -466,7 +522,12 @@
 ### 제제(Zeze)
 - API uri 리팩토링 (피드백 반영)
 
-<br>
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.24 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.24 개발 일지
 
@@ -497,7 +558,12 @@
 #### ISSUES
 - BUILD ERROR : `java.lang.NoClassDeFoundError` 해결 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/50#issue-1182828859
 
-<br>
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.25 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.25 개발 일지
 
@@ -532,7 +598,12 @@
 - Git 충돌 발생 해결 -> 
   https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
-<br>
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.26 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.26 개발 일지
 ### 제제 & 본(Bon)
@@ -578,7 +649,12 @@
   https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/48#issue-1182603888
 
 
-<br>
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.27 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.27 개발 일지
 ### 본(Bon)
@@ -605,7 +681,13 @@
 #### ISSUE
 JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/47#issue-1182603514
 
+</div>
+</details>
 
+<details>
+	<summary><b>2022.03.28 개발 일지</b></summary>
+<div markdown="1">
+	
 ## 2022.03.28 개발 일지
 ### 제제 & 본(Bon)
 
@@ -639,7 +721,13 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 - 이번주 공개 컨텐츠 목록 조회 API 구현
 - 다음주 공개 컨텐츠 목록 조회 API 구현
 
+</div>
+</details>
 
+<details>
+	<summary><b>2022.03.29 개발 일지</b></summary>
+<div markdown="1">
+	
 ## 2022.03.29 개발 일지
 
 ### 본(Bon)
@@ -671,8 +759,21 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 - `DB`
 	- 영화 작품 정보 데이터 및 관련 테이블 데이터 추가
 
+</div>
+</details>
+
+<details>
+	<summary><b>2022.03.30 개발 일지 (피드백2)</b></summary>
+<div markdown="1">
+	
 ## 2022.03.30 개발 일지
 
+### 2차 피드백
+- Git에 관하여 Issue는 브랜치 전략을 세워서 정리했을때 더 좋음
+- 모든 메서드에 try, catch문을 쓰기보단 예외 처리문을 따로 구현하는 방법 구상
+- API 에 관해 한번에 보내는 연습을 해보는 것도 좋음
+	
+	
 ### 2차 위클리 스크럼 회의록
 - 각 팀원들 전원이 현재까지 진행 상황에 대한 보고
 - 프론트 팀원께서 각종 조회 API에서 필요한 공통의 데이터를 더 추가하기를 희망한다는 의견
@@ -713,7 +814,13 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- 회원 핸드폰번호 변경 리팩토링
 	- 프로필 생성시 jwt 미적용 리팩토링
 	- 로그아웃 리팩토링 `진행중`
+	
+</div>
+</details>
 
+<details>
+	<summary><b>2022.03.31 개발 일지</b></summary>
+<div markdown="1">
 
 ## 2022.03.31 개발 일지
 ### 본(Bon)
@@ -736,3 +843,12 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- 카카오 소셜 로그인 API  -> `진행중`
 - `리팩토링`
 	- Top10 조회시에는 세로 사진 반환
+- `DB`
+	- 추가 데이터 생성
+
+	
+</div>
+</details>
+
+</div>
+</details>
