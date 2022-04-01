@@ -342,7 +342,8 @@ settings.gradle
 	<summary><b>⚙️  ERD 구성</b></summary>
 <div markdown="1">
 
-![ERD 3차 설계](https://user-images.githubusercontent.com/65826145/160785436-6e5106a9-53da-47ae-bc5b-5565e8bd86da.png)
+![final_Netflix](https://user-images.githubusercontent.com/65826145/161184838-f26ca921-06b0-40b2-acd2-78026eb8562c.png)
+
 	
 </div>
 </details>
@@ -740,7 +741,7 @@ settings.gradle
 </details>
 
 <details>
-	<summary><b>2022.03.23 개발 일지 (피드백1)</b></summary>
+	<summary><b>2022.03.23 개발 일지 ➕피드백1</b></summary>
 <div markdown="1">	
 
 ## 2022.03.23 개발 일지
@@ -835,15 +836,16 @@ settings.gradle
 	- 구글 소셜 로그인인 공부 (진행중)
 ### 제제(Zeze)
 #### API & Todo
-- 장르, 특징 코드 골격 구현
-- 장르 대분류 조회 API 구현
-- Top10 컨텐츠 조회 API 구현
-- 인기 컨텐츠 조회 API 구현
-- 시청중인 컨텐츠 조회 API 구현
-- 장르별 컨텐츠 조회 API 구현
-- 신규 컨텐츠 조회 API 구현
-- 찜하기 컨텐츠 조회 API 구현
-- 프로필 닉네임 조회 API 
+- `개발`
+	- 장르, 특징 코드 골격 구현
+	- 장르 대분류 조회 API 구현
+	- Top10 컨텐츠 조회 API 구현
+	- 인기 컨텐츠 조회 API 구현
+	- 시청중인 컨텐츠 조회 API 구현
+	- 장르별 컨텐츠 조회 API 구현
+	- 신규 컨텐츠 조회 API 구현
+	- 찜하기 컨텐츠 조회 API 구현
+	- 프로필 닉네임 조회 API 
 
 #### ISSUES
 - Git 충돌 발생 해결 -> 
@@ -894,8 +896,9 @@ settings.gradle
 
 ### 제제(Zeze)
 #### API & Todo
-- 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
-- 검색 조회 API 구현 `진행중`
+- `개발`
+	- 메인 페이지의 카테고리(Top10,인기,장르 등) uri 목록 조회 API 구현
+	- 검색 조회 API 구현 `진행중`
 
 #### ISSUES
 - Git 충돌 발생 해결 -> 
@@ -924,12 +927,15 @@ settings.gradle
 
 ### 제제(Zeze)
 #### API & Todo
-- 알람,검색 코드 골격 구현
-- 프로필 알림 조회 API 구현
-- 검색(제목/사람/장르) 조회 API 구현
-- 검색 기록 저장 로직 구현
-- ERD 3차 설계 잘못된 부분 수정&보완
-- Issue 정리
+- `개발`
+	- 알람,검색 코드 골격 구현
+	- 프로필 알림 조회 API 구현
+	- 검색(제목/사람/장르) 조회 API 구현
+	- 검색 기록 저장 로직 구현
+- `ERD`
+	- ERD 3차 설계 잘못된 부분 수정&보완
+- `DOCS`
+	- Issue 정리
 
 #### ISSUE
 JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/47#issue-1182603514
@@ -969,10 +975,11 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 
 ### 제제(Zeze)
 #### API & Todo
-- 알람 설정 API 구현
-- 비디오 알람 조회 API 구현
-- 이번주 공개 컨텐츠 목록 조회 API 구현
-- 다음주 공개 컨텐츠 목록 조회 API 구현
+- `개발`
+	- 알람 설정 API 구현
+	- 비디오 알람 조회 API 구현
+	- 이번주 공개 컨텐츠 목록 조회 API 구현
+	- 다음주 공개 컨텐츠 목록 조회 API 구현
 
 </div>
 </details>
@@ -1011,12 +1018,14 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- 기타 리팩토링 진행 `계속 진행 예정`
 - `DB`
 	- 영화 작품 정보 데이터 및 관련 테이블 데이터 추가
+- `DOCS`
+	- API 명세서 최신화 반영 
 
 </div>
 </details>
 
 <details>
-	<summary><b>2022.03.30 개발 일지 (피드백2)</b></summary>
+	<summary><b>2022.03.30 개발 일지 ➕피드백2</b></summary>
 <div markdown="1">
 	
 ## 2022.03.30 개발 일지
@@ -1107,6 +1116,8 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- Top10 조회시에는 세로 사진 반환
 - `DB`
 	- 추가 데이터 생성
+- `DOCS`
+	- API 명세서 최신화 완료
 
 	
 </div>
