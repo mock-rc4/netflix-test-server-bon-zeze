@@ -1089,7 +1089,16 @@ JdbcTemplate - SQL Injection 위험 -> https://github.com/mock-rc4/netflix-test-
 	- 약 1천건의 데이터를 mysql procedure를 사용하여 일련의 규칙을 따라 추가 
 		- 비디오 방영분 정보 데이터
 		-  비디오와 장르간 관계 정보 데이터
-
+	
+#### documentations
+####  그동안 공부하며 모으고 기록해왔던 내용을 정리하여 issue에 업로드함.
+- Validation을 위해 작성하였던 정규식 뜯어보기 https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/72#issue-1189099715
+- Spring 공부 정리 https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/71#issue-1189099646	
+- (네이버, 구글, 라인)소셜 로그인 서비스 WORK FLOW https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/70#issue-1189058146
+- 자바로 하는 HTTP 요청 사용과 스프링 컨트롤러 어노테이션 정리 https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/69#issue-1189053121
+- Mysql Procedure 공부와 실제 데이터 연산에 적용하기 https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/65#issue-1186629313
+	
+	
 ### 제제(Zeze)
 #### API & Todo
 - `개발`
