@@ -1,6 +1,246 @@
-## 💻 넷플릭스 서버 팀 프로젝트
+## 💻 RC4기 넷플릭스 b팀 서버 팀 프로젝트
+### 📝 Introduction
++ 2주 동안 진행한 넷플릭스 클론 프로젝트입니다. (기간: 3/19~ 4/1)
++ 참여 인원 : 서버 2명 / 프론트엔드 2명
+
 
 ### 🛠 Structure
+
+
+<details>
+	<summary><b>⚙️ 디렉토리 맵</b></summary>
+<div markdown="1">
+	
+```
+netflix-test-server-bon-zeze
+└─src
+    ├─main
+    │  ├─java
+    │  │  └─com
+    │  │      └─example
+    │  │          └─demo
+    │  │              │  DemoApplication.java
+    │  │              │
+    │  │              ├─config
+    │  │              │  │  BaseException.java
+    │  │              │  │  BaseResponse.java
+    │  │              │  │  BaseResponseStatus.java
+    │  │              │  │  Constant.java
+    │  │              │  │
+    │  │              │  └─secret
+    │  │              │          Secret.java
+    │  │              │
+    │  │              ├─src
+    │  │              │  │  WebSecurityConfig.java
+    │  │              │  │
+    │  │              │  ├─account
+    │  │              │  │  │  AccountController.java
+    │  │              │  │  │  AccountDao.java
+    │  │              │  │  │  AccountProvider.java
+    │  │              │  │  │  AccountService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Account.java
+    │  │              │  │          PatchAccountReq.java
+    │  │              │  │          PatchPasswordReq.java
+    │  │              │  │          PostAccountRes.java
+    │  │              │  │          PostLoginReq.java
+    │  │              │  │
+    │  │              │  ├─alarm
+    │  │              │  │  │  AlarmController.java
+    │  │              │  │  │  AlarmDao.java
+    │  │              │  │  │  AlarmProvider.java
+    │  │              │  │  │  AlarmService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Alarm.java
+    │  │              │  │          GetAlarmRes.java
+    │  │              │  │          SetAlarmReq.java
+    │  │              │  │
+    │  │              │  ├─assessment
+    │  │              │  │  │  AssessmentController.java
+    │  │              │  │  │  AssessmentDao.java
+    │  │              │  │  │  AssessmentProvider.java
+    │  │              │  │  │  AssessmentService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Assessment.java
+    │  │              │  │
+    │  │              │  ├─bookmark
+    │  │              │  │  │  BookmarkController.java
+    │  │              │  │  │  BookmarkDao.java
+    │  │              │  │  │  BookmarkProvider.java
+    │  │              │  │  │  BookmarkService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Bookmark.java
+    │  │              │  │          BookmarkReq.java
+    │  │              │  │          GetBookmarkRes.java
+    │  │              │  │          PatchBookmarkReq.java
+    │  │              │  │
+    │  │              │  ├─category
+    │  │              │  │  │  CategoryController.java
+    │  │              │  │  │  CategoryService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          MainCategory.java
+    │  │              │  │
+    │  │              │  ├─character
+    │  │              │  │  │  CharacterDao.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Character.java
+    │  │              │  │
+    │  │              │  ├─email
+    │  │              │  │  │  EmailController.java
+    │  │              │  │  │  EmailService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          EmailDto.java
+    │  │              │  │          EmailNotificationReqDto.java
+    │  │              │  │          VerificationReqDto.java
+    │  │              │  │
+    │  │              │  ├─genre
+    │  │              │  │  │  GenreController.java
+    │  │              │  │  │  GenreDao.java
+    │  │              │  │  │  GenreProvider.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Genre.java
+    │  │              │  │
+    │  │              │  ├─googleAccount
+    │  │              │  │  │  ConfigUtils.java
+    │  │              │  │  │  GoogleAccountController.java
+    │  │              │  │  │  GoogleAccountDao.java
+    │  │              │  │  │  GoogleAccountProvider.java
+    │  │              │  │  │  GoogleAccountService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          GoogleAccount.java
+    │  │              │  │
+    │  │              │  ├─kakaoAccount
+    │  │              │  │  │  KakaoAccountController.java
+    │  │              │  │  │  KakaoAccountDao.java
+    │  │              │  │  │  KakaoAccountService.java
+    │  │              │  │  │  KakaoOAuth.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          KakaoAccount.java
+    │  │              │  │          PostKakaoAccount.java
+    │  │              │  │
+    │  │              │  ├─lineAccount
+    │  │              │  │  │  LineAccountController.java
+    │  │              │  │  │  LineAccountDao.java
+    │  │              │  │  │  LineAccountProvider.java
+    │  │              │  │  │  LineAccountService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          LineAccount.java
+    │  │              │  │
+    │  │              │  ├─naverAccount
+    │  │              │  │  │  NaverAccountController.java
+    │  │              │  │  │  NaverAccountDao.java
+    │  │              │  │  │  NaverAccountProvider.java
+    │  │              │  │  │  NaverAccountService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          NaverAccount.java
+    │  │              │  │
+    │  │              │  ├─profile
+    │  │              │  │  │  ProfileController.java
+    │  │              │  │  │  ProfileDao.java
+    │  │              │  │  │  ProfileProvider.java
+    │  │              │  │  │  ProfileService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          PatchProfileReq.java
+    │  │              │  │          PostProfileReq.java
+    │  │              │  │          PostProfileRes.java
+    │  │              │  │          Profile.java
+    │  │              │  │
+    │  │              │  ├─profilePhoto
+    │  │              │  │  │  ProfilePhotoController.java
+    │  │              │  │  │  ProfilePhotoDao.java
+    │  │              │  │  │  ProfilePhotoProvider.java
+    │  │              │  │  │  ProfilePhotoService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          GetProfilePhotoRes.java
+    │  │              │  │          PatchProfilePhotoReq.java
+    │  │              │  │          ProfilePhoto.java
+    │  │              │  │
+    │  │              │  ├─search
+    │  │              │  │  │  SearchDao.java
+    │  │              │  │  │  SearchProvider.java
+    │  │              │  │  │  SearchService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          Search.java
+    │  │              │  │
+    │  │              │  ├─sms
+    │  │              │  │  │  SmsController.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          MessagesReqDto.java
+    │  │              │  │          SendSmsResDto.java
+    │  │              │  │          SendVerificationNumberResDto.java
+    │  │              │  │          SmsRequest.java
+    │  │              │  │          SmsRequestDto.java
+    │  │              │  │          VerificationReqDto.java
+    │  │              │  │
+    │  │              │  ├─test
+    │  │              │  │      TestController.java
+    │  │              │  │
+    │  │              │  ├─video
+    │  │              │  │  │  VideoController.java
+    │  │              │  │  │  VideoDao.java
+    │  │              │  │  │  VideoProvider.java
+    │  │              │  │  │  VideoService.java
+    │  │              │  │  │
+    │  │              │  │  └─domain
+    │  │              │  │          GetVideoRes.java
+    │  │              │  │          Video.java
+    │  │              │  │          VideoContent.java
+    │  │              │  │          VideoDetail.java
+    │  │              │  │
+    │  │              │  └─videoPlay
+    │  │              │      │  VideoPlayController.java
+    │  │              │      │  VideoPlayDao.java
+    │  │              │      │  VideoPlayProvider.java
+    │  │              │      │  VideoPlayService.java
+    │  │              │      │
+    │  │              │      └─domain
+    │  │              │              VideoPlay.java
+    │  │              │
+    │  │              └─utils
+    │  │                      AES128.java
+    │  │                      JwtService.java
+    │  │                      ValidationRegex.java
+    │  │
+    │  └─resources
+    │          application.yml
+    │          logback-spring.xml
+    │
+    └─test
+        └─java
+            └─com
+                └─example
+                    └─demo
+                            DemoApplicationTests.java
+.gitignore
+build.gradle
+gradlew
+gradlew.bat
+README.md
+settings.gradle
+```
+	
+</div>
+</details>
+
+
+
+
 <details>
 	<summary><b>⚙️ API 명세서</b></summary>
 <div markdown="1">
@@ -11,7 +251,7 @@
 </details>
 
 <details>
-	<summary><b>⚙️  기능 명세서</b></summary>
+	<summary><b>⚙️  기능 목록</b></summary>
 <div markdown="1">
 
 - **계정(Account)**
@@ -64,8 +304,14 @@
     - [x]  장르 대분류 목록 조회 (영화, 시리즈 내부 기능) `제제`
     - [x]  하나의 영화 또는 시리즈의 방영분 (회차)목록 조회 `본`
     - [x]  상세정보 조회(작품정보, 해당 작품에 속한 모든 출연자, 장르, 특징, 총망라 조회)`본`
-    - [x] 출연자 조회 (출연자 이름 클릭) `본`
-    - [x] 특징 조회 (영화/시리즈 특징 클릭) `본`
+    - [x] 작품의 출연자 조회 (출연자 이름 클릭) `본`
+    - [x] 출연자가 참여한 작품 목록 조회 (출연자 이름 클릭) `본`
+    - [x] 작품의 특징 조회 (영화/시리즈 특징 클릭) `본`
+    - [x] 특징별 작품 목록 조회 (영화/시리즈 특징 클릭) `본`
+    - [x] 장르별 수상작 컨텐츠 조회 (영화/시리즈 모두) `본`
+    - [x] 최다 검색 컨텐츠 조회 (영화/시리즈 모두) `본`
+    - [x] 상세페이지 첫화면 동영상 재생시 정보 조회 `본`
+	
 - **북마크(Bookmark)**
     - [x]  북마크 누르기 `제제`
     - [x]  북마크 변경  `제제`
@@ -84,7 +330,11 @@
     - [x]  조회  `제제`
 - **검색(Search)**
     - [x] 검색(제목/사람/장르) 콘텐츠 목록 조회 `제제`
-
+- **감독(Director)**
+    - [x] 감독이 제작한 작품 목록 조회 `본`
+    - [x] 작품 제작에 참여한 감독 목록 조회 `본`
+- **기타(ETC)**
+    - [x] 성인인증 필요 여부 검증 조회 `본`
 </div>
 </details>
 
@@ -390,6 +640,7 @@
 ### 본(Bon)
 
 #### API 개발
+- 소셜 로그인 서비스 WORKFLOW https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/70#issue-1189058146
 - 네이버 소셜 로그인 서비스 API
 - 파라메터를 조합하여 네이버 로그인 URL을 불러오는 API 구현
 - 네이버 로그인창에서 아이디와 비밀번호 입력시 네이버 엑세스 토큰 반환 API 구현
@@ -573,7 +824,7 @@
 - 시리즈의 시즌과 회차 갯수 목록 조회
 - 구글 소셜 로그인 서비스 
 	- 파라메터를 조합하여 구글 로그인 URL을 불러오는 API 
-
+	- 소셜 로그인 WORKFLOW https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/70#issue-1189058146
 #### What I did today
 - 각 테이블마다 종속적인 튜플들을 어떻게 추가하면 좋을지에 대한 고민과 논의
 	- DB에 하나의 작품에 대한 정보를 추가하기 위한 과정이 빈번한 수작업이 요구된다.
@@ -623,7 +874,8 @@
 
 2. 이전 Pull Request에서의 Review를 반영한 수정내역 Commit
 
-3. Google REST LOGIN API
+3. Google REST LOGIN API 
+    - 소셜 로그인 WORKFLOW https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/70#issue-1189058146	
     - 파라메터를 조합하여 Google 로그인 창 URL을 반환
     - Google ID의 액세스 토큰 반환
     - Google Account 조회
@@ -631,6 +883,7 @@
     - Google Account로 로그인
 
 4. Line REST LOGIN API
+    - 소셜 로그인 WORKFLOW https://github.com/mock-rc4/netflix-test-server-bon-zeze/issues/70#issue-1189058146	
     - 파라메터를 조합하여 Line 로그인 창 URL을 반환
     - Line ID의 액세스 토큰 반환
     - Line Account 조회
