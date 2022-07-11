@@ -1,11 +1,19 @@
-## 💻 RC4기 넷플릭스 b팀 서버 팀 프로젝트
+## 💻 넷플릭스 팀 프로젝트
 ### 📝 Introduction
-+ 2주 동안 진행한 넷플릭스 클론 프로젝트입니다. (기간: 3/19~ 4/1)
-+ 참여 인원 : 서버 2명 / 프론트엔드 2명
++ 2주 동안 진행한 넷플릭스 팀 프로젝트입니다. (기간: 3/19~ 4/1)
++ 참여 인원 : 서버 2명 / 프론트엔드 1명
 
 
 ### 🛠 Structure
 
+<details>
+	<summary><b>⚙️ Architecture</b></summary>
+<div markdown="1">
+
+![image](https://user-images.githubusercontent.com/65826145/178272183-a2a2a9ee-3c22-4bd2-8c98-80724bd2c435.png)
+
+</div>
+</details>
 
 <details>
 	<summary><b>⚙️ 디렉토리 맵</b></summary>
@@ -237,9 +245,6 @@ settings.gradle
 	
 </div>
 </details>
-
-
-
 
 <details>
 	<summary><b>⚙️ API 명세서</b></summary>
